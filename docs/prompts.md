@@ -176,3 +176,6 @@ Let's expand the set of drawings to have a 4th developing, 4th intermediate, and
 
 **2026-05-10 12:36**
 OK let's set this up so it's ready for firebase hosting.  I'm setting up the project and hosting as sketchcoach, just add the local firebase files.
+
+**2026-05-10 12:39**
+I think you need to use the project id as well, it's sketchcoach-fae4f

@@ -1,8 +1,8 @@
 // Shared types — single source of truth for the app.
 // Mirrors the schemas of the JSON files in /public/data.
 
-export type Tier = 'beginner' | 'developing' | 'intermediate';
-export type Level = 'novice' | 'developing' | 'intermediate';
+export type Tier = 'beginner' | 'developing' | 'intermediate' | 'advanced';
+export type Level = 'novice' | 'developing' | 'intermediate' | 'advanced';
 
 export type GuidelineCategory =
   | 'foundational'

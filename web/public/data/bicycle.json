@@ -1,0 +1,41 @@
+{
+  "slug": "bicycle",
+  "title": "Bicycle",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Place the two wheels",
+      "description": "Draw two circles of equal size, spaced roughly one wheel-diameter apart. These are your anchoring unit — everything else on the bicycle will be sized relative to them. Keep your pencil loose; a slightly wobbly circle is fine at this stage."
+    },
+    {
+      "number": 2,
+      "title": "Find the axle points and bottom bracket",
+      "description": "Mark the center of each wheel with a small dot — those are the axles. Then place a third dot roughly halfway between them and slightly below center; that is the bottom bracket where the pedals will live."
+    },
+    {
+      "number": 3,
+      "title": "Draw the main triangle",
+      "description": "Connect the rear axle, the bottom bracket, and the top of the seat tube with three straight lines to form the main frame triangle. Use your shoulder to draw these long, confident strokes — one line each, not a series of short scratches."
+    },
+    {
+      "number": 4,
+      "title": "Add the front fork and handlebars",
+      "description": "From the front axle, draw a slightly angled fork up to the steering tube, then extend a short stem and T-shaped handlebar at the top. The fork has a subtle forward rake — it is not perfectly vertical."
+    },
+    {
+      "number": 5,
+      "title": "Place the seat and seat tube",
+      "description": "Draw a short post rising from the top of the rear triangle and place a narrow saddle on top — a gentle S-shape works well. Make sure the seat post aligns with the seat tube below it."
+    },
+    {
+      "number": 6,
+      "title": "Add hubs, spokes, and chain ring",
+      "description": "Draw small circles at each axle for the hubs. Add a few spokes radiating outward — four to six is plenty; suggest the rest. Draw a larger circle at the bottom bracket for the chain ring and a smaller one at the rear hub for the sprocket."
+    },
+    {
+      "number": 7,
+      "title": "Refine junctions and add final details",
+      "description": "Check every point where parts meet — axle to fork, frame tubes at the bottom bracket — and sharpen those connections. Add a thin chain line between the sprockets, a pedal arm, and a ground shadow beneath the wheels."
+    }
+  ]
+}

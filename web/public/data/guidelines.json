@@ -252,6 +252,28 @@
         "That little wobble actually gives the line personality — leave it.",
         "Don't chase a perfect line — your hand-drawn quality is part of the charm."
       ]
+    },
+    {
+      "id": "cast-shadow",
+      "title": "Anchor with a cast shadow",
+      "level": "advanced",
+      "category": "composition",
+      "description": "A flat shadow shape beneath or beside an object grounds it on the surface and creates immediate spatial context. Keep it simple — a flattened ellipse or silhouette shape is enough.",
+      "coachCues": [
+        "Try adding a simple cast shadow shape beneath this — it'll feel more grounded instantly.",
+        "The shadow is doing a lot of work here to place the object in space."
+      ]
+    },
+    {
+      "id": "draw-through",
+      "title": "Draw through the form",
+      "level": "advanced",
+      "category": "construction",
+      "description": "Sketch the back edges of an object even when they'll be hidden by the front surface. Drawing the full form — including the invisible parts — keeps proportions honest and the shape feeling solid.",
+      "coachCues": [
+        "Try ghosting the back edge of this form even though it won't be visible — it'll help the front feel more solid.",
+        "You can erase the back edge later, but drawing through it now will make this feel less flat."
+      ]
     }
   ]
 }

@@ -1,0 +1,41 @@
+{
+  "slug": "teapot",
+  "title": "Teapot",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Draw the central axis",
+      "description": "Lightly mark a vertical center line from top to bottom. Everything on this teapot is symmetrical left-to-right, so this axis is your anchor for every shape that follows."
+    },
+    {
+      "number": 2,
+      "title": "Block the body",
+      "description": "Sketch a rounded rectangle or barrel shape centered on the axis — wider than it is tall, with slightly flattened top and bottom. Think of it as a squashed sphere; avoid making it too perfect a circle."
+    },
+    {
+      "number": 3,
+      "title": "Add the lid ellipse and knob",
+      "description": "Across the top of the body, draw a shallow ellipse to represent the lid opening — this curve tells the viewer the teapot is three-dimensional. Sit a small dome and a tiny knob on top of it."
+    },
+    {
+      "number": 4,
+      "title": "Place the spout",
+      "description": "On the left side of the body, draw a gently curving tube that flares slightly at the tip. The spout should attach cleanly where it meets the body — no gap, no overlap; let it grow out of the silhouette."
+    },
+    {
+      "number": 5,
+      "title": "Place the handle",
+      "description": "On the right side, draw a C-shaped handle that echoes the curve of the body. Make sure both ends connect firmly at the same visual weight — a handle that tapers too much looks fragile."
+    },
+    {
+      "number": 6,
+      "title": "Add the base ring and refine contours",
+      "description": "Draw a thin ellipse at the bottom of the body for the footing ring. Then walk back through your lines: smooth the body silhouette, clean up where spout and handle attach, and erase the center axis."
+    },
+    {
+      "number": 7,
+      "title": "Suggest light and surface",
+      "description": "Add a highlight ellipse on the upper-left of the body and a cast shadow ellipse beneath the base. A few light parallel strokes on the right side of the body suggest the ceramic's curved surface catching light."
+    }
+  ]
+}
