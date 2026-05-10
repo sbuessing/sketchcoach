@@ -10,6 +10,8 @@ function normalizePointerType(t: string): StrokePointerType {
 interface SketchCanvasProps {
   strokes: Stroke[];
   onStrokeComplete: (stroke: Stroke) => void;
+  /** Called immediately when a stroke is finalized, before onStrokeComplete. */
+  onStrokeEnd?: () => void;
 }
 
 /**
@@ -19,7 +21,7 @@ interface SketchCanvasProps {
  * Coordinate space: viewBox 0..VIEWBOX_SIZE on both axes; strokes are stored
  * in this logical space so the rendering scales cleanly with display size.
  */
-export default function SketchCanvas({ strokes, onStrokeComplete }: SketchCanvasProps) {
+export default function SketchCanvas({ strokes, onStrokeComplete, onStrokeEnd }: SketchCanvasProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   // In-progress stroke state. We hold points in a ref to avoid re-rendering
@@ -88,6 +90,7 @@ export default function SketchCanvas({ strokes, onStrokeComplete }: SketchCanvas
     const points = livePointsRef.current;
     const pointerType = livePointerTypeRef.current;
     if (points.length > 0) {
+      onStrokeEnd?.();
       const stroke: Stroke = {
         id: makeId(),
         points,
@@ -99,7 +102,7 @@ export default function SketchCanvas({ strokes, onStrokeComplete }: SketchCanvas
     livePointsRef.current = [];
     livePointerIdRef.current = null;
     setLivePathD('');
-  }, [onStrokeComplete]);
+  }, [onStrokeComplete, onStrokeEnd]);
 
   const handlePointerUp = useCallback(
     (e: RPointerEvent<SVGSVGElement>) => {

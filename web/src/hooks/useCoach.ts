@@ -5,7 +5,7 @@
 //     skip if isFetching
 //     skip if strokes haven't changed since last fetch
 //     skip if (now - lastStrokeAt) < 3s   (user still drawing)
-//     skip if (now - lastFetchAt) < 15s   (rate-limit floor)
+//     skip if (now - lastFetchAt) < 20s   (rate-limit floor)
 //     otherwise: fetch
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -20,7 +20,7 @@ import type {
 
 const TICK_MS = 1000;
 const IDLE_THRESHOLD_MS = 3000;
-const FETCH_FLOOR_MS = 15000;
+const FETCH_FLOOR_MS = 20000;
 const RECENT_HISTORY_SIZE = 3;
 
 export interface UseCoachArgs {

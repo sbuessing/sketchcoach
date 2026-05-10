@@ -1,0 +1,232 @@
+.done-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  gap: var(--space-3);
+}
+
+/* ── Loading / error / missing states ── */
+
+.done-screen--loading,
+.done-screen--missing,
+.done-screen--error {
+  place-items: center;
+  display: grid;
+  text-align: center;
+  gap: var(--space-3);
+}
+
+.done-screen__spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--color-shadow);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: done-spin 0.8s linear infinite;
+}
+
+@keyframes done-spin {
+  to { transform: rotate(360deg); }
+}
+
+.done-screen__loading-text {
+  color: var(--color-ink-soft);
+  font-size: 1rem;
+}
+
+.done-screen__link {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.done-screen__body--error {
+  color: var(--color-ink-soft);
+  max-width: 40ch;
+}
+
+/* ── Header ── */
+
+.done-screen__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.done-screen__back {
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.done-screen__title {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.done-screen__duration {
+  color: var(--color-ink-soft);
+  font-size: 0.88rem;
+  margin-left: auto;
+}
+
+/* ── Two-column layout ── */
+
+.done-screen__layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-4);
+  min-height: 0;
+}
+
+/* ── SVG preview ── */
+
+.done-screen__preview {
+  background: var(--color-paper-warm);
+  border: 1px solid var(--color-shadow);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.done-screen__svg-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG injected via dangerouslySetInnerHTML — size it to fill the container */
+.done-screen__svg-wrap > svg {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+/* ── Summary sidebar ── */
+
+.done-screen__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.done-screen__focus-label {
+  font-size: 0.88rem;
+  color: var(--color-ink-soft);
+}
+
+.done-screen__focus-label strong {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.done-screen__summary-text {
+  line-height: 1.65;
+  color: var(--color-ink);
+}
+
+.done-screen__try-next {
+  background: var(--color-paper-warm);
+  border: 1px solid var(--color-shadow);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.done-screen__try-next-heading {
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-2);
+}
+
+.done-screen__try-next-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.done-screen__try-next-item {
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  padding-left: var(--space-3);
+  position: relative;
+}
+
+.done-screen__try-next-item::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+/* ── Action buttons ── */
+
+.done-screen__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: auto;
+}
+
+.done-screen__btn {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  font-size: 1rem;
+  transition:
+    background var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
+}
+
+.done-screen__btn:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.done-screen__btn--primary {
+  background: var(--color-accent);
+  color: var(--color-paper);
+}
+
+.done-screen__btn--primary:hover {
+  background: var(--color-accent-strong);
+}
+
+.done-screen__btn--secondary {
+  background: transparent;
+  border: 1px solid var(--color-shadow);
+  color: var(--color-ink-soft);
+}
+
+.done-screen__btn--secondary:hover {
+  background: var(--color-paper-warm);
+  color: var(--color-ink);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 760px) {
+  .done-screen__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .done-screen__preview {
+    min-height: 50vw;
+    max-height: 60vw;
+  }
+
+  .done-screen__actions {
+    flex-direction: row;
+    margin-top: var(--space-2);
+  }
+}

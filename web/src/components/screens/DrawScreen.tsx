@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import {
@@ -10,17 +10,21 @@ import { isCoachConfigured } from '../../services/claudeClient';
 import { svgToPngDataUrl } from '../../services/snapshot';
 import { useDrawing } from '../../hooks/useDrawing';
 import { useCoach } from '../../hooks/useCoach';
+import { useAmbientAudio } from '../../hooks/useAmbientAudio';
+import { sfx } from '../../services/audioService';
 import SketchCanvas from '../canvas/SketchCanvas';
 import Toolbar from '../canvas/Toolbar';
 import StepList from '../steps/StepList';
 import CoachPanel from '../coach/CoachPanel';
+import AudioControls from '../ui/AudioControls';
+import SaveIndicator from '../ui/SaveIndicator';
 import type { Guideline, ProjectSteps } from '../../shared/types';
 import './DrawScreen.css';
 
 export default function DrawScreen() {
   const { slug = '' } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { projects, guidelines } = useApp();
+  const { projects, guidelines, audioVolume, setAudioVolume, sfxEnabled, setSfxEnabled } = useApp();
 
   const project = findProject(projects, slug);
   const focusGuideline = project
@@ -49,6 +53,7 @@ export default function DrawScreen() {
     serializeSvg,
     lastStrokeAt,
     startedAt,
+    savedAt,
     flushSave,
   } = useDrawing(slug);
 
@@ -98,6 +103,33 @@ export default function DrawScreen() {
     getSnapshot,
   });
 
+  // ── Audio ────────────────────────────────────────────────────────────────
+
+  const ambient = useAmbientAudio(audioVolume);
+  // Stable ref so the callbacks below don't re-create on every render.
+  const ambientRef = useRef(ambient);
+  ambientRef.current = ambient;
+
+  // Start ambient when the resume decision is made.
+  useEffect(() => {
+    if (resumeStatus === 'no-resume') {
+      ambientRef.current.play();
+    }
+  }, [resumeStatus]);
+
+  // Coach ping SFX when a new message arrives.
+  const coachCountRef = useRef(coachMessages.length);
+  useEffect(() => {
+    if (coachMessages.length > coachCountRef.current) {
+      sfx.play('coach', sfxEnabled, 0.5);
+    }
+    coachCountRef.current = coachMessages.length;
+  }, [coachMessages.length, sfxEnabled]);
+
+  const handleStrokeEnd = useCallback(() => {
+    sfx.play('stroke-end', sfxEnabled, 0.25);
+  }, [sfxEnabled]);
+
   if (!project) {
     return (
       <div className="draw-screen draw-screen--missing">
@@ -117,6 +149,8 @@ export default function DrawScreen() {
   };
 
   const handleFinish = async () => {
+    sfx.play('complete', sfxEnabled, 0.7);
+    ambientRef.current.pause();
     await flushSave();
     const recentAdviceText = coachMessages
       .slice(0, 10)
@@ -156,14 +190,28 @@ export default function DrawScreen() {
 
         <main className="draw-screen__canvas-area">
           <div className="draw-screen__canvas">
-            <SketchCanvas strokes={strokes} onStrokeComplete={addStroke} />
+            <SketchCanvas
+              strokes={strokes}
+              onStrokeComplete={addStroke}
+              onStrokeEnd={handleStrokeEnd}
+            />
           </div>
           <Toolbar
             canUndo={strokes.length > 0}
             canErase={strokes.length > 0}
-            onUndo={undo}
-            onErase={eraseAll}
+            onUndo={() => { sfx.play('button', sfxEnabled, 0.4); undo(); }}
+            onErase={() => { sfx.play('button', sfxEnabled, 0.4); eraseAll(); }}
             onFinish={handleFinish}
+            leftSlot={
+              <AudioControls
+                volume={audioVolume}
+                onVolumeChange={setAudioVolume}
+                sfxEnabled={sfxEnabled}
+                onSfxToggle={() => setSfxEnabled(!sfxEnabled)}
+                isPlaying={ambient.isPlaying}
+              />
+            }
+            centerSlot={<SaveIndicator savedAt={savedAt} />}
           />
         </main>
 

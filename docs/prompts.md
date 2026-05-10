@@ -120,3 +120,33 @@ I've bought extra usage and switched to Sonnet, let's keep implementing all of o
 
 **2026-05-10 11:56**
 The feedback on the drawing is kind of dry.  I want the coach to be a little more enthusiastic.  Like Bob Ross, Mr. Rogers, and a little Yo Gabba Gabba energy.
+
+**2026-05-10 12:01**
+Tested and confirmed, let's keep implementing.
+
+**2026-05-10 12:07**
+Add to the top of the ideas.json file:
+
+* I don't like the "Start drawing" screen.  The content here feels like it should be an initial piece of coach advice on the right, let's just remove this screen and go straight to the drawing screen.
+* We need a trace step.  Either 2 layers (trace and final) or 2 pencils (pencil, pen).  Which ever feels like a more clear cognitive model for a new user.
+
+**2026-05-10 12:08**
+Can you find and add 3 ambient chillhop music tracks for me?
+
+**2026-05-10 12:10**
+Add another one at the top to significantly slow down advice fetching.  Maybe no more than every 20 seconds, and only after the user has been idle for 3 seconds.
+
+**2026-05-10 12:10**
+Yeah just do this one.
+
+**2026-05-10 12:13**
+It's fine, give me a short list of urls and I'll manually download those tracks.  Then, summarize where we're at with our milestones and what's left.
+
+**2026-05-10 12:16**
+Let's pause on the deploy work and do more user testing.
+ Let's start doing items from the ideas.md doc.
+
+Remember: After doing ideas.md tasks, remove them and add them to the spec or proposal as is appropriate.
+
+* Advice fetching - I think we already did this, remove.
+* Remove start drawing - yes do this.

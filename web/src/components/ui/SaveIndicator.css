@@ -1,0 +1,13 @@
+.save-indicator {
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-soft);
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.save-indicator--visible {
+  opacity: 1;
+}

@@ -31,6 +31,8 @@ export interface UseDrawingResult {
   lastStrokeAt: number;
   /** Wall-clock timestamp (ms) when the session started; 0 if no strokes yet. */
   startedAt: number;
+  /** Wall-clock timestamp (ms) of the last successful IndexedDB save; 0 if not yet saved. */
+  savedAt: number;
   /** Force-write the current strokes to IndexedDB immediately, bypassing the debounce. */
   flushSave: () => Promise<void>;
 }
@@ -39,6 +41,7 @@ export function useDrawing(slug: string): UseDrawingResult {
   const [strokes, setStrokes] = useState<Stroke[]>([]);
   const [lastStrokeAt, setLastStrokeAt] = useState<number>(0);
   const [startedAt, setStartedAt] = useState<number>(0);
+  const [savedAt, setSavedAt] = useState<number>(0);
   const [resumeStatus, setResumeStatus] = useState<ResumeStatus>('loading');
   // Tracks whether the user has made changes since the last successful save,
   // so we don't redundantly write the empty initial state.
@@ -136,7 +139,9 @@ export function useDrawing(slug: string): UseDrawingResult {
         strokesJson: JSON.stringify(strokes),
         startedAt: startedAt || now,
         updatedAt: now,
-      }).catch((err) => console.warn('autosave failed', err));
+      })
+        .then(() => setSavedAt(Date.now()))
+        .catch((err) => console.warn('autosave failed', err));
     }, AUTOSAVE_DEBOUNCE_MS);
     return () => window.clearTimeout(timer);
   }, [strokes, slug, resumeStatus, startedAt]);
@@ -152,6 +157,7 @@ export function useDrawing(slug: string): UseDrawingResult {
     serializeSvg,
     lastStrokeAt,
     startedAt,
+    savedAt,
     flushSave,
   };
 }

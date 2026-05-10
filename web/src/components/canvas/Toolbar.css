@@ -6,7 +6,24 @@
   border-radius: var(--radius-md);
   border: 1px solid var(--color-shadow);
   align-items: center;
-  justify-content: flex-end;
+}
+
+.toolbar__left {
+  flex-shrink: 0;
+}
+
+.toolbar__center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.toolbar__actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-left: auto;
 }
 
 .toolbar__btn {
