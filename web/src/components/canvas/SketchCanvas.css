@@ -1,0 +1,26 @@
+.sketch-canvas {
+  width: 100%;
+  height: 100%;
+  background: var(--color-paper);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-shadow);
+  box-shadow: 0 2px 12px var(--color-shadow);
+  overflow: hidden;
+  position: relative;
+  /* The paper texture: a very faint, repeating warm noise. Falls back to flat. */
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(201, 123, 92, 0.04) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(201, 123, 92, 0.03) 0, transparent 50%);
+}
+
+.sketch-canvas__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Block native gestures so pointer events get clean data */
+  touch-action: none;
+  /* Avoid iOS callout / selection on long-press */
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: crosshair;
+}

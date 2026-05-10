@@ -301,7 +301,7 @@ Each fetch includes:
 1. **System prompt** (cached) — defines voice, audience, output schema.
 2. **Project + focus guideline** (cached for the session) — `Project` object, the chosen `Guideline` object, the project's full step list.
 3. **Recent advice summary** (last 3 coach messages, plain text).
-4. **Snapshot** — a 512×512 PNG rasterized from the current SVG (see §6.4).
+4. **Snapshot** — a 1024×1024 PNG rasterized from the current SVG (see §6.4).
 
 ### 6.3 What Claude returns
 
@@ -328,16 +328,16 @@ Rationale:
 
 `services/snapshot.ts`:
 ```ts
-async function svgToPng(svgEl: SVGElement, size = 512): Promise<string>
+async function svgToPng(svgEl: SVGElement, size = 1024): Promise<string>
 // returns base64 data url. Uses an offscreen <canvas> + serialized SVG → Image → drawImage.
 ```
 
-Resolution is tunable via constant; 512px is a reasonable speed/quality/cost balance.
+Resolution is tunable via constant. **Default is 1024px** — pending real-world testing, we may step down to 768 or 512 if cost/latency becomes an issue. Logged in `TODO.md`.
 
 ### 6.5 Final summary (submission)
 
 A separate Functions endpoint, `coachFinalSummary`, is called once on the Done screen. Same payload shape but:
-- Higher-resolution snapshot (1024px).
+- Same 1024px snapshot.
 - Different system prompt asking for a 4–6 sentence summary plus 1–2 things the user could try in their next session.
 - Returns `{ summary: string, tryNext: string[] }`.
 
@@ -433,7 +433,7 @@ You will respond by calling the `provide_coaching` tool.
 
 ### 7.4 Cost / budget guardrails
 
-- Sonnet at 512px image + ~1.5K cached tokens + ~400 output tokens ≈ a few cents per coaching call.
+- Sonnet at 1024px image + ~1.5K cached tokens + ~400 output tokens ≈ a few cents per coaching call.
 - 15s minimum gap → max 4 calls/min while drawing.
 - A 30-min session ≈ ~30–60 calls in the worst case.
 - Final summary is 1 extra call per finished drawing.
@@ -668,7 +668,7 @@ CI/CD is out of scope for v1; manual `firebase deploy` from a clean working tree
 Surfaced now so we can decide before/during build, not after.
 
 1. **Claude model choice.** Spec assumes Sonnet 4.x. Haiku would be cheaper and faster but with lower vision fidelity. Worth A/B testing once the rest is wired up.
-2. **Snapshot resolution.** 512px is a guess. We may need 768px for Claude to read fine line work in busy intermediate drawings. Test before locking in.
+2. **Snapshot resolution.** Default is 1024px. Likely overkill for many cases; test stepping down to 768 or 512 once the loop is working. Tracked in `TODO.md`.
 3. **Trigger sensitivity.** 3s idle / 15s rate limit floor are educated guesses. May feel chatty or sleepy in practice — tune from real use.
 4. **Pressure on Mac trackpad.** PointerEvent.pressure support across Safari/Chrome/Firefox on Mac is uneven. Fallback path uses `webkitForce` on Safari and a constant 0.5 elsewhere.
 5. **Track licensing.** "Free uncopyrighted" varies in meaning. Pixabay Music and FMA's CC0 collection are the safest sources. Each track must keep a credit line in `ATTRIBUTION.md` even if not legally required, for hygiene.
