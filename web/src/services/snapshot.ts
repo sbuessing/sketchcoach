@@ -21,7 +21,7 @@ export async function svgToPngDataUrl(svgString: string, size = DEFAULT_SIZE): P
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('Could not get 2d context');
   // Cream paper background so transparent SVG → readable PNG for Claude
-  ctx.fillStyle = '#F7F1E5';
+  ctx.fillStyle = '#FBFAF4';
   ctx.fillRect(0, 0, size, size);
   ctx.drawImage(img, 0, 0, size, size);
 

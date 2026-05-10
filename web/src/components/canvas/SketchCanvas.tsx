@@ -1,7 +1,11 @@
 import { useCallback, useRef, useState, type PointerEvent as RPointerEvent } from 'react';
-import type { Stroke, StrokePoint } from '../../shared/types';
+import type { Stroke, StrokePoint, StrokePointerType } from '../../shared/types';
 import { VIEWBOX_SIZE, makeId, pointsToPath } from '../../services/strokeUtils';
 import './SketchCanvas.css';
+
+function normalizePointerType(t: string): StrokePointerType {
+  return t === 'pen' || t === 'touch' ? t : 'mouse';
+}
 
 interface SketchCanvasProps {
   strokes: Stroke[];
@@ -22,6 +26,7 @@ export default function SketchCanvas({ strokes, onStrokeComplete }: SketchCanvas
   // the entire SVG on every pointermove; only the live path's `d` re-renders.
   const livePointsRef = useRef<StrokePoint[]>([]);
   const livePointerIdRef = useRef<number | null>(null);
+  const livePointerTypeRef = useRef<StrokePointerType>('mouse');
   const strokeStartRef = useRef<number>(0);
   const [livePathD, setLivePathD] = useState<string>('');
 
@@ -46,6 +51,7 @@ export default function SketchCanvas({ strokes, onStrokeComplete }: SketchCanvas
       e.preventDefault();
       e.currentTarget.setPointerCapture(e.pointerId);
       livePointerIdRef.current = e.pointerId;
+      livePointerTypeRef.current = normalizePointerType(e.pointerType);
       strokeStartRef.current = performance.now();
 
       const { x, y } = screenToSvg(e.clientX, e.clientY);
@@ -56,7 +62,7 @@ export default function SketchCanvas({ strokes, onStrokeComplete }: SketchCanvas
         t: 0,
       };
       livePointsRef.current = [point];
-      setLivePathD(pointsToPath(livePointsRef.current));
+      setLivePathD(pointsToPath(livePointsRef.current, livePointerTypeRef.current));
     },
     [screenToSvg],
   );
@@ -73,18 +79,20 @@ export default function SketchCanvas({ strokes, onStrokeComplete }: SketchCanvas
         t: performance.now() - strokeStartRef.current,
       };
       livePointsRef.current = [...livePointsRef.current, point];
-      setLivePathD(pointsToPath(livePointsRef.current));
+      setLivePathD(pointsToPath(livePointsRef.current, livePointerTypeRef.current));
     },
     [screenToSvg],
   );
 
   const finalize = useCallback(() => {
     const points = livePointsRef.current;
+    const pointerType = livePointerTypeRef.current;
     if (points.length > 0) {
       const stroke: Stroke = {
         id: makeId(),
         points,
-        pathD: pointsToPath(points),
+        pathD: pointsToPath(points, pointerType),
+        pointerType,
       };
       onStrokeComplete(stroke);
     }

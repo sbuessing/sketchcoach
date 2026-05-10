@@ -74,6 +74,7 @@ export interface InProgressDrawing {
   slug: string;
   svg: string;
   strokesJson: string; // JSON-stringified Stroke[]
+  startedAt: number;
   updatedAt: number;
 }
 

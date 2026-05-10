@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sketch Coach — Pencil &amp; Paper Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ECE9E2;
+      color: #1A1A1A;
+      padding: 48px 24px 80px;
+    }
+
+    h1 {
+      font-family: 'Caveat', cursive;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 56px;
+      font-size: 0.95rem;
+    }
+
+    .vibe {
+      max-width: 920px;
+      margin: 0 auto 56px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+    }
+
+    .vibe-header {
+      padding: 28px 40px 22px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .vibe-header-left { flex: 1; min-width: 280px; }
+
+    .vibe-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+      opacity: 0.55;
+    }
+
+    .vibe-name {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .vibe-tagline {
+      font-size: 0.92rem;
+      opacity: 0.75;
+      font-style: italic;
+    }
+
+    .vibe-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 100px;
+      align-self: center;
+    }
+
+    /* Palette swatches */
+    .palette {
+      display: flex;
+      height: 70px;
+    }
+    .swatch {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 8px;
+    }
+    .swatch-name {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .swatch-hex {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+    }
+
+    /* UI preview */
+    .ui-preview {
+      padding: 28px 40px 36px;
+      display: flex;
+      gap: 18px;
+    }
+
+    .preview-canvas {
+      flex: 1;
+      height: 220px;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-canvas svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .preview-sidebar {
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .preview-card {
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .preview-card .card-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+      line-height: 1;
+    }
+
+    .preview-card p {
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .preview-btn {
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+
+    /* ════════════════════════════════════
+       V1 — Graphite & Blueprint (original)
+    ════════════════════════════════════ */
+
+    .v1 .vibe-header { background: #F4F0E8; color: #1A1A1A; }
+    .v1 .vibe-tag { background: #5C6BC0; color: #fff; }
+    .v1 .ui-preview { background: #F0EDE6; }
+    .v1 .preview-canvas { background: #FAFAF8; border: 2px dashed #BCBCBC; }
+    .v1 .preview-card { background: #FAFAF8; color: #1A1A1A; border: 1px solid #DEDBD2; }
+    .v1 .preview-btn { background: #1A1A1A; color: #fff; }
+
+
+    /* ════════════════════════════════════
+       V2 — Sunset Studio (more colorful)
+    ════════════════════════════════════ */
+
+    .v2 .vibe-header { background: #FBEFE3; color: #2A1A2A; }
+    .v2 .vibe-tag { background: #E8765C; color: #fff; }
+    .v2 .ui-preview { background: #F8E5D2; }
+    .v2 .preview-canvas { background: #FFF7EC; border: 2px dashed #E8B89A; }
+    .v2 .preview-card { background: #FFF7EC; color: #2A1A2A; border: 1px solid #F2D5BC; }
+    .v2 .preview-btn { background: #1E2A3A; color: #FBEFE3; }
+
+
+    /* ════════════════════════════════════
+       V3 — Garden Studio (more colorful)
+    ════════════════════════════════════ */
+
+    .v3 .vibe-header { background: #ECE6D8; color: #2D3F2A; }
+    .v3 .vibe-tag { background: #6B8E5A; color: #fff; }
+    .v3 .ui-preview { background: #DCD9C6; }
+    .v3 .preview-canvas { background: #FBFAF4; border: 2px dashed #B8C4A8; }
+    .v3 .preview-card { background: #FBFAF4; color: #2D3F2A; border: 1px solid #D4D8C0; }
+    .v3 .preview-btn { background: #2D3F2A; color: #FBFAF4; }
+
+
+    /* ════════════════════════════════════
+       V4 — Midnight Plum (random / dark)
+    ════════════════════════════════════ */
+
+    .v4 .vibe-header { background: #1A0F1F; color: #F0E8D8; }
+    .v4 .vibe-tag { background: #D4A75A; color: #1A0F1F; }
+    .v4 .ui-preview { background: #2A1A2E; }
+    .v4 .preview-canvas { background: #3D2940; border: 2px dashed #6E5670; }
+    .v4 .preview-card { background: #3D2940; color: #F0E8D8; border: 1px solid #5C3F60; }
+    .v4 .preview-btn { background: #D4A75A; color: #1A0F1F; }
+
+
+    /* ════════════════════════════════════
+       V5 — Risograph Print (random)
+    ════════════════════════════════════ */
+
+    .v5 .vibe-header { background: #FBF7F0; color: #1A1A1A; }
+    .v5 .vibe-tag { background: #E84A85; color: #fff; }
+    .v5 .ui-preview { background: #F5DDE5; }
+    .v5 .preview-canvas { background: #FBF7F0; border: 2px dashed #2A8D9C; }
+    .v5 .preview-card { background: #FBF7F0; color: #1A1A1A; border: 1px solid #F2C4D4; }
+    .v5 .preview-btn { background: #2A8D9C; color: #FBF7F0; }
+
+    .swatch-light { color: rgba(255,255,255,0.85); }
+    .swatch-dark { color: rgba(0,0,0,0.7); }
+
+  </style>
+</head>
+<body>
+
+  <h1>Pencil &amp; Paper — 5 Variations</h1>
+  <p class="subtitle">Same handwritten, sketchbook personality. Five different palettes.</p>
+
+
+  <!-- ══════════════════════════════════════
+       V1 — GRAPHITE & BLUEPRINT (ORIGINAL)
+  ══════════════════════════════════════ -->
+
+  <div class="vibe v1">
+    <div class="vibe-header">
+      <div class="vibe-header-left">
+        <div class="vibe-label">Variation 01 — Original</div>
+        <div class="vibe-name">Graphite &amp; Blueprint</div>
+        <div class="vibe-tagline">The classic. Cartridge paper, soft pencil, schoolbook blue.</div>
+      </div>
+      <div class="vibe-tag">Baseline</div>
+    </div>
+
+    <div class="palette">
+      <div class="swatch" style="background:#1A1A1A;color:#fff"><span class="swatch-hex swatch-light">#1A1A1A</span><span class="swatch-name">Graphite</span></div>
+      <div class="swatch" style="background:#5C6BC0;color:#fff"><span class="swatch-hex swatch-light">#5C6BC0</span><span class="swatch-name">Blueprint</span></div>
+      <div class="swatch" style="background:#B0B8D8;color:#2a2a5a"><span class="swatch-hex swatch-dark">#B0B8D8</span><span class="swatch-name">Blue Grey</span></div>
+      <div class="swatch" style="background:#E8E5DC;color:#5a5a5a"><span class="swatch-hex swatch-dark">#E8E5DC</span><span class="swatch-name">Newsprint</span></div>
+      <div class="swatch" style="background:#FAFAF8;color:#9a9a9a"><span class="swatch-hex swatch-dark">#FAFAF8</span><span class="swatch-name">Cartridge</span></div>
+    </div>
+
+    <div class="ui-preview">
+      <div class="preview-canvas">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="160" cy="110" rx="55" ry="38" stroke="#BCBCBC" stroke-width="1" stroke-dasharray="5 3" fill="none" opacity="0.5"/>
+          <ellipse cx="160" cy="110" rx="42" ry="28" stroke="#1A1A1A" stroke-width="2" fill="none" opacity="0.8"/>
+          <ellipse cx="206" cy="100" rx="14" ry="11" stroke="#1A1A1A" stroke-width="1.8" fill="none" opacity="0.8"/>
+          <path d="M140 95 Q160 88 178 95" stroke="#1A1A1A" stroke-width="1.2" fill="none" opacity="0.5"/>
+          <path d="M135 110 Q160 103 185 110" stroke="#1A1A1A" stroke-width="1.2" fill="none" opacity="0.5"/>
+          <path d="M130 128 Q120 138 115 142" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+          <path d="M180 128 Q190 138 195 142" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+          <line x1="160" y1="72" x2="160" y2="88" stroke="#5C6BC0" stroke-width="1" opacity="0.4"/>
+          <line x1="118" y1="110" x2="134" y2="110" stroke="#5C6BC0" stroke-width="1" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="preview-sidebar">
+        <div class="preview-card">
+          <div class="card-label">Step 4 of 6</div>
+          <p>Add the shell dome — curved lines across the ellipse.</p>
+        </div>
+        <div class="preview-card">
+          <div class="card-label">Coach</div>
+          <p>Good structure. Keep those curves parallel.</p>
+        </div>
+        <div class="preview-btn">Finish Drawing</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       V2 — SUNSET STUDIO (MORE COLORFUL)
+  ══════════════════════════════════════ -->
+
+  <div class="vibe v2">
+    <div class="vibe-header">
+      <div class="vibe-header-left">
+        <div class="vibe-label">Variation 02 — More Colorful</div>
+        <div class="vibe-name">Sunset Studio</div>
+        <div class="vibe-tagline">Late-afternoon light through the window. Warm, slightly nostalgic.</div>
+      </div>
+      <div class="vibe-tag">Warmer</div>
+    </div>
+
+    <div class="palette">
+      <div class="swatch" style="background:#1E2A3A;color:#fff"><span class="swatch-hex swatch-light">#1E2A3A</span><span class="swatch-name">Deep Navy</span></div>
+      <div class="swatch" style="background:#E8765C;color:#fff"><span class="swatch-hex swatch-light">#E8765C</span><span class="swatch-name">Coral</span></div>
+      <div class="swatch" style="background:#F2C8A0;color:#5a3a20"><span class="swatch-hex swatch-dark">#F2C8A0</span><span class="swatch-name">Peach</span></div>
+      <div class="swatch" style="background:#FBEFE3;color:#a07050"><span class="swatch-hex swatch-dark">#FBEFE3</span><span class="swatch-name">Warm Cream</span></div>
+      <div class="swatch" style="background:#FFF7EC;color:#b09080"><span class="swatch-hex swatch-dark">#FFF7EC</span><span class="swatch-name">Linen</span></div>
+    </div>
+
+    <div class="ui-preview">
+      <div class="preview-canvas">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="160" cy="110" rx="55" ry="38" stroke="#E8B89A" stroke-width="1" stroke-dasharray="5 3" fill="none" opacity="0.7"/>
+          <ellipse cx="160" cy="110" rx="42" ry="28" stroke="#1E2A3A" stroke-width="2" fill="none" opacity="0.85"/>
+          <ellipse cx="206" cy="100" rx="14" ry="11" stroke="#1E2A3A" stroke-width="1.8" fill="none" opacity="0.85"/>
+          <path d="M140 95 Q160 88 178 95" stroke="#1E2A3A" stroke-width="1.2" fill="none" opacity="0.55"/>
+          <path d="M135 110 Q160 103 185 110" stroke="#1E2A3A" stroke-width="1.2" fill="none" opacity="0.55"/>
+          <path d="M130 128 Q120 138 115 142" stroke="#1E2A3A" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+          <path d="M180 128 Q190 138 195 142" stroke="#1E2A3A" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+          <line x1="160" y1="72" x2="160" y2="88" stroke="#E8765C" stroke-width="1.2" opacity="0.6"/>
+          <line x1="118" y1="110" x2="134" y2="110" stroke="#E8765C" stroke-width="1.2" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="preview-sidebar">
+        <div class="preview-card">
+          <div class="card-label">Step 4 of 6</div>
+          <p>Add the shell dome — curved lines across the ellipse.</p>
+        </div>
+        <div class="preview-card">
+          <div class="card-label">Coach</div>
+          <p>Good structure. Keep those curves parallel.</p>
+        </div>
+        <div class="preview-btn">Finish Drawing</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       V3 — GARDEN STUDIO (MORE COLORFUL)
+  ══════════════════════════════════════ -->
+
+  <div class="vibe v3">
+    <div class="vibe-header">
+      <div class="vibe-header-left">
+        <div class="vibe-label">Variation 03 — More Colorful</div>
+        <div class="vibe-name">Garden Studio</div>
+        <div class="vibe-tagline">A studio with a window onto a moss garden. Calm, grounded.</div>
+      </div>
+      <div class="vibe-tag">Earthier</div>
+    </div>
+
+    <div class="palette">
+      <div class="swatch" style="background:#2D3F2A;color:#fff"><span class="swatch-hex swatch-light">#2D3F2A</span><span class="swatch-name">Forest</span></div>
+      <div class="swatch" style="background:#6B8E5A;color:#fff"><span class="swatch-hex swatch-light">#6B8E5A</span><span class="swatch-name">Moss</span></div>
+      <div class="swatch" style="background:#B8C4A8;color:#3a4a30"><span class="swatch-hex swatch-dark">#B8C4A8</span><span class="swatch-name">Sage</span></div>
+      <div class="swatch" style="background:#ECE6D8;color:#7a7050"><span class="swatch-hex swatch-dark">#ECE6D8</span><span class="swatch-name">Linen</span></div>
+      <div class="swatch" style="background:#FBFAF4;color:#a0a080"><span class="swatch-hex swatch-dark">#FBFAF4</span><span class="swatch-name">Cream</span></div>
+    </div>
+
+    <div class="ui-preview">
+      <div class="preview-canvas">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="160" cy="110" rx="55" ry="38" stroke="#B8C4A8" stroke-width="1" stroke-dasharray="5 3" fill="none" opacity="0.8"/>
+          <ellipse cx="160" cy="110" rx="42" ry="28" stroke="#2D3F2A" stroke-width="2" fill="none" opacity="0.85"/>
+          <ellipse cx="206" cy="100" rx="14" ry="11" stroke="#2D3F2A" stroke-width="1.8" fill="none" opacity="0.85"/>
+          <path d="M140 95 Q160 88 178 95" stroke="#2D3F2A" stroke-width="1.2" fill="none" opacity="0.55"/>
+          <path d="M135 110 Q160 103 185 110" stroke="#2D3F2A" stroke-width="1.2" fill="none" opacity="0.55"/>
+          <path d="M130 128 Q120 138 115 142" stroke="#2D3F2A" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+          <path d="M180 128 Q190 138 195 142" stroke="#2D3F2A" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+          <line x1="160" y1="72" x2="160" y2="88" stroke="#6B8E5A" stroke-width="1.2" opacity="0.7"/>
+          <line x1="118" y1="110" x2="134" y2="110" stroke="#6B8E5A" stroke-width="1.2" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="preview-sidebar">
+        <div class="preview-card">
+          <div class="card-label">Step 4 of 6</div>
+          <p>Add the shell dome — curved lines across the ellipse.</p>
+        </div>
+        <div class="preview-card">
+          <div class="card-label">Coach</div>
+          <p>Good structure. Keep those curves parallel.</p>
+        </div>
+        <div class="preview-btn">Finish Drawing</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       V4 — MIDNIGHT PLUM (RANDOM — DARK)
+  ══════════════════════════════════════ -->
+
+  <div class="vibe v4">
+    <div class="vibe-header">
+      <div class="vibe-header-left">
+        <div class="vibe-label">Variation 04 — Wildcard</div>
+        <div class="vibe-name">Midnight Plum</div>
+        <div class="vibe-tagline">Sketching at 11pm under a single warm lamp. Dark mode that isn't dreary.</div>
+      </div>
+      <div class="vibe-tag">Dark</div>
+    </div>
+
+    <div class="palette">
+      <div class="swatch" style="background:#1A0F1F;color:#fff"><span class="swatch-hex swatch-light">#1A0F1F</span><span class="swatch-name">Midnight</span></div>
+      <div class="swatch" style="background:#3D2940;color:#fff"><span class="swatch-hex swatch-light">#3D2940</span><span class="swatch-name">Aubergine</span></div>
+      <div class="swatch" style="background:#D4A75A;color:#3a2810"><span class="swatch-hex swatch-dark">#D4A75A</span><span class="swatch-name">Lamp Gold</span></div>
+      <div class="swatch" style="background:#C58B9A;color:#4a2a3a"><span class="swatch-hex swatch-dark">#C58B9A</span><span class="swatch-name">Dusty Rose</span></div>
+      <div class="swatch" style="background:#F0E8D8;color:#7a6050"><span class="swatch-hex swatch-dark">#F0E8D8</span><span class="swatch-name">Cream Ink</span></div>
+    </div>
+
+    <div class="ui-preview">
+      <div class="preview-canvas">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="160" cy="110" rx="55" ry="38" stroke="#6E5670" stroke-width="1" stroke-dasharray="5 3" fill="none" opacity="0.6"/>
+          <ellipse cx="160" cy="110" rx="42" ry="28" stroke="#F0E8D8" stroke-width="2" fill="none" opacity="0.9"/>
+          <ellipse cx="206" cy="100" rx="14" ry="11" stroke="#F0E8D8" stroke-width="1.8" fill="none" opacity="0.9"/>
+          <path d="M140 95 Q160 88 178 95" stroke="#F0E8D8" stroke-width="1.2" fill="none" opacity="0.6"/>
+          <path d="M135 110 Q160 103 185 110" stroke="#F0E8D8" stroke-width="1.2" fill="none" opacity="0.6"/>
+          <path d="M130 128 Q120 138 115 142" stroke="#F0E8D8" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+          <path d="M180 128 Q190 138 195 142" stroke="#F0E8D8" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+          <line x1="160" y1="72" x2="160" y2="88" stroke="#D4A75A" stroke-width="1.4" opacity="0.8"/>
+          <line x1="118" y1="110" x2="134" y2="110" stroke="#D4A75A" stroke-width="1.4" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="preview-sidebar">
+        <div class="preview-card">
+          <div class="card-label">Step 4 of 6</div>
+          <p>Add the shell dome — curved lines across the ellipse.</p>
+        </div>
+        <div class="preview-card">
+          <div class="card-label">Coach</div>
+          <p>Good structure. Keep those curves parallel.</p>
+        </div>
+        <div class="preview-btn">Finish Drawing</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       V5 — RISOGRAPH PRINT (RANDOM)
+  ══════════════════════════════════════ -->
+
+  <div class="vibe v5">
+    <div class="vibe-header">
+      <div class="vibe-header-left">
+        <div class="vibe-label">Variation 05 — Wildcard</div>
+        <div class="vibe-name">Risograph Print</div>
+        <div class="vibe-tagline">Two-color zine print. Punchy, slightly off-register, fun.</div>
+      </div>
+      <div class="vibe-tag">Punchy</div>
+    </div>
+
+    <div class="palette">
+      <div class="swatch" style="background:#1A1A1A;color:#fff"><span class="swatch-hex swatch-light">#1A1A1A</span><span class="swatch-name">Black Ink</span></div>
+      <div class="swatch" style="background:#E84A85;color:#fff"><span class="swatch-hex swatch-light">#E84A85</span><span class="swatch-name">Riso Pink</span></div>
+      <div class="swatch" style="background:#2A8D9C;color:#fff"><span class="swatch-hex swatch-light">#2A8D9C</span><span class="swatch-name">Riso Teal</span></div>
+      <div class="swatch" style="background:#F5DDE5;color:#9a4060"><span class="swatch-hex swatch-dark">#F5DDE5</span><span class="swatch-name">Pink Wash</span></div>
+      <div class="swatch" style="background:#FBF7F0;color:#a09080"><span class="swatch-hex swatch-dark">#FBF7F0</span><span class="swatch-name">Cream</span></div>
+    </div>
+
+    <div class="ui-preview">
+      <div class="preview-canvas">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="160" cy="110" rx="55" ry="38" stroke="#2A8D9C" stroke-width="1" stroke-dasharray="5 3" fill="none" opacity="0.6"/>
+          <ellipse cx="160" cy="110" rx="42" ry="28" stroke="#1A1A1A" stroke-width="2" fill="none" opacity="0.9"/>
+          <ellipse cx="206" cy="100" rx="14" ry="11" stroke="#1A1A1A" stroke-width="1.8" fill="none" opacity="0.9"/>
+          <path d="M140 95 Q160 88 178 95" stroke="#1A1A1A" stroke-width="1.2" fill="none" opacity="0.6"/>
+          <path d="M135 110 Q160 103 185 110" stroke="#1A1A1A" stroke-width="1.2" fill="none" opacity="0.6"/>
+          <path d="M130 128 Q120 138 115 142" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+          <path d="M180 128 Q190 138 195 142" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+          <line x1="160" y1="72" x2="160" y2="88" stroke="#E84A85" stroke-width="1.4" opacity="0.85"/>
+          <line x1="118" y1="110" x2="134" y2="110" stroke="#E84A85" stroke-width="1.4" opacity="0.85"/>
+          <!-- Off-register pink shadow on shell -->
+          <ellipse cx="162" cy="112" rx="42" ry="28" stroke="#E84A85" stroke-width="1.5" fill="none" opacity="0.35"/>
+        </svg>
+      </div>
+      <div class="preview-sidebar">
+        <div class="preview-card">
+          <div class="card-label">Step 4 of 6</div>
+          <p>Add the shell dome — curved lines across the ellipse.</p>
+        </div>
+        <div class="preview-card">
+          <div class="card-label">Coach</div>
+          <p>Good structure. Keep those curves parallel.</p>
+        </div>
+        <div class="preview-btn">Finish Drawing</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

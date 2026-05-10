@@ -151,5 +151,5 @@
 }
 
 .resume-modal__btn--primary:hover {
-  background: #b66c4f;
+  background: var(--color-accent-strong);
 }

@@ -5,9 +5,18 @@ interface CoachPanelProps {
   messages: CoachMessage[];
   isFetching: boolean;
   focusGuideline?: Guideline;
+  error?: string | null;
+  /** True if the coach can't run (no API key configured). */
+  disabled?: boolean;
 }
 
-export default function CoachPanel({ messages, isFetching, focusGuideline }: CoachPanelProps) {
+export default function CoachPanel({
+  messages,
+  isFetching,
+  focusGuideline,
+  error,
+  disabled,
+}: CoachPanelProps) {
   return (
     <div className="coach-panel">
       {focusGuideline && (
@@ -18,13 +27,25 @@ export default function CoachPanel({ messages, isFetching, focusGuideline }: Coa
       )}
 
       <div className="coach-panel__messages">
-        {messages.length === 0 && !isFetching && (
+        {disabled && (
+          <p className="coach-panel__empty">
+            Coach is offline. Add <code>VITE_ANTHROPIC_API_KEY</code> to <code>web/.env</code> to enable it.
+          </p>
+        )}
+
+        {!disabled && error && (
+          <p className="coach-panel__error">
+            <strong>Coach hiccup:</strong> {error}
+          </p>
+        )}
+
+        {!disabled && messages.length === 0 && !isFetching && !error && (
           <p className="coach-panel__empty">
             Start drawing — the coach will check in occasionally.
           </p>
         )}
 
-        {isFetching && (
+        {!disabled && isFetching && (
           <p className="coach-panel__loading">
             <span className="dot" />
             <span className="dot" />

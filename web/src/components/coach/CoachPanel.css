@@ -43,6 +43,24 @@
   font-style: italic;
 }
 
+.coach-panel__empty code {
+  font-family: 'SF Mono', Menlo, monospace;
+  font-size: 0.82rem;
+  background: var(--color-paper);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-style: normal;
+}
+
+.coach-panel__error {
+  color: var(--color-tier-intermediate);
+  font-size: 0.88rem;
+  background: var(--color-paper);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-tier-intermediate);
+}
+
 .coach-panel__loading {
   color: var(--color-ink-soft);
   font-size: 0.88rem;

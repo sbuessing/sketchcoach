@@ -50,10 +50,14 @@ export interface StrokePoint {
   t: number; // ms timestamp relative to stroke start
 }
 
+export type StrokePointerType = 'mouse' | 'pen' | 'touch';
+
 export interface Stroke {
   id: string;
   points: StrokePoint[];
   pathD: string; // SVG `d` attribute after smoothing
+  /** Pointer source. Optional for backwards compat with strokes saved before this field existed. */
+  pointerType?: StrokePointerType;
 }
 
 export type CoachEncouragement = 'gentle-praise' | 'gentle-nudge' | 'celebrate';

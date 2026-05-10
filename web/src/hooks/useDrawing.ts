@@ -27,14 +27,28 @@ export interface UseDrawingResult {
   startFresh: () => Promise<void>;
   /** Pull a snapshot SVG of the current canvas. */
   serializeSvg: () => string;
+  /** Wall-clock timestamp (ms) when the most recent stroke completed; 0 if none. */
+  lastStrokeAt: number;
+  /** Wall-clock timestamp (ms) when the session started; 0 if no strokes yet. */
+  startedAt: number;
+  /** Force-write the current strokes to IndexedDB immediately, bypassing the debounce. */
+  flushSave: () => Promise<void>;
 }
 
 export function useDrawing(slug: string): UseDrawingResult {
   const [strokes, setStrokes] = useState<Stroke[]>([]);
+  const [lastStrokeAt, setLastStrokeAt] = useState<number>(0);
+  const [startedAt, setStartedAt] = useState<number>(0);
   const [resumeStatus, setResumeStatus] = useState<ResumeStatus>('loading');
   // Tracks whether the user has made changes since the last successful save,
   // so we don't redundantly write the empty initial state.
   const hasUserChangedRef = useRef(false);
+
+  // Refs shadow state so flushSave can read current values synchronously.
+  const strokesRef = useRef(strokes);
+  strokesRef.current = strokes;
+  const startedAtRef = useRef(startedAt);
+  startedAtRef.current = startedAt;
 
   // On mount, see if there's a saved drawing for this slug.
   useEffect(() => {
@@ -60,8 +74,10 @@ export function useDrawing(slug: string): UseDrawingResult {
       try {
         const parsed: Stroke[] = JSON.parse(d.strokesJson);
         setStrokes(parsed);
+        setStartedAt(d.startedAt || d.updatedAt || Date.now());
       } catch {
         setStrokes([]);
+        setStartedAt(0);
       }
     }
     setResumeStatus('no-resume');
@@ -71,12 +87,16 @@ export function useDrawing(slug: string): UseDrawingResult {
   const startFresh = useCallback(async () => {
     await clearInProgress(slug);
     setStrokes([]);
+    setStartedAt(0);
     setResumeStatus('no-resume');
     hasUserChangedRef.current = false;
   }, [slug]);
 
   const addStroke = useCallback((stroke: Stroke) => {
+    const now = Date.now();
     setStrokes((prev) => [...prev, stroke]);
+    setLastStrokeAt(now);
+    setStartedAt((prev) => (prev === 0 ? now : prev));
     hasUserChangedRef.current = true;
   }, []);
 
@@ -92,20 +112,34 @@ export function useDrawing(slug: string): UseDrawingResult {
 
   const serializeSvg = useCallback(() => strokesToSvg(strokes), [strokes]);
 
+  const flushSave = useCallback(async () => {
+    if (!hasUserChangedRef.current) return;
+    const now = Date.now();
+    await saveInProgress({
+      slug,
+      svg: strokesToSvg(strokesRef.current),
+      strokesJson: JSON.stringify(strokesRef.current),
+      startedAt: startedAtRef.current || now,
+      updatedAt: now,
+    });
+  }, [slug]);
+
   // Debounced autosave: every change resets a 5s timer; on timeout, write to IDB.
   useEffect(() => {
     if (!hasUserChangedRef.current) return;
     if (resumeStatus !== 'no-resume') return; // don't save while still loading or asking
     const timer = window.setTimeout(() => {
+      const now = Date.now();
       saveInProgress({
         slug,
         svg: strokesToSvg(strokes),
         strokesJson: JSON.stringify(strokes),
-        updatedAt: Date.now(),
+        startedAt: startedAt || now,
+        updatedAt: now,
       }).catch((err) => console.warn('autosave failed', err));
     }, AUTOSAVE_DEBOUNCE_MS);
     return () => window.clearTimeout(timer);
-  }, [strokes, slug, resumeStatus]);
+  }, [strokes, slug, resumeStatus, startedAt]);
 
   return {
     strokes,
@@ -116,5 +150,8 @@ export function useDrawing(slug: string): UseDrawingResult {
     resume,
     startFresh,
     serializeSvg,
+    lastStrokeAt,
+    startedAt,
+    flushSave,
   };
 }

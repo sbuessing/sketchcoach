@@ -1,21 +1,22 @@
 /* Sketch Coach — global styles & design tokens */
 
 :root {
-  /* Palette: warm, low-contrast, cream paper feel */
-  --color-paper: #f7f1e5;
-  --color-paper-warm: #f2e6d0;
-  --color-ink: #2c2520;
-  --color-ink-soft: #6b5e54;
-  --color-ink-faint: #a99a8c;
-  --color-accent: #c97b5c;
-  --color-accent-soft: #e9c9b5;
-  --color-shadow: rgba(44, 37, 32, 0.1);
-  --color-shadow-strong: rgba(44, 37, 32, 0.18);
+  /* Palette: Garden Studio — sage, moss, forest, linen, cream */
+  --color-paper: #fbfaf4;
+  --color-paper-warm: #ece6d8;
+  --color-ink: #2d3f2a;
+  --color-ink-soft: #5a6b57;
+  --color-ink-faint: #b8c4a8;
+  --color-accent: #6b8e5a;
+  --color-accent-soft: #c7d5ba;
+  --color-accent-strong: #547348;
+  --color-shadow: rgba(45, 63, 42, 0.1);
+  --color-shadow-strong: rgba(45, 63, 42, 0.18);
 
-  /* Tier colors (subtle) */
-  --color-tier-beginner: #9bb59c;
-  --color-tier-developing: #d2a86a;
-  --color-tier-intermediate: #b06d6a;
+  /* Tier colors (harmonized with garden palette) */
+  --color-tier-beginner: #8ba876;
+  --color-tier-developing: #c5a85e;
+  --color-tier-intermediate: #a87b6a;
 
   /* Spacing */
   --space-1: 4px;
@@ -32,8 +33,8 @@
   --radius-pill: 999px;
 
   /* Typography */
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Caveat', 'Bradley Hand', cursive;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Motion */
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
@@ -71,25 +72,25 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: 0;
   margin: 0;
   color: var(--color-ink);
 }
 
 h1 {
-  font-size: 2.4rem;
-  line-height: 1.1;
+  font-size: 3.2rem;
+  line-height: 1;
 }
 
 h2 {
-  font-size: 1.8rem;
-  line-height: 1.2;
+  font-size: 2.4rem;
+  line-height: 1.05;
 }
 
 h3 {
-  font-size: 1.3rem;
-  line-height: 1.3;
+  font-size: 1.7rem;
+  line-height: 1.15;
 }
 
 p {

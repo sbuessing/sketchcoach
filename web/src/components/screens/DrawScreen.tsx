@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import {
@@ -6,12 +6,15 @@ import {
   findProject,
   loadProjectSteps,
 } from '../../services/dataService';
+import { isCoachConfigured } from '../../services/claudeClient';
+import { svgToPngDataUrl } from '../../services/snapshot';
 import { useDrawing } from '../../hooks/useDrawing';
+import { useCoach } from '../../hooks/useCoach';
 import SketchCanvas from '../canvas/SketchCanvas';
 import Toolbar from '../canvas/Toolbar';
 import StepList from '../steps/StepList';
 import CoachPanel from '../coach/CoachPanel';
-import type { ProjectSteps } from '../../shared/types';
+import type { Guideline, ProjectSteps } from '../../shared/types';
 import './DrawScreen.css';
 
 export default function DrawScreen() {
@@ -24,10 +27,17 @@ export default function DrawScreen() {
     ? findGuideline(guidelines, project.focusGuidelines[0])
     : undefined;
 
+  // Resolve all focus guidelines (project.focusGuidelines is an array of ids)
+  const resolvedFocusGuidelines = useMemo<Guideline[]>(() => {
+    if (!project) return [];
+    return project.focusGuidelines
+      .map((id) => findGuideline(guidelines, id))
+      .filter((g): g is Guideline => !!g);
+  }, [project, guidelines]);
+
   const [stepsData, setStepsData] = useState<ProjectSteps | null>(null);
   const [doneStepNumbers, setDoneStepNumbers] = useState<Set<number>>(new Set());
 
-  // Drawing state + autosave
   const {
     strokes,
     addStroke,
@@ -36,6 +46,10 @@ export default function DrawScreen() {
     resumeStatus,
     resume,
     startFresh,
+    serializeSvg,
+    lastStrokeAt,
+    startedAt,
+    flushSave,
   } = useDrawing(slug);
 
   // Load step list for this project
@@ -53,6 +67,36 @@ export default function DrawScreen() {
       cancelled = true;
     };
   }, [project, slug]);
+
+  // Snapshot generator passed to the coach. New identity per stroke change is
+  // fine — useCoach reads it via ref so the interval isn't restarted.
+  const getSnapshot = useCallback(async () => {
+    const svg = serializeSvg();
+    return svgToPngDataUrl(svg, 1024);
+  }, [serializeSvg]);
+
+  // Coach loop. Disabled while the resume modal is up so the user can decide
+  // before the coach starts looking at a stale drawing.
+  const coachEnabled =
+    isCoachConfigured() &&
+    !!project &&
+    !!focusGuideline &&
+    resumeStatus === 'no-resume';
+
+  const {
+    messages: coachMessages,
+    isFetching: coachFetching,
+    error: coachError,
+  } = useCoach({
+    enabled: coachEnabled,
+    project,
+    primaryFocus: focusGuideline,
+    focusGuidelines: resolvedFocusGuidelines,
+    steps: stepsData?.steps ?? [],
+    strokeCount: strokes.length,
+    lastStrokeAt,
+    getSnapshot,
+  });
 
   if (!project) {
     return (
@@ -72,8 +116,15 @@ export default function DrawScreen() {
     });
   };
 
-  const handleFinish = () => {
-    navigate(`/done/${slug}`);
+  const handleFinish = async () => {
+    await flushSave();
+    const recentAdviceText = coachMessages
+      .slice(0, 10)
+      .map((m) => `- ${m.text}`)
+      .join('\n');
+    navigate(`/done/${slug}`, {
+      state: { recentAdviceText, startedAt },
+    });
   };
 
   return (
@@ -118,9 +169,11 @@ export default function DrawScreen() {
 
         <aside className="draw-screen__coach">
           <CoachPanel
-            messages={[]}
-            isFetching={false}
+            messages={coachMessages}
+            isFetching={coachFetching}
             focusGuideline={focusGuideline}
+            error={coachError}
+            disabled={!isCoachConfigured()}
           />
         </aside>
       </div>
