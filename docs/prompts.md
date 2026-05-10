@@ -179,3 +179,6 @@ OK let's set this up so it's ready for firebase hosting.  I'm setting up the pro
 
 **2026-05-10 12:39**
 I think you need to use the project id as well, it's sketchcoach-fae4f
+
+**2026-05-10 12:43**
+Go through all of our docs and make sure they are still up to date and represent the current capabilities of the app.

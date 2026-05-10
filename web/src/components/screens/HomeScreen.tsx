@@ -6,11 +6,12 @@ import { isByokMode, isCoachConfigured } from '../../services/claudeClient';
 import type { Project, Tier } from '../../shared/types';
 import './HomeScreen.css';
 
-const TIER_ORDER: Tier[] = ['beginner', 'developing', 'intermediate'];
+const TIER_ORDER: Tier[] = ['beginner', 'developing', 'intermediate', 'advanced'];
 const TIER_LABEL: Record<Tier, string> = {
   beginner: 'Beginner',
   developing: 'Developing',
   intermediate: 'Intermediate',
+  advanced: 'Advanced',
 };
 
 // Tier unlocking rules from the spec.
@@ -23,7 +24,11 @@ function isTierUnlocked(tier: Tier, completedSlugs: Set<string>, projects: Proje
   const developingCount = projects.filter(
     (p) => p.tier === 'developing' && completedSlugs.has(p.slug),
   ).length;
-  return developingCount >= 2;
+  if (tier === 'intermediate') return developingCount >= 2;
+  const intermediateCount = projects.filter(
+    (p) => p.tier === 'intermediate' && completedSlugs.has(p.slug),
+  ).length;
+  return intermediateCount >= 2;
 }
 
 export default function HomeScreen() {

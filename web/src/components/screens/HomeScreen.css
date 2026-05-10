@@ -132,6 +132,10 @@
   background: var(--color-tier-intermediate);
 }
 
+.tier--advanced .tier__title::before {
+  background: var(--color-tier-advanced);
+}
+
 .tier__locked {
   font-size: 0.85rem;
   color: var(--color-ink-faint);

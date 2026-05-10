@@ -79,6 +79,54 @@
       "estimatedMinutes": 25,
       "description": "A full tree with trunk, branches, and a foliage silhouette. Practice organic branching and varying line weight.",
       "focusGuidelines": ["find-the-gesture", "vary-line-weight", "suggest-dont-render"]
+    },
+    {
+      "slug": "teapot",
+      "title": "Teapot",
+      "tier": "developing",
+      "estimatedMinutes": 15,
+      "description": "A classic round teapot with lid, spout, and handle. Practice finding the symmetry axis and keeping clean junctions where curves meet.",
+      "focusGuidelines": ["find-the-axis", "clean-junctions", "mind-the-curves"]
+    },
+    {
+      "slug": "bicycle",
+      "title": "Bicycle",
+      "tier": "intermediate",
+      "estimatedMinutes": 25,
+      "description": "A bicycle in profile — frame, wheels, handlebars, and seat. Long straight lines meet round wheels, with plenty of junctions to keep clean.",
+      "focusGuidelines": ["draw-from-the-shoulder", "clean-junctions", "use-a-unit"]
+    },
+    {
+      "slug": "fox",
+      "title": "Sitting Fox",
+      "tier": "advanced",
+      "estimatedMinutes": 25,
+      "description": "A fox sitting in three-quarter view with a full bushy tail. Practice finding the axis through head and spine, suggesting fur without rendering every hair.",
+      "focusGuidelines": ["find-the-axis", "suggest-dont-render", "balance-detail"]
+    },
+    {
+      "slug": "still-life",
+      "title": "Still Life",
+      "tier": "advanced",
+      "estimatedMinutes": 30,
+      "description": "A small tabletop arrangement — bottle, bowl, and draped cloth. Practice intentional placement and using cast shadows to anchor objects to the surface.",
+      "focusGuidelines": ["place-on-the-page", "show-overlap", "cast-shadow"]
+    },
+    {
+      "slug": "hands",
+      "title": "Hands",
+      "tier": "advanced",
+      "estimatedMinutes": 25,
+      "description": "Two hands — one open, one loosely curled. Practice measuring finger lengths against each other and reading the negative space between fingers.",
+      "focusGuidelines": ["compare-as-you-go", "draw-the-negative-space", "draw-through"]
+    },
+    {
+      "slug": "doorway",
+      "title": "Doorway",
+      "tier": "advanced",
+      "estimatedMinutes": 30,
+      "description": "An arched doorway with simple stone surround and a hint of interior shadow. Practice restraint — describe the scene with line economy, not decoration.",
+      "focusGuidelines": ["clean-junctions", "balance-detail", "edit-with-restraint"]
     }
   ]
 }

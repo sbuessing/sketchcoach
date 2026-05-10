@@ -2,18 +2,32 @@
 
 This document specifies the architecture and implementation plan for Sketch Coach v1. It builds on `docs/proposal.md` and follows the patterns established in the reference project at `/Users/shawn/Documents/GitHub/anotterlanguage/travel` (deployed at https://travelsimulator.web.app).
 
-The major difference from the reference project: Sketch Coach has **no offline content-generation pipeline**. There is one runtime — the React web app — plus a thin Firebase Cloud Functions proxy that holds the Claude API key.
+The major difference from the reference project: Sketch Coach has **no offline content-generation pipeline**. There is one runtime — the React web app — which calls Claude directly from the browser.
 
 ---
 
 ## 1. Architecture
 
+### Beta (current)
+
 ```
 Browser (React + SVG canvas)
    │
-   │  HTTPS (callable function)
+   │  HTTPS — dangerouslyAllowBrowser: true
    ▼
-Firebase Cloud Functions  ─── holds ANTHROPIC_API_KEY
+Claude API (Anthropic)
+   └── key: user's own key in localStorage (BYOK)
+            OR VITE_ANTHROPIC_API_KEY env var (local dev fallback)
+```
+
+### Future production path
+
+```
+Browser (React + SVG canvas)
+   │
+   │  HTTPS (Firebase callable function)
+   ▼
+Firebase Cloud Functions  ─── holds ANTHROPIC_API_KEY secret
    │
    │  HTTPS
    ▼
@@ -24,7 +38,8 @@ Claude API (Anthropic)
 - The React app is the entire product surface.
 - Static project data (10 projects, 10 step files, 23 guidelines) ships in `web/public/data/` as JSON.
 - User data (portfolio, preferences, drawings-in-progress) lives in the user's browser (`localStorage` + `IndexedDB`).
-- All Claude API calls go through a Firebase Cloud Function so the API key is never exposed to the browser.
+- **Beta API key strategy:** users provide their own Anthropic key via a settings modal (BYOK). Key is saved to `localStorage` and passed to the Anthropic SDK with `dangerouslyAllowBrowser: true`. `VITE_ANTHROPIC_API_KEY` env var is the local dev fallback. Key priority: localStorage BYOK key → env var.
+- **Future:** a Firebase Cloud Functions proxy replaces the direct call for managed production deploys.
 
 **No backend database, no auth, no server pipeline.**
 
@@ -32,57 +47,49 @@ Claude API (Anthropic)
 
 ## 2. Project Layout
 
-Mirror the travel project's `web/` folder structure, with `functions/` as a sibling for the API proxy.
+Mirror the travel project's `web/` folder structure. No `functions/` directory exists yet — the Cloud Functions proxy is a future production path.
 
 ```
 sketchcoach/
-├── docs/                              # Already exists — proposal, spec, data
+├── docs/                              # proposal, spec, ideas, TODO, prompts
 ├── web/                               # React/Vite frontend
 │   ├── src/
 │   │   ├── main.tsx                   # Entry: Router + AppProvider
 │   │   ├── App.tsx                    # Routes
-│   │   ├── index.css                  # Global CSS variables (cozy palette)
+│   │   ├── index.css                  # Global CSS variables (Garden Studio palette)
 │   │   ├── contexts/
-│   │   │   └── AppContext.tsx         # Session-wide state (focus principle, audio)
+│   │   │   └── AppContext.tsx         # Session-wide state (projects, guidelines, audio, portfolio)
 │   │   ├── components/
 │   │   │   ├── screens/               # HomeScreen, DrawScreen, DoneScreen, PortfolioScreen
-│   │   │   ├── canvas/                # SketchCanvas, StrokeRenderer, ToolBar
-│   │   │   ├── coach/                 # CoachPanel, CoachMessage, FocusPrinciple
+│   │   │   ├── canvas/                # SketchCanvas, ToolModeSelector, Toolbar
+│   │   │   ├── coach/                 # CoachPanel, CoachMessage
 │   │   │   ├── steps/                 # StepList, StepItem
-│   │   │   └── shared/                # Button, ProgressBar, LoadingDots, ErrorBanner
+│   │   │   └── settings/              # ApiKeyModal (BYOK key management)
 │   │   ├── hooks/
 │   │   │   ├── useDrawing.ts          # Stroke state, undo, erase
-│   │   │   ├── usePointerInput.ts     # Pointer/pressure capture
 │   │   │   ├── useCoach.ts            # Coach trigger logic + Claude calls
-│   │   │   ├── useAmbientAudio.ts     # Backing track + SFX
-│   │   │   └── usePortfolio.ts        # IndexedDB read/write
+│   │   │   └── useAmbientAudio.ts     # Backing track + SFX
 │   │   ├── services/
-│   │   │   ├── claudeClient.ts        # Wrapper for the Functions endpoint
+│   │   │   ├── claudeClient.ts        # Anthropic SDK wrapper (direct browser calls)
 │   │   │   ├── dataService.ts         # Loads projects.json, guidelines.json, step files
 │   │   │   ├── portfolioStore.ts      # IndexedDB schema + CRUD
-│   │   │   ├── prefsStore.ts          # localStorage wrapper
-│   │   │   └── snapshot.ts            # SVG → PNG rasterizer
+│   │   │   ├── prefsStore.ts          # localStorage wrapper (prefs + BYOK key)
+│   │   │   ├── snapshot.ts            # SVG → PNG rasterizer
+│   │   │   └── strokeUtils.ts         # Stroke helpers
 │   │   ├── shared/
 │   │   │   └── types.ts               # All TypeScript types
 │   │   └── vite-env.d.ts
 │   ├── public/
 │   │   ├── data/                      # projects.json, guidelines.json, <slug>.json × 10
 │   │   └── audio/
-│   │       ├── tracks/                # 10 chillhop loops
+│   │       ├── tracks/                # chillhop loops
 │   │       └── sfx/                   # button clicks, completion chime, etc.
 │   ├── index.html
 │   ├── vite.config.ts
 │   ├── tsconfig.json
-│   ├── .eslintrc.cjs
+│   ├── firebase.json                  # Hosting config (in web/ dir)
+│   ├── .firebaserc                    # Firebase project: sketchcoach-fae4f
 │   └── package.json
-├── functions/                         # Firebase Cloud Functions (Claude proxy)
-│   ├── src/
-│   │   ├── index.ts                   # Function exports
-│   │   └── claude.ts                  # Anthropic SDK wrapper
-│   ├── tsconfig.json
-│   └── package.json
-├── firebase.json                      # Hosting + Functions config (unified)
-├── .firebaserc                        # Firebase project alias
 └── .gitignore
 ```
 
@@ -287,7 +294,7 @@ every 1 second tick (setInterval), check:
   if isFetching                                    → skip
   if strokes.length === strokesAtLastFetch         → skip   (nothing new to look at)
   if (now - lastStrokeAt) < 3000                   → skip   (user still drawing)
-  if (now - lastFetchAt) < 15000                   → skip   (rate limit floor)
+  if (now - lastFetchAt) < 20000                   → skip   (rate limit floor)
   → trigger coach fetch
 ```
 
@@ -347,29 +354,18 @@ The result is persisted to IndexedDB as part of the `PortfolioEntry`.
 
 ## 7. Claude API Integration
 
-### 7.1 Functions proxy
+### 7.1 API key strategy
 
-Two callable functions in `functions/src/index.ts`:
+**Beta (current):** BYOK — users paste their own Anthropic API key into the settings modal on HomeScreen. Key is stored in `localStorage` via `prefsStore.getApiKey()` / `setApiKey()`. The `claudeClient.ts` module resolves the key at call time (localStorage key takes precedence over `VITE_ANTHROPIC_API_KEY`). The Anthropic SDK is called with `dangerouslyAllowBrowser: true`.
 
-```ts
-export const coachAdvice = onCall(
-  { region: 'us-central1', maxInstances: 10 },
-  async (req) => { ... }
-);
+**Future production:** move calls behind a Firebase Cloud Functions proxy. The proxy holds `ANTHROPIC_API_KEY` as a Firebase secret, adds rate limiting and App Check verification, and the browser never touches the key. The `claudeClient.ts` module is the only file that changes — the rest of the app is proxy-agnostic.
 
-export const coachFinalSummary = onCall(
-  { region: 'us-central1', maxInstances: 5 },
-  async (req) => { ... }
-);
-```
-
-Each receives `{ project, focusGuideline, steps, recentMessages, imageBase64 }` and returns the structured tool result.
-
-**API key:** stored as Firebase Functions secret (`firebase functions:secrets:set ANTHROPIC_API_KEY`), read via `defineSecret`.
-
-**Rate limiting:** simple in-memory map keyed by request `App Check` token (or IP fallback) — max 1 request per 10s per caller. Soft cap; 429 with friendly message if exceeded.
-
-**App Check:** enable so random callers can't burn the API budget. reCAPTCHA v3 provider for the web app.
+**`claudeClient.ts` exported API:**
+- `resolveApiKey(): string | null` — localStorage key → env var → null
+- `isCoachConfigured(): boolean` — true if any key source is available
+- `isByokMode(): boolean` — true if a personal key is saved
+- `requestCoachAdvice(args): Promise<CoachAdviceResult>`
+- `requestFinalSummary(args): Promise<FinalSummaryResult>`
 
 ### 7.2 Anthropic SDK call shape
 
@@ -410,42 +406,20 @@ const response = await client.messages.create({
 
 **Prompt caching is required.** The system prompt + project/guideline/steps block are reused on every coach call within a session. Caching cuts both latency and cost on second-and-later calls. Cache lifetime is 5 minutes — naturally aligned to a typical drawing session.
 
-### 7.3 System prompt sketch
+### 7.3 System prompt persona
 
-```
-You are a friendly, encouraging sketching coach in a cozy app called Sketch Coach.
-Your tone is warm, brief, and specific — like a kind teacher walking past a desk
-and noticing one thing the student is doing well or could try.
+The coach personality is a blend of **Bob Ross** (every mark is a happy little accident), **Mr. Rogers** (genuine warmth, proud of you for showing up), and **Yo Gabba Gabba** (unabashedly excited, learning is fun). The 80/20 rule: 80% delight, 20% gentle nudge.
 
-Audience: novice to intermediate hobbyists. They are not pursuing perfection;
-they want to enjoy drawing and gradually get better.
-
-For each coaching turn:
-- Look at the user's current drawing (image attached).
-- Comment on ONE specific thing — never a list.
-- Lean on the session's focus guideline when it applies; pick another from the
-  project's focus list if a different one is more relevant in the moment.
-- Avoid repeating advice you've already given (recent advice provided below).
-- 1–3 short sentences. No headers. No emoji unless natural.
-
-You will respond by calling the `provide_coaching` tool.
-```
+In-session calls use `provide_coaching` tool (forced tool use). Final summary uses `provide_final_summary`. Both system prompts are marked `cache_control: ephemeral` and reused across all calls in a session for prompt caching.
 
 ### 7.4 Cost / budget guardrails
 
 - Sonnet at 1024px image + ~1.5K cached tokens + ~400 output tokens ≈ a few cents per coaching call.
-- 15s minimum gap → max 4 calls/min while drawing.
-- A 30-min session ≈ ~30–60 calls in the worst case.
+- 20s minimum gap → max 3 calls/min while drawing.
+- A 30-min session ≈ ~20–45 calls in the worst case.
 - Final summary is 1 extra call per finished drawing.
-- Functions in-memory rate limit + App Check + budget alerts on the Anthropic dashboard cover the realistic abuse cases.
-
-For a personal-use prototype this is comfortably affordable. Revisit if it ever ships publicly.
-
-### 7.5 Local dev shortcut
-
-For development only, the web app supports a `VITE_ANTHROPIC_API_KEY` env var that, when set, calls Anthropic directly from the browser (bypassing Functions). This is **never** used in production builds — gated by `import.meta.env.DEV`.
-
-This lets you start coding the UX before Functions deploy is wired up. Document clearly in README.
+- With BYOK, cost is borne by the user on their own account. Set Anthropic budget alerts as a safeguard.
+- When the Functions proxy is added: in-memory rate limit + App Check cover the realistic abuse cases.
 
 ---
 
@@ -464,11 +438,13 @@ Four routes, all lazy-loaded:
 
 ### 8.1 HomeScreen
 
-- Header: "Sketch Coach" + a small portfolio-count chip ("3 sketches")
-- Three horizontal rows: Beginner / Developing / Intermediate
-- Tier locking: Developing locked until ≥2 Beginner projects are completed; Intermediate locked until ≥2 Developing.
-- Each project card: title, est. minutes, completion state (✓ once done), focus guideline preview.
-- Soft chillhop track auto-plays at low volume on first interaction (browsers block autoplay before user gesture).
+- Header: "Sketch Coach" + **API key button** (green dot = key active, amber dot = missing) + portfolio count
+- If no key is configured, an amber banner prompts the user to add one
+- API key modal: password input, show/hide toggle, save/remove, `sk-ant-` validation hint, link to console.anthropic.com
+- Four horizontal rows: Beginner / Developing / Intermediate / Advanced
+- Tier locking: Developing locked until ≥2 Beginner complete; Intermediate locked until ≥2 Developing; Advanced locked until ≥2 Intermediate
+- Each project card: title, est. minutes, completion state (✓ once done)
+- Soft chillhop track auto-plays at low volume on first interaction (browsers block autoplay before user gesture)
 
 ### 8.2 DrawScreen
 
@@ -587,86 +563,67 @@ All gated by `sfxEnabled`. Preloaded at app start so first plays don't lag.
 
 ## 11. Visual Design
 
-Cozy / lo-fi / Animal-Crossing-adjacent. Warm, low-contrast.
+**Garden Studio** — cozy, botanical, lo-fi. Forest greens with cream paper. Animal-Crossing-adjacent without being literal about it.
 
 CSS variable palette (in `index.css`):
 
 ```css
 :root {
-  --color-paper:    #F7F1E5;   /* cream paper */
-  --color-ink:      #2C2520;   /* warm charcoal */
-  --color-ink-soft: #6B5E54;   /* soft body text */
-  --color-accent:   #C97B5C;   /* terracotta */
-  --color-accent-soft: #E9C9B5;
-  --color-cream:    #F2E6D0;
-  --color-shadow:   rgba(44, 37, 32, 0.10);
+  --color-paper:         #fbfaf4;   /* cream paper */
+  --color-paper-warm:    #ece6d8;   /* linen */
+  --color-ink:           #2d3f2a;   /* forest */
+  --color-ink-soft:      #5a6b57;   /* mid-tone forest */
+  --color-ink-faint:     #b8c4a8;   /* sage */
+  --color-accent:        #6b8e5a;   /* moss */
+  --color-accent-soft:   #c7d5ba;   /* pale moss */
+  --color-accent-strong: #547348;   /* hover/active moss */
+  --color-shadow:        rgba(45, 63, 42, 0.10);
+  --color-shadow-strong: rgba(45, 63, 42, 0.18);
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 24px;
+  --color-tier-beginner:     #8ba876;
+  --color-tier-developing:   #c5a85e;
+  --color-tier-intermediate: #a87b6a;
 
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 40px;
-
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body:    'Inter', -apple-system, sans-serif;
+  --font-display: 'Caveat', 'Bradley Hand', cursive;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
 }
 ```
 
-Use Google Fonts Fraunces (display) + Inter (body). Subtle paper-texture background image at low opacity on body.
+Google Fonts: **Caveat** (handwritten display, weight 400–700) + **DM Sans** (body, weight 400–700). Headings use Caveat at larger sizes (h1: 3.2rem, h2: 2.4rem, h3: 1.7rem) to compensate for the font's natural compactness.
 
 ---
 
 ## 12. Build & Deploy
 
-Mirror travel's scripts.
-
-`web/package.json`:
+`web/package.json` scripts:
 ```json
 {
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "lint": "eslint src --ext ts,tsx",
-    "format": "prettier --write src/**/*.{ts,tsx,css,json}",
+    "dev":       "vite",
+    "build":     "tsc -b && vite build",
+    "preview":   "vite preview",
     "typecheck": "tsc --noEmit",
-    "deploy": "npm run build && firebase deploy --only hosting"
+    "publish":   "npm run build && firebase deploy --only hosting"
   }
 }
 ```
 
-`functions/package.json`:
-```json
-{
-  "scripts": {
-    "build": "tsc",
-    "deploy": "npm run build && firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  }
-}
-```
-
-**`firebase.json`** (project root):
+**`web/firebase.json`:**
 ```json
 {
   "hosting": {
-    "public": "web/dist",
+    "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [{ "source": "**", "destination": "/index.html" }]
-  },
-  "functions": [{
-    "source": "functions",
-    "codebase": "default",
-    "ignore": ["node_modules", ".git", "*.log"]
-  }]
+  }
 }
 ```
 
-CI/CD is out of scope for v1; manual `firebase deploy` from a clean working tree is fine.
+**`web/.firebaserc`:** Firebase project ID is `sketchcoach-fae4f`, hosting site name is `sketchcoach`.
+
+To deploy: `npm run publish` from the `web/` directory. Requires `firebase-tools` globally installed and `firebase login`.
+
+CI/CD is out of scope for v1; manual publish from a clean working tree is fine.
 
 ---
 
@@ -676,7 +633,7 @@ Surfaced now so we can decide before/during build, not after.
 
 1. **Claude model choice.** Spec assumes Sonnet 4.x. Haiku would be cheaper and faster but with lower vision fidelity. Worth A/B testing once the rest is wired up.
 2. **Snapshot resolution.** Default is 1024px. Likely overkill for many cases; test stepping down to 768 or 512 once the loop is working. Tracked in `TODO.md`.
-3. **Trigger sensitivity.** 3s idle / 15s rate limit floor are educated guesses. May feel chatty or sleepy in practice — tune from real use.
+3. **Trigger sensitivity.** 3s idle / 20s rate limit floor are educated guesses. May feel chatty or sleepy in practice — tune from real use.
 4. **Pressure on Mac trackpad.** PointerEvent.pressure support across Safari/Chrome/Firefox on Mac is uneven. Fallback path uses `webkitForce` on Safari and a constant 0.5 elsewhere.
 5. **Track licensing.** "Free uncopyrighted" varies in meaning. Pixabay Music and FMA's CC0 collection are the safest sources. Each track must keep a credit line in `ATTRIBUTION.md` even if not legally required, for hygiene.
 6. **App Check provisioning.** First-time setup with reCAPTCHA v3 takes 10–20 min and a domain. If you're testing on `localhost` initially, debug tokens work but remember to remove them before deploying.
