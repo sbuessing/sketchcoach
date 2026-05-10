@@ -194,3 +194,6 @@ Drastically improve the readme.md file to introduce the project, summarize the f
 
 **2026-05-10 16:20**
 Add that the public location is https://sketchcoach.web.app/ in the readme.md
+
+**2026-05-10 16:47**
+I want this to usually fit on screen.  Make the two sidebars scrollable and make the canvas be square and take up no more than screen height.
