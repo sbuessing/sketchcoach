@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import type { DrawMode, ToolMode } from '../../shared/types';
 import { useApp } from '../../contexts/AppContext';
 import {
   findGuideline,
@@ -18,6 +19,7 @@ import StepList from '../steps/StepList';
 import CoachPanel from '../coach/CoachPanel';
 import AudioControls from '../ui/AudioControls';
 import SaveIndicator from '../ui/SaveIndicator';
+import ToolModeSelector from '../canvas/ToolModeSelector';
 import type { Guideline, ProjectSteps } from '../../shared/types';
 import './DrawScreen.css';
 
@@ -47,6 +49,7 @@ export default function DrawScreen() {
     addStroke,
     undo,
     eraseAll,
+    eraseStroke,
     resumeStatus,
     resume,
     startFresh,
@@ -56,6 +59,15 @@ export default function DrawScreen() {
     savedAt,
     flushSave,
   } = useDrawing(slug);
+
+  const [drawMode, setDrawMode] = useState<DrawMode>('pen');
+  const [toolMode, setToolMode] = useState<ToolMode>('draw');
+
+  const handleToolChange = useCallback((dm: DrawMode, tm: ToolMode) => {
+    setDrawMode(dm);
+    setToolMode(tm);
+    sfx.play('button', sfxEnabled);
+  }, [sfxEnabled]);
 
   // Load step list for this project
   useEffect(() => {
@@ -194,6 +206,9 @@ export default function DrawScreen() {
               strokes={strokes}
               onStrokeComplete={addStroke}
               onStrokeEnd={handleStrokeEnd}
+              onEraseStroke={eraseStroke}
+              drawMode={drawMode}
+              toolMode={toolMode}
             />
           </div>
           <Toolbar
@@ -213,7 +228,16 @@ export default function DrawScreen() {
                 onSkipTrack={ambient.skipTrack}
               />
             }
-            centerSlot={<SaveIndicator savedAt={savedAt} />}
+            centerSlot={
+              <>
+                <ToolModeSelector
+                  drawMode={drawMode}
+                  toolMode={toolMode}
+                  onChange={handleToolChange}
+                />
+                <SaveIndicator savedAt={savedAt} />
+              </>
+            }
           />
         </main>
 

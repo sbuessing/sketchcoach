@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
+import ApiKeyModal from '../settings/ApiKeyModal';
+import { isByokMode, isCoachConfigured } from '../../services/claudeClient';
 import type { Project, Tier } from '../../shared/types';
 import './HomeScreen.css';
 
@@ -25,8 +28,11 @@ function isTierUnlocked(tier: Tier, completedSlugs: Set<string>, projects: Proje
 
 export default function HomeScreen() {
   const { projects, portfolio } = useApp();
+  const [showKeyModal, setShowKeyModal] = useState(false);
 
   const completedSlugs = new Set(portfolio.map((e) => e.projectSlug));
+  const configured = isCoachConfigured();
+  const byok = isByokMode();
 
   return (
     <div className="home">
@@ -35,10 +41,32 @@ export default function HomeScreen() {
           <h1 className="home__title">Sketch Coach</h1>
           <p className="home__subtitle">A cozy place to practice line drawing.</p>
         </div>
-        <Link to="/portfolio" className="home__portfolio-link">
-          Portfolio · {portfolio.length}
-        </Link>
+        <div className="home__header-actions">
+          <button
+            className={`home__key-btn ${!configured ? 'home__key-btn--missing' : ''}`}
+            onClick={() => setShowKeyModal(true)}
+            title={configured ? (byok ? 'Your API key is active' : 'Using built-in key') : 'Add your Anthropic API key'}
+          >
+            {!configured && <span className="home__key-dot home__key-dot--missing" />}
+            {configured && <span className="home__key-dot home__key-dot--ok" />}
+            API key
+          </button>
+          <Link to="/portfolio" className="home__portfolio-link">
+            Portfolio · {portfolio.length}
+          </Link>
+        </div>
       </header>
+
+      {!configured && (
+        <div className="home__key-banner">
+          The coach needs an Anthropic API key to give feedback.{' '}
+          <button className="home__key-banner-btn" onClick={() => setShowKeyModal(true)}>
+            Add your key →
+          </button>
+        </div>
+      )}
+
+      {showKeyModal && <ApiKeyModal onClose={() => setShowKeyModal(false)} />}
 
       {TIER_ORDER.map((tier) => {
         const tierProjects = projects.filter((p) => p.tier === tier);

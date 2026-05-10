@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import { findProject } from '../../services/dataService';
-import { deletePortfolioEntry } from '../../services/portfolioStore';
+import { clearPortfolio, deletePortfolioEntry } from '../../services/portfolioStore';
 import type { PortfolioEntry } from '../../shared/types';
 import './PortfolioScreen.css';
 
@@ -25,6 +25,13 @@ export default function PortfolioScreen() {
     [refreshPortfolio],
   );
 
+  const handleClearAll = useCallback(async () => {
+    if (!window.confirm(`Delete all ${portfolio.length} sketch${portfolio.length === 1 ? '' : 'es'}? This cannot be undone.`)) return;
+    await clearPortfolio();
+    await refreshPortfolio();
+    setSelected(null);
+  }, [portfolio.length, refreshPortfolio]);
+
   return (
     <div className="portfolio-screen">
       <header className="portfolio-screen__header">
@@ -33,9 +40,18 @@ export default function PortfolioScreen() {
         </Link>
         <h1 className="portfolio-screen__title">Portfolio</h1>
         {portfolio.length > 0 && (
-          <span className="portfolio-screen__count">
-            {portfolio.length} sketch{portfolio.length === 1 ? '' : 'es'}
-          </span>
+          <>
+            <span className="portfolio-screen__count">
+              {portfolio.length} sketch{portfolio.length === 1 ? '' : 'es'}
+            </span>
+            <button
+              type="button"
+              className="portfolio-screen__clear-btn"
+              onClick={handleClearAll}
+            >
+              Clear all
+            </button>
+          </>
         )}
       </header>
 

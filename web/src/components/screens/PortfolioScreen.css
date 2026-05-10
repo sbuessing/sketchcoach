@@ -34,6 +34,24 @@
   margin-left: auto;
 }
 
+.portfolio-screen__clear-btn {
+  font-size: 0.82rem;
+  color: #b04040;
+  border: 1px solid #e8c0c0;
+  border-radius: var(--radius-pill);
+  padding: 3px var(--space-3);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-soft),
+    color var(--duration-fast) var(--ease-soft);
+}
+
+.portfolio-screen__clear-btn:hover {
+  background: #fdf1f1;
+  color: #8a2020;
+}
+
 /* ── Empty state ── */
 
 .portfolio-screen__empty {

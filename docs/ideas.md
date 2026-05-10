@@ -6,8 +6,6 @@ Things we could add but aren't in the initial build. Kept here for reference as 
 
 ## UI & Flow
 
-- **Trace step / sketch layer** — users need a way to rough-sketch before committing to final lines; two options to evaluate: (1) **two layers** — a light "pencil" trace layer underneath a darker "pen" final layer, toggled by visibility; (2) **two tool modes** — a pencil mode (lighter gray strokes) and a pen mode (full black), both on the same layer but visually distinct; the two-tool model may be a clearer cognitive model for new users since it maps to real physical tools they recognize
-
 ---
 
 ## Engagement

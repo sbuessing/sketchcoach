@@ -68,6 +68,10 @@ export async function deletePortfolioEntry(id: string): Promise<void> {
   await tx(STORE_PORTFOLIO, 'readwrite', (store) => store.delete(id));
 }
 
+export async function clearPortfolio(): Promise<void> {
+  await tx(STORE_PORTFOLIO, 'readwrite', (store) => store.clear());
+}
+
 // In-progress drawings
 
 export interface InProgressDrawing {

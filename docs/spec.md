@@ -486,8 +486,21 @@ Three-pane layout (responsive):
 ```
 
 - **Steps pane:** the project's `steps[]`, with the current step highlighted. The user marks steps as "done" manually — we don't try to detect it.
-- **Coach panel:** stack of recent `CoachMessage`s, newest at top. Each message animates in (Framer Motion). When `highlightedGuidelineId` is set, briefly pulse a small "principle" badge.
+- **Coach panel:** stack of recent `CoachMessage`s, newest at top. When `highlightedGuidelineId` is set, briefly pulse a small "principle" badge. Before any messages arrive, the panel shows the focus guideline description and a sample cue as a welcome card.
 - **Loading state:** a soft "Looking at your sketch…" indicator while a coach fetch is in flight. Keep it small — it should not be the most visible thing on screen.
+- **Toolbar:** lives below the canvas. Left slot: audio controls (volume slider, skip track, SFX toggle). Center slot: `ToolModeSelector` + autosave indicator. Right slot: Undo, Erase All, Finish.
+
+#### Drawing tools
+
+The toolbar contains a compact three-button `ToolModeSelector`:
+
+| Button | Mode | Visual |
+|--------|------|--------|
+| ✏ Pencil | `drawMode='pencil'`, `toolMode='draw'` | Gray `#808080` strokes at 0.55 opacity, finer size (6 vs 9) |
+| 🖊 Pen | `drawMode='pen'`, `toolMode='draw'` | Full ink `#2d3f2a` at size 9 |
+| ◌ Erase | `toolMode='erase'` (drawMode preserved) | Click any stroke to remove it; mode-aware (pencil eraser only removes pencil strokes, pen eraser only pen strokes); non-erasable strokes dim to 0.25 opacity; hovering an erasable stroke turns it red |
+
+Both pencil and pen modes use the same pressure/velocity handling as before; only the `size`, `thinning`, and fill colour differ. `Stroke.drawMode` is persisted in IndexedDB so pencil vs pen is preserved on resume.
 
 Mobile/narrow viewports: panes collapse into tabs above the canvas.
 

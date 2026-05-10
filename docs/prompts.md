@@ -161,3 +161,18 @@ Are the sound effects working?  I don't think I've heard them.  Let's make the m
 Looks good.  OK from ideas.md, we definitely need the pen and pencil and sketch feature for intermediate drawings, it's also referenced in some of our drawing instructions.  Take a first stab at the UI for this.  I *think* it should be in the bottom panel, though that might feel cluttered.  I'm hesitant to add a 4th panel above the drawing, it will feel boxed in.
 
 We also want to add an erase button that lets us target and erase individual strokes, probably respecting the ink/pencil mode we are in.
+
+**2026-05-10 12:30**
+Let's start thinking about productionization.  Is there a simpler "bring your own key" where I let users provide their own API key in the UI, and don't need server functions?  aistudio.google.com does this, and I see a few other examples online.  I'm ok with it for the beta version of this app.
+
+**2026-05-10 12:31**
+OK let's ADD this ability, but keep the cloud function proxy for potential future usage when we're closer to production.  Implement.
+
+**2026-05-10 12:33**
+Add an ability in the portfolio to clear all.
+
+**2026-05-10 12:36**
+Let's expand the set of drawings to have a 4th developing, 4th intermediate, and add 4 advanced.
+
+**2026-05-10 12:36**
+OK let's set this up so it's ready for firebase hosting.  I'm setting up the project and hosting as sketchcoach, just add the local firebase files.

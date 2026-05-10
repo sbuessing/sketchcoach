@@ -30,4 +30,12 @@ export const prefs = {
 
   getLastTrack: () => read<string | null>('last_track', null),
   setLastTrack: (filename: string) => write('last_track', filename),
+
+  // BYOK — user's personal Anthropic API key.
+  // Takes precedence over VITE_ANTHROPIC_API_KEY when set.
+  getApiKey: () => read<string | null>('api_key', null),
+  setApiKey: (key: string) => write('api_key', key),
+  clearApiKey: () => {
+    try { localStorage.removeItem(NS + 'api_key'); } catch { /* noop */ }
+  },
 };

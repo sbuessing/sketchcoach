@@ -21,6 +21,65 @@
   font-size: 1.05rem;
 }
 
+.home__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* API key button */
+.home__key-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-paper-warm);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+  border: 1px solid var(--color-shadow);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-soft);
+}
+
+.home__key-btn:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+.home__key-btn--missing {
+  border-color: #d4956a;
+  color: #8b4a2a;
+}
+
+.home__key-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.home__key-dot--ok   { background: var(--color-accent); }
+.home__key-dot--missing { background: #d4956a; }
+
+/* "No key" banner */
+.home__key-banner {
+  background: #fdf0e8;
+  border: 1px solid #e8c4a0;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  font-size: 0.9rem;
+  color: #6b3820;
+}
+
+.home__key-banner-btn {
+  font-weight: 600;
+  color: #8b4a2a;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .home__portfolio-link {
   background: var(--color-paper-warm);
   padding: var(--space-2) var(--space-3);

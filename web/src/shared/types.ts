@@ -52,12 +52,20 @@ export interface StrokePoint {
 
 export type StrokePointerType = 'mouse' | 'pen' | 'touch';
 
+/** Which drawing instrument is active. */
+export type DrawMode = 'pen' | 'pencil';
+
+/** Whether the user is drawing or erasing individual strokes. */
+export type ToolMode = 'draw' | 'erase';
+
 export interface Stroke {
   id: string;
   points: StrokePoint[];
   pathD: string; // SVG `d` attribute after smoothing
   /** Pointer source. Optional for backwards compat with strokes saved before this field existed. */
   pointerType?: StrokePointerType;
+  /** Drawing instrument. Defaults to 'pen' when absent (backwards compat). */
+  drawMode?: DrawMode;
 }
 
 export type CoachEncouragement = 'gentle-praise' | 'gentle-nudge' | 'celebrate';

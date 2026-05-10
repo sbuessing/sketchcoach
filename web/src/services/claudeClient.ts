@@ -1,9 +1,15 @@
-// claudeClient — browser-direct Claude API calls for local dev only.
+// claudeClient — browser-direct Claude API calls.
 //
-// SECURITY: this calls Anthropic from the browser using `dangerouslyAllowBrowser`.
-// That's acceptable for local development with a personal key. Before any
-// public deploy, this module must be replaced with a Firebase Functions
-// proxy (see TODO.md and spec §7.1).
+// Key priority (highest → lowest):
+//   1. User's personal key stored in localStorage (BYOK — set via the API key modal)
+//   2. VITE_ANTHROPIC_API_KEY env var (local dev / future managed proxy)
+//
+// BYOK is the supported beta path. The env-var path is kept for local dev and
+// as a hook for a future Firebase Functions proxy (see TODO.md and spec §7.1).
+//
+// SECURITY: calls go directly from the browser via `dangerouslyAllowBrowser`.
+// With BYOK this is the user's own key — their risk. With a managed key, this
+// should be replaced with the Functions proxy before any public production deploy.
 
 import Anthropic from '@anthropic-ai/sdk';
 import type {
@@ -12,6 +18,7 @@ import type {
   Project,
   ProjectStep,
 } from '../shared/types';
+import { prefs } from './prefsStore';
 
 // Current Sonnet model. Update when newer Sonnet is released.
 const MODEL = 'claude-sonnet-4-6';
@@ -128,26 +135,35 @@ const FINAL_SUMMARY_TOOL: Anthropic.Tool = {
 // ---------------------------------------------------------------------------
 
 let cachedClient: Anthropic | null = null;
+let cachedClientKey: string | null = null;
 
-function getClient(): Anthropic {
-  if (cachedClient) return cachedClient;
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    throw new Error(
-      'VITE_ANTHROPIC_API_KEY is not set. Add it to web/.env to enable the coach.',
-    );
-  }
-  cachedClient = new Anthropic({
-    apiKey,
-    // Acceptable for local dev only; the spec calls for a Functions proxy
-    // before any public deploy.
-    dangerouslyAllowBrowser: true,
-  });
-  return cachedClient;
+/** Resolve the active API key: user's stored key > env var. */
+export function resolveApiKey(): string | null {
+  return prefs.getApiKey() || import.meta.env.VITE_ANTHROPIC_API_KEY || null;
 }
 
+/** True when a key is available from any source. */
 export function isCoachConfigured(): boolean {
-  return !!import.meta.env.VITE_ANTHROPIC_API_KEY;
+  return !!resolveApiKey();
+}
+
+/** True when the user has saved their own key (BYOK mode). */
+export function isByokMode(): boolean {
+  return !!prefs.getApiKey();
+}
+
+function getClient(): Anthropic {
+  const apiKey = resolveApiKey();
+  if (!apiKey) {
+    throw new Error(
+      'No API key configured. Open the API key settings to add your Anthropic key.',
+    );
+  }
+  // Re-create client if the key has changed (e.g. user saved a new one).
+  if (cachedClient && cachedClientKey === apiKey) return cachedClient;
+  cachedClient = new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
+  cachedClientKey = apiKey;
+  return cachedClient;
 }
 
 // ---------------------------------------------------------------------------

@@ -22,6 +22,7 @@ export interface UseDrawingResult {
   addStroke: (stroke: Stroke) => void;
   undo: () => void;
   eraseAll: () => void;
+  eraseStroke: (id: string) => void;
   resumeStatus: ResumeStatus;
   resume: () => Promise<void>;
   startFresh: () => Promise<void>;
@@ -113,6 +114,11 @@ export function useDrawing(slug: string): UseDrawingResult {
     hasUserChangedRef.current = true;
   }, []);
 
+  const eraseStroke = useCallback((id: string) => {
+    setStrokes((prev) => prev.filter((s) => s.id !== id));
+    hasUserChangedRef.current = true;
+  }, []);
+
   const serializeSvg = useCallback(() => strokesToSvg(strokes), [strokes]);
 
   const flushSave = useCallback(async () => {
@@ -151,6 +157,7 @@ export function useDrawing(slug: string): UseDrawingResult {
     addStroke,
     undo,
     eraseAll,
+    eraseStroke,
     resumeStatus,
     resume,
     startFresh,

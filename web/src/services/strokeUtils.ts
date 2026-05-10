@@ -4,45 +4,63 @@
 // logical space. The brush size is in the same units.
 
 import { getStroke } from 'perfect-freehand';
-import type { Stroke, StrokePoint, StrokePointerType } from '../shared/types';
+import type { DrawMode, Stroke, StrokePoint, StrokePointerType } from '../shared/types';
 
 export const VIEWBOX_SIZE = 1000;
 export const BRUSH_SIZE = 9;
+export const PENCIL_SIZE = 6;
 
-// Pressure-aware stroke options.
-// thinning: 0.5 means the stroke ranges from ~50% to 100% of `size` based on pressure.
-const BASE_OPTIONS = {
+// Base perfect-freehand options shared across modes.
+const BASE_PEN = {
   size: BRUSH_SIZE,
   thinning: 0.5,
   smoothing: 0.5,
   streamline: 0.5,
 };
 
-// Different pointer sources need different pressure handling:
-// - Pen / Apple Pencil report real pressure → use it directly.
-// - Touch input on capable hardware reports real pressure → use it.
-// - Mouse / most Mac trackpads report a constant 0.5 → derive pressure from
-//   stroke velocity (perfect-freehand simulates pressure when this flag is on).
-const OPTIONS_BY_TYPE: Record<StrokePointerType, ReturnType<typeof getOptions>> = {
-  pen: getOptions(false),
-  touch: getOptions(false),
-  mouse: getOptions(true),
+// Pencil feels finer and more variable: smaller, more thinning, slightly more streamline.
+const BASE_PENCIL = {
+  size: PENCIL_SIZE,
+  thinning: 0.65,
+  smoothing: 0.5,
+  streamline: 0.55,
 };
 
-function getOptions(simulate: boolean) {
-  return { ...BASE_OPTIONS, simulatePressure: simulate };
+// Builds the full options object for a pointer type × draw mode combo.
+function buildOptions(simulate: boolean, drawMode: DrawMode) {
+  return { ...(drawMode === 'pencil' ? BASE_PENCIL : BASE_PEN), simulatePressure: simulate };
+}
+
+const OPTIONS: Record<DrawMode, Record<StrokePointerType, ReturnType<typeof buildOptions>>> = {
+  pen: {
+    pen:   buildOptions(false, 'pen'),
+    touch: buildOptions(false, 'pen'),
+    mouse: buildOptions(true,  'pen'),
+  },
+  pencil: {
+    pen:   buildOptions(false, 'pencil'),
+    touch: buildOptions(false, 'pencil'),
+    mouse: buildOptions(true,  'pencil'),
+  },
+};
+
+/** SVG fill colour and opacity for a given draw mode. */
+export function getStrokeStyle(drawMode?: DrawMode): { fill: string; opacity: string } {
+  if (drawMode === 'pencil') return { fill: '#808080', opacity: '0.55' };
+  return { fill: '#2d3f2a', opacity: '1' };
 }
 
 /** Convert a list of stroke points into an SVG `d` attribute. */
 export function pointsToPath(
   points: StrokePoint[],
   pointerType: StrokePointerType = 'mouse',
+  drawMode: DrawMode = 'pen',
 ): string {
   if (points.length === 0) return '';
   const inputs = points.map(
     (p) => [p.x, p.y, p.pressure] as [number, number, number],
   );
-  const outline = getStroke(inputs, OPTIONS_BY_TYPE[pointerType]);
+  const outline = getStroke(inputs, OPTIONS[drawMode][pointerType]);
   return outlineToPath(outline);
 }
 
@@ -62,7 +80,11 @@ function outlineToPath(stroke: number[][]): string {
 
 /** Build an SVG document from a list of strokes (used for autosave + portfolio). */
 export function strokesToSvg(strokes: Stroke[]): string {
-  const paths = strokes.map((s) => `<path d="${s.pathD}" fill="black"/>`).join('');
+  const paths = strokes.map((s) => {
+    const { fill, opacity } = getStrokeStyle(s.drawMode);
+    const opacityAttr = opacity !== '1' ? ` opacity="${opacity}"` : '';
+    return `<path d="${s.pathD}" fill="${fill}"${opacityAttr}/>`;
+  }).join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}">${paths}</svg>`;
 }
 
