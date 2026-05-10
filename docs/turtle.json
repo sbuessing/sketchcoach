@@ -1,0 +1,31 @@
+{
+  "slug": "turtle",
+  "title": "Turtle",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the shell",
+      "description": "Lightly sketch a wide dome shape for the shell — about twice as wide as it is tall. This is the largest shape and everything else will fit around it."
+    },
+    {
+      "number": 2,
+      "title": "Add the body parts",
+      "description": "Sketch a small oval for the head poking out the front, two front legs, two back legs, and a short tail at the back. Use the shell as your unit of measure."
+    },
+    {
+      "number": 3,
+      "title": "Outline confidently",
+      "description": "Trace the silhouette of the whole turtle in one continuous outline. Make sure the legs appear to come from under the shell — show the overlap."
+    },
+    {
+      "number": 4,
+      "title": "Add the shell pattern",
+      "description": "Draw a horizontal curve across the shell about a third of the way down — this is where the upper plates begin. Add 5–6 hexagonal segments below it."
+    },
+    {
+      "number": 5,
+      "title": "Detail the face",
+      "description": "Add a small eye, a short line for the mouth, and a couple of nostril dots. Keep facial details small — too much detail makes the head feel too big."
+    }
+  ]
+}

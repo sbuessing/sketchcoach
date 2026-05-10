@@ -37,3 +37,6 @@ A projects.json with 10 projects
 10 project-name-as-slug.json files with the step by step instructions
 A guidelines.json file that has 20+ drawing guidelines.
 Put all of these in docs/ for now.
+
+**2026-05-10 11:05**
+Yes, this looks good! We can iterate on these in the future, it looks about like I expected though.  Let's start on the project spec now.  Again, look at the travel simulator folder.  We don't need a content pipeline just a React web app with live calls to Claude.  Write the technical spec.  I'll set up Claude API access and get a key while you're doing that.  Remember to look at the travel simulator (https://travelsimulator.web.app/) project for reference.

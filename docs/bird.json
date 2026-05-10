@@ -1,0 +1,36 @@
+{
+  "slug": "bird",
+  "title": "Perched Bird",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the two main shapes",
+      "description": "Lightly sketch a small circle for the head and a larger oval for the body, slightly tilted. The head should be roughly one-third the size of the body."
+    },
+    {
+      "number": 2,
+      "title": "Connect them",
+      "description": "Draw a short curve to join the head to the body — this is the neck. Notice the gesture: most perched birds have a gentle S-curve through the body."
+    },
+    {
+      "number": 3,
+      "title": "Outline the silhouette",
+      "description": "Trace the full outline of head and body in one connected shape. Add a small triangular beak and a tail extending from the back of the body."
+    },
+    {
+      "number": 4,
+      "title": "Place the eye and beak details",
+      "description": "Add a small dot for the eye, positioned roughly where the head meets the beak. Refine the beak so the upper and lower halves meet cleanly."
+    },
+    {
+      "number": 5,
+      "title": "Suggest the wing",
+      "description": "Add a curved line on the body to mark where the wing tucks in. A few short strokes near the tail can hint at feathers without rendering each one."
+    },
+    {
+      "number": 6,
+      "title": "Add the perch",
+      "description": "Draw a horizontal branch under the bird and two small lines for the legs gripping it."
+    }
+  ]
+}

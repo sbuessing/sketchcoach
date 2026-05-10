@@ -1,0 +1,36 @@
+{
+  "slug": "house",
+  "title": "Cottage Front",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the main shape",
+      "description": "Lightly sketch a square or short rectangle for the main wall of the cottage. Place it slightly off-center on the page rather than dead middle."
+    },
+    {
+      "number": 2,
+      "title": "Add the roof",
+      "description": "Add a triangle on top of the rectangle for the pitched roof. The triangle's peak doesn't have to sit dead center — a slight offset gives the cottage character."
+    },
+    {
+      "number": 3,
+      "title": "Block doors and windows",
+      "description": "Sketch a tall rectangle for the door (toward one side, not centered) and two square windows. Use simple shapes — you'll refine them later."
+    },
+    {
+      "number": 4,
+      "title": "Refine outlines",
+      "description": "Trace the cottage outline with confident straight lines. Long edges are smoother when you draw from the shoulder. Make sure the roof line meets the wall corners cleanly."
+    },
+    {
+      "number": 5,
+      "title": "Detail the door and windows",
+      "description": "Add a doorknob, a cross of lines for window panes, and a small step in front of the door. Keep these details simple."
+    },
+    {
+      "number": 6,
+      "title": "Add character",
+      "description": "Add a chimney on the roof, a few roof shingle lines, and maybe a small flower box under one window. Add detail in one or two spots, not everywhere — let other parts stay quiet."
+    }
+  ]
+}

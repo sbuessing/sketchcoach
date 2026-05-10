@@ -1,0 +1,31 @@
+{
+  "slug": "beach-ball",
+  "title": "Beach Ball",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the circle",
+      "description": "Sketch a light, loose circle the size you want the ball to be. Don't worry about perfection — you'll refine it next."
+    },
+    {
+      "number": 2,
+      "title": "Refine the outline",
+      "description": "Draw a single confident circle over your guide. One smooth pass reads better than many overlapping tries."
+    },
+    {
+      "number": 3,
+      "title": "Add the equator",
+      "description": "Draw a gentle curve across the middle (curving downward at the ends) to suggest the ball is a sphere, not a flat disc."
+    },
+    {
+      "number": 4,
+      "title": "Add the segment lines",
+      "description": "Add 2–3 curved lines from the top of the ball to the bottom, following the form. Spacing them unevenly looks more natural."
+    },
+    {
+      "number": 5,
+      "title": "Polish",
+      "description": "Erase any remaining guide lines and clean up any spots where strokes overshoot or don't meet cleanly."
+    }
+  ]
+}

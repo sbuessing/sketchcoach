@@ -1,0 +1,36 @@
+{
+  "slug": "apple",
+  "title": "Apple",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the form",
+      "description": "Lightly sketch a rounded shape — a little wider than tall, slightly asymmetric. Real apples are rarely perfectly round."
+    },
+    {
+      "number": 2,
+      "title": "Carve the top and bottom",
+      "description": "Push the top center down slightly to make a small dimple where the stem will sit. Suggest a matching dimple at the bottom."
+    },
+    {
+      "number": 3,
+      "title": "Outline with confidence",
+      "description": "Draw the main outline with a single committed stroke. Slight wobble is fine — apples are organic."
+    },
+    {
+      "number": 4,
+      "title": "Add the stem",
+      "description": "Add a short stem rising from the top dimple, slightly tilted to one side."
+    },
+    {
+      "number": 5,
+      "title": "Add a leaf",
+      "description": "Sketch a small leaf next to the stem with a central vein. Two short strokes meeting at a point gives you the leaf shape."
+    },
+    {
+      "number": 6,
+      "title": "Hint at form",
+      "description": "Add a small curved line near the top dimple to suggest depth where the stem meets the apple."
+    }
+  ]
+}

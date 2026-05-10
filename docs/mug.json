@@ -1,0 +1,36 @@
+{
+  "slug": "mug",
+  "title": "Mug",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the cylinder",
+      "description": "Lightly sketch a tall rectangle for the mug body. Add a flat oval at the top and bottom — these will become the rim and base."
+    },
+    {
+      "number": 2,
+      "title": "Refine the body",
+      "description": "Draw the two vertical sides as confident, straight lines. Long lines are smoother when you draw from the shoulder, not the wrist."
+    },
+    {
+      "number": 3,
+      "title": "Draw the rim",
+      "description": "Trace the top oval as a clean ellipse. Make sure both ends curve symmetrically — this is what sells the mug as 3D."
+    },
+    {
+      "number": 4,
+      "title": "Draw the base",
+      "description": "Trace just the front half of the bottom ellipse. The back half is hidden behind the mug — don't draw what you can't see."
+    },
+    {
+      "number": 5,
+      "title": "Add the handle",
+      "description": "Add a curved handle on one side. A flattened C-shape works well. Make sure the top and bottom of the handle attach cleanly to the body."
+    },
+    {
+      "number": 6,
+      "title": "Suggest the inside",
+      "description": "Add a smaller, parallel ellipse just inside the rim to hint at the thickness of the mug wall."
+    }
+  ]
+}

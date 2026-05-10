@@ -1,0 +1,84 @@
+{
+  "projects": [
+    {
+      "slug": "beach-ball",
+      "title": "Beach Ball",
+      "tier": "beginner",
+      "estimatedMinutes": 5,
+      "description": "A classic round beach ball. Practice committing to a clean circle and using curves to suggest a sphere instead of a flat disc.",
+      "focusGuidelines": ["simple-shapes-first", "confident-lines", "line-follows-form"]
+    },
+    {
+      "slug": "apple",
+      "title": "Apple",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "An apple with a stem and a single leaf. A friendly intro to organic, slightly asymmetric shapes.",
+      "focusGuidelines": ["start-light", "find-the-axis", "embrace-imperfection"]
+    },
+    {
+      "slug": "mug",
+      "title": "Mug",
+      "tier": "beginner",
+      "estimatedMinutes": 10,
+      "description": "A simple ceramic mug. Introduces straight verticals, ellipses, and the handle as a partial circle.",
+      "focusGuidelines": ["simple-shapes-first", "draw-from-the-shoulder", "clean-junctions"]
+    },
+    {
+      "slug": "leaf",
+      "title": "Leaf",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A single leaf with a central vein and a few branching side veins. Practice symmetry around an axis.",
+      "focusGuidelines": ["find-the-axis", "mind-the-curves", "embrace-imperfection"]
+    },
+    {
+      "slug": "bird",
+      "title": "Perched Bird",
+      "tier": "developing",
+      "estimatedMinutes": 15,
+      "description": "A small songbird sitting on a branch. Practice combining a head and body and finding the right proportion between them.",
+      "focusGuidelines": ["block-big-then-small", "compare-as-you-go", "find-the-gesture"]
+    },
+    {
+      "slug": "turtle",
+      "title": "Turtle",
+      "tier": "developing",
+      "estimatedMinutes": 15,
+      "description": "A turtle in profile with shell, limbs, and head extended. Practice blocking the shell first and fitting the body to it.",
+      "focusGuidelines": ["block-big-then-small", "show-overlap", "use-a-unit"]
+    },
+    {
+      "slug": "cat",
+      "title": "Sitting Cat",
+      "tier": "developing",
+      "estimatedMinutes": 18,
+      "description": "A cat sitting upright facing forward. Practice gesture and silhouette before any details.",
+      "focusGuidelines": ["find-the-gesture", "compare-as-you-go", "suggest-dont-render"]
+    },
+    {
+      "slug": "mushrooms",
+      "title": "Mushroom Cluster",
+      "tier": "intermediate",
+      "estimatedMinutes": 20,
+      "description": "Three mushrooms of different sizes, overlapping. Practice composition and using overlap to create depth.",
+      "focusGuidelines": ["place-on-the-page", "show-overlap", "balance-detail"]
+    },
+    {
+      "slug": "house",
+      "title": "Cottage Front",
+      "tier": "intermediate",
+      "estimatedMinutes": 20,
+      "description": "A small cottage seen from the front. Practice clean straight lines and balancing structural geometry with cozy detail.",
+      "focusGuidelines": ["draw-from-the-shoulder", "clean-junctions", "balance-detail"]
+    },
+    {
+      "slug": "tree",
+      "title": "Full Tree",
+      "tier": "intermediate",
+      "estimatedMinutes": 25,
+      "description": "A full tree with trunk, branches, and a foliage silhouette. Practice organic branching and varying line weight.",
+      "focusGuidelines": ["find-the-gesture", "vary-line-weight", "suggest-dont-render"]
+    }
+  ]
+}

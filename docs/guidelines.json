@@ -1,0 +1,257 @@
+{
+  "guidelines": [
+    {
+      "id": "start-light",
+      "title": "Start light",
+      "level": "novice",
+      "category": "foundational",
+      "description": "Sketch lightly with guide strokes before committing to dark, final lines. Light marks let you adjust without leaving permanent mistakes.",
+      "coachCues": [
+        "Try blocking this in with lighter strokes first.",
+        "These guide lines look good — now you can commit to a darker outline."
+      ]
+    },
+    {
+      "id": "ghost-the-line",
+      "title": "Ghost the line",
+      "level": "novice",
+      "category": "foundational",
+      "description": "Hover your pen over the path you're about to draw a few times before committing. This rehearses the motion so the actual stroke is smoother.",
+      "coachCues": [
+        "Before that next long line, hover the path a couple of times to plan the motion.",
+        "Notice how strokes you ghost first come out cleaner."
+      ]
+    },
+    {
+      "id": "draw-from-the-shoulder",
+      "title": "Draw from the shoulder",
+      "level": "novice",
+      "category": "foundational",
+      "description": "Long lines come out smoother when you move your whole arm rather than just your wrist. Wrist motion creates short, curved strokes; shoulder motion gives long, even ones.",
+      "coachCues": [
+        "Try that long line again, but move from your shoulder rather than your wrist.",
+        "The wobble in that line is usually a sign of wrist drawing — loosen up the elbow."
+      ]
+    },
+    {
+      "id": "simple-shapes-first",
+      "title": "Build from simple shapes",
+      "level": "novice",
+      "category": "construction",
+      "description": "Build complex subjects from circles, ovals, and rectangles before refining. Big simple shapes make proportion and placement easier to fix early.",
+      "coachCues": [
+        "Try blocking this in as a few simple shapes first — circles and ovals.",
+        "Nice — those underlying shapes will guide all your detail lines."
+      ]
+    },
+    {
+      "id": "find-the-gesture",
+      "title": "Find the gesture",
+      "level": "novice",
+      "category": "construction",
+      "description": "Capture the line of action or main flow of the subject before any details. Many subjects — animals, trees, even objects — have an overall posture or curve that holds the whole thing together.",
+      "coachCues": [
+        "Before adding details, see if you can find the gesture line — the overall flow or lean.",
+        "I see a strong gesture coming through here — keep that energy in the final outline."
+      ]
+    },
+    {
+      "id": "compare-as-you-go",
+      "title": "Compare as you go",
+      "level": "novice",
+      "category": "proportion",
+      "description": "Frequently check the size of new parts against existing ones. It's much easier to fix proportion early than after committing.",
+      "coachCues": [
+        "Quick check: how does this part's size compare to the part next to it?",
+        "The proportions feel off — try comparing this section to one you already drew."
+      ]
+    },
+    {
+      "id": "use-a-unit",
+      "title": "Use a unit of measure",
+      "level": "developing",
+      "category": "proportion",
+      "description": "Pick one part — often the head — and use it as a unit to measure everything else. Asking 'how many heads tall is this?' is a faster proportion check than guessing.",
+      "coachCues": [
+        "Try using the head as a unit — how many heads tall is the body?",
+        "Picking one part as a measuring stick will help the rest fall into place."
+      ]
+    },
+    {
+      "id": "block-big-then-small",
+      "title": "Block big shapes before small",
+      "level": "novice",
+      "category": "construction",
+      "description": "Lay in the largest shapes first. Only add small details once the big shapes feel right. Detail on top of bad proportion just locks in the mistake.",
+      "coachCues": [
+        "Hold off on the small details — let's get the big shapes right first.",
+        "The big shapes are reading well now; you can start adding finer detail."
+      ]
+    },
+    {
+      "id": "find-the-axis",
+      "title": "Find the axis",
+      "level": "developing",
+      "category": "construction",
+      "description": "Many subjects have a central or symmetry axis. Finding it early helps everything balance around it.",
+      "coachCues": [
+        "Try sketching the central axis first — it'll help both sides feel balanced.",
+        "I notice the two sides drift apart — an axis line might bring them back together."
+      ]
+    },
+    {
+      "id": "confident-lines",
+      "title": "Use confident lines",
+      "level": "developing",
+      "category": "line-quality",
+      "description": "One firm, committed line reads better than several overlapping tentative ones. Hesitation shows up in the drawing.",
+      "coachCues": [
+        "Try that edge again as a single confident pass.",
+        "Beautiful committed line — the drawing reads more sure of itself now."
+      ]
+    },
+    {
+      "id": "avoid-hairy-edges",
+      "title": "Avoid hairy edges",
+      "level": "developing",
+      "category": "line-quality",
+      "description": "Don't redraw the same edge over and over. The eye reads many small overlapping strokes as 'hair' rather than the clean line you wanted.",
+      "coachCues": [
+        "I see some hairy strokes building up here — try erasing and laying down one clean line.",
+        "Resist the urge to redraw that edge — commit to one line."
+      ]
+    },
+    {
+      "id": "vary-line-weight",
+      "title": "Vary line weight",
+      "level": "intermediate",
+      "category": "line-quality",
+      "description": "Heavier lines on the shadow side, on contact points, and on the closer edges add depth even in pure line art.",
+      "coachCues": [
+        "Try thickening the underside of these branches — it adds depth.",
+        "Where this form sits on the ground, a heavier line will help anchor it."
+      ]
+    },
+    {
+      "id": "clean-junctions",
+      "title": "Clean junctions",
+      "level": "developing",
+      "category": "line-quality",
+      "description": "Where two strokes meet, make them touch cleanly — not float past each other and not stop short of meeting.",
+      "coachCues": [
+        "Two of those lines drift past each other at the corner — try landing them right at the junction.",
+        "Nice clean meeting points — they make the drawing feel deliberate."
+      ]
+    },
+    {
+      "id": "draw-the-negative-space",
+      "title": "Draw the negative space",
+      "level": "developing",
+      "category": "observation",
+      "description": "The shapes between things are as informative as the things themselves. Drawing the gaps often reveals proportion errors faster than drawing the subject.",
+      "coachCues": [
+        "Try squinting at the spaces between the legs — those gaps will tell you if the legs are placed right.",
+        "The negative space between the branches is uneven — that can guide your next adjustment."
+      ]
+    },
+    {
+      "id": "notice-the-angles",
+      "title": "Notice the angles",
+      "level": "developing",
+      "category": "observation",
+      "description": "Pay attention to actual tilts and angles, not what you think the angle 'should' be. We tend to draw things more upright or symmetric than they really are.",
+      "coachCues": [
+        "Check the angle of that line — is it really vertical, or is it tilted?",
+        "The tilt you have here gives the pose energy — keep it."
+      ]
+    },
+    {
+      "id": "mind-the-curves",
+      "title": "Mind the curves",
+      "level": "developing",
+      "category": "observation",
+      "description": "Identify where a line curves gently versus where it turns sharply. Mistaking one for the other is what makes a shape feel 'off' even when proportions are right.",
+      "coachCues": [
+        "This curve looks too uniform — most natural curves vary in tightness along their length.",
+        "Notice how that curve flattens out before it turns sharply at the end? Mirror that on the other side."
+      ]
+    },
+    {
+      "id": "place-on-the-page",
+      "title": "Place thoughtfully on the page",
+      "level": "intermediate",
+      "category": "composition",
+      "description": "Don't drop the subject dead center every time. Consider where on the page it sits and how much breathing room it gets.",
+      "coachCues": [
+        "Before you commit, consider sliding the subject off-center for a more interesting layout.",
+        "Nice placement — the empty space around the subject is part of the composition now."
+      ]
+    },
+    {
+      "id": "show-overlap",
+      "title": "Show overlap",
+      "level": "intermediate",
+      "category": "composition",
+      "description": "Letting one form pass in front of another is the easiest way to suggest depth in line art. Stop the back form's outline cleanly where the front form covers it.",
+      "coachCues": [
+        "Letting one of these overlap the other will instantly add depth.",
+        "Stop the back outline where the front shape crosses it — don't draw through."
+      ]
+    },
+    {
+      "id": "balance-detail",
+      "title": "Balance detail",
+      "level": "intermediate",
+      "category": "composition",
+      "description": "Quiet areas help busy areas read. If you render every inch, the eye has nowhere to rest and nothing stands out.",
+      "coachCues": [
+        "This area is getting busy — try leaving the next section quieter so the detail lands.",
+        "The balance between detailed and empty areas is reading really well."
+      ]
+    },
+    {
+      "id": "suggest-dont-render",
+      "title": "Suggest, don't render",
+      "level": "intermediate",
+      "category": "style",
+      "description": "Imply detail with a few well-placed marks rather than drawing every feather, leaf, or hair. The viewer fills in the rest.",
+      "coachCues": [
+        "A few marks here will suggest the texture — you don't need to draw every one.",
+        "Resist drawing every leaf — pick a handful and let the rest live in the silhouette."
+      ]
+    },
+    {
+      "id": "line-follows-form",
+      "title": "Let lines follow form",
+      "level": "intermediate",
+      "category": "style",
+      "description": "The direction of a stroke can describe the surface it sits on. Curves wrapping around a sphere read as 3D; lines going against the form flatten it.",
+      "coachCues": [
+        "Try curving that stroke to wrap around the form — it'll read more 3D.",
+        "Those wrapping lines are doing a lot of work to suggest the round shape."
+      ]
+    },
+    {
+      "id": "edit-with-restraint",
+      "title": "Edit with restraint",
+      "level": "intermediate",
+      "category": "style",
+      "description": "Sometimes the right move is to stop, not to add another mark. Many drawings get worse in the last 10% from over-rendering.",
+      "coachCues": [
+        "This is looking good — I'd be careful about adding much more.",
+        "Consider stopping here. One more pass risks muddying what's already working."
+      ]
+    },
+    {
+      "id": "embrace-imperfection",
+      "title": "Embrace imperfection",
+      "level": "novice",
+      "category": "style",
+      "description": "Slight wobble and asymmetry give a drawing personality. Chasing perfectly clean lines often deadens the drawing.",
+      "coachCues": [
+        "That little wobble actually gives the line personality — leave it.",
+        "Don't chase a perfect line — your hand-drawn quality is part of the charm."
+      ]
+    }
+  ]
+}
