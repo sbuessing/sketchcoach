@@ -182,3 +182,9 @@ I think you need to use the project id as well, it's sketchcoach-fae4f
 
 **2026-05-10 12:43**
 Go through all of our docs and make sure they are still up to date and represent the current capabilities of the app.
+
+**2026-05-10 12:56**
+I'm looking through the code, do we use guidelines.json right now?  I see a type for it but I'm not sure where the data is used.
+
+**2026-05-10 12:59**
+I want the guidelines to feel like things you're mastering over time.  Let's add another link on the top page to "Sketching tips" that lists all of these, with the ones you've encountered in a top section, and ones you have not yet encountered listed below.  Add some subtext to each section and make each of these appear as a card in a grid with a title, and the full advice.

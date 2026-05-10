@@ -6,6 +6,7 @@ const HomeScreen = lazy(() => import('./components/screens/HomeScreen'));
 const DrawScreen = lazy(() => import('./components/screens/DrawScreen'));
 const DoneScreen = lazy(() => import('./components/screens/DoneScreen'));
 const PortfolioScreen = lazy(() => import('./components/screens/PortfolioScreen'));
+const TipsScreen = lazy(() => import('./components/screens/TipsScreen'));
 
 function LoadingFallback() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/draw/:slug" element={<DrawScreen />} />
         <Route path="/done/:slug" element={<DoneScreen />} />
         <Route path="/portfolio" element={<PortfolioScreen />} />
+        <Route path="/tips" element={<TipsScreen />} />
         <Route path="*" element={<HomeScreen />} />
       </Routes>
     </Suspense>

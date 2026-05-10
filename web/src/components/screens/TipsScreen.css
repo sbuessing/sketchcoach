@@ -1,0 +1,163 @@
+.tips {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+  animation: page-fade-in var(--duration-med) var(--ease-soft) both;
+}
+
+.tips__header {
+  margin-bottom: var(--space-6);
+}
+
+.tips__back {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-3);
+}
+
+.tips__back:hover {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.tips__title {
+  margin-bottom: var(--space-1);
+}
+
+.tips__subtitle {
+  color: var(--color-ink-soft);
+  font-size: 1.05rem;
+  max-width: 560px;
+}
+
+/* Sections */
+
+.tips__section {
+  margin-bottom: var(--space-6);
+}
+
+.tips__section-header {
+  margin-bottom: var(--space-4);
+}
+
+.tips__section-title {
+  margin-bottom: var(--space-1);
+}
+
+.tips__section-sub {
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+  max-width: 600px;
+}
+
+/* Grid */
+
+.tips__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-3);
+}
+
+/* Cards */
+
+.tip-card {
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: transform var(--duration-fast) var(--ease-soft),
+              box-shadow var(--duration-fast) var(--ease-soft);
+}
+
+.tip-card--encountered {
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-accent-soft);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.tip-card--encountered:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--color-shadow-strong);
+}
+
+.tip-card--future {
+  background: var(--color-paper-warm);
+  border: 1.5px solid transparent;
+  opacity: 0.7;
+}
+
+/* Card internals */
+
+.tip-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tip-card__category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.tip-card--future .tip-card__category {
+  background: var(--color-ink-faint);
+  color: var(--color-paper);
+}
+
+.tip-card__level {
+  font-size: 0.75rem;
+  color: var(--color-ink-faint);
+  text-transform: capitalize;
+}
+
+.tip-card__title {
+  font-size: 1.4rem;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.tip-card--future .tip-card__title {
+  color: var(--color-ink-soft);
+}
+
+.tip-card__desc {
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+/* Coach cues — only shown on encountered cards */
+.tip-card__cues {
+  margin: var(--space-1) 0 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-sm);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tip-card__cues li {
+  font-size: 0.82rem;
+  color: var(--color-ink);
+  line-height: 1.5;
+  padding-left: var(--space-2);
+  position: relative;
+}
+
+.tip-card__cues li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}

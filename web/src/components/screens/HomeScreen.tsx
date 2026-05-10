@@ -56,6 +56,9 @@ export default function HomeScreen() {
             {configured && <span className="home__key-dot home__key-dot--ok" />}
             API key
           </button>
+          <Link to="/tips" className="home__portfolio-link">
+            Sketching Tips
+          </Link>
           <Link to="/portfolio" className="home__portfolio-link">
             Portfolio · {portfolio.length}
           </Link>
