@@ -4,6 +4,8 @@ An AI-powered drawing tutor that guides you from your first line to confident sk
 
 Built with React + Vite + TypeScript, deployed on Firebase Hosting, powered by Claude.
 
+**Live at [sketchcoach.web.app](https://sketchcoach.web.app/)**
+
 ---
 
 ## Features

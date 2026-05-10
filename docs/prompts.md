@@ -191,3 +191,6 @@ I want the guidelines to feel like things you're mastering over time.  Let's add
 
 **2026-05-10 13:40**
 Drastically improve the readme.md file to introduce the project, summarize the features, and explain how to compile and run.
+
+**2026-05-10 16:20**
+Add that the public location is https://sketchcoach.web.app/ in the readme.md
