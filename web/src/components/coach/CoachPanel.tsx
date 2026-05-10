@@ -39,12 +39,6 @@ export default function CoachPanel({
           </p>
         )}
 
-        {!disabled && messages.length === 0 && !isFetching && !error && (
-          <p className="coach-panel__empty">
-            Start drawing — the coach will check in occasionally.
-          </p>
-        )}
-
         {!disabled && isFetching && (
           <p className="coach-panel__loading">
             <span className="dot" />
@@ -59,6 +53,22 @@ export default function CoachPanel({
             {m.text}
           </div>
         ))}
+
+        {/* Intro card — shown beneath messages (column-reverse, so it's at the bottom visually
+            until real messages push it out of view) */}
+        {!disabled && focusGuideline && (
+          <div className="coach-panel__intro">
+            {focusGuideline.description && (
+              <p className="coach-panel__intro-desc">{focusGuideline.description}</p>
+            )}
+            {focusGuideline.coachCues[0] && (
+              <p className="coach-panel__intro-cue">"{focusGuideline.coachCues[0]}"</p>
+            )}
+            <p className="coach-panel__intro-hint">
+              Start drawing — the coach will check in as you work.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

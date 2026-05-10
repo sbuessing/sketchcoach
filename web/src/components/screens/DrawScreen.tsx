@@ -121,13 +121,13 @@ export default function DrawScreen() {
   const coachCountRef = useRef(coachMessages.length);
   useEffect(() => {
     if (coachMessages.length > coachCountRef.current) {
-      sfx.play('coach', sfxEnabled, 0.5);
+      sfx.play('coach', sfxEnabled);
     }
     coachCountRef.current = coachMessages.length;
   }, [coachMessages.length, sfxEnabled]);
 
   const handleStrokeEnd = useCallback(() => {
-    sfx.play('stroke-end', sfxEnabled, 0.25);
+    sfx.play('stroke-end', sfxEnabled);
   }, [sfxEnabled]);
 
   if (!project) {
@@ -149,7 +149,7 @@ export default function DrawScreen() {
   };
 
   const handleFinish = async () => {
-    sfx.play('complete', sfxEnabled, 0.7);
+    sfx.play('complete', sfxEnabled);
     ambientRef.current.pause();
     await flushSave();
     const recentAdviceText = coachMessages
@@ -199,8 +199,8 @@ export default function DrawScreen() {
           <Toolbar
             canUndo={strokes.length > 0}
             canErase={strokes.length > 0}
-            onUndo={() => { sfx.play('button', sfxEnabled, 0.4); undo(); }}
-            onErase={() => { sfx.play('button', sfxEnabled, 0.4); eraseAll(); }}
+            onUndo={() => { sfx.play('button', sfxEnabled); undo(); }}
+            onErase={() => { sfx.play('button', sfxEnabled); eraseAll(); }}
             onFinish={handleFinish}
             leftSlot={
               <AudioControls
@@ -209,6 +209,8 @@ export default function DrawScreen() {
                 sfxEnabled={sfxEnabled}
                 onSfxToggle={() => setSfxEnabled(!sfxEnabled)}
                 isPlaying={ambient.isPlaying}
+                trackName={ambient.trackName}
+                onSkipTrack={ambient.skipTrack}
               />
             }
             centerSlot={<SaveIndicator savedAt={savedAt} />}

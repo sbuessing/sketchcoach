@@ -22,7 +22,7 @@ function write<T>(key: string, value: T): void {
 }
 
 export const prefs = {
-  getAudioVolume: () => read<number>('audio_volume', 0.4),
+  getAudioVolume: () => read<number>('audio_volume', 0.3),
   setAudioVolume: (v: number) => write('audio_volume', v),
 
   getSfxEnabled: () => read<boolean>('sfx_enabled', true),

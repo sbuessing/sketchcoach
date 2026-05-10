@@ -45,7 +45,7 @@ sketchcoach/
 │   │   ├── contexts/
 │   │   │   └── AppContext.tsx         # Session-wide state (focus principle, audio)
 │   │   ├── components/
-│   │   │   ├── screens/               # HomeScreen, CoachingScreen, DrawScreen, DoneScreen, PortfolioScreen
+│   │   │   ├── screens/               # HomeScreen, DrawScreen, DoneScreen, PortfolioScreen
 │   │   │   ├── canvas/                # SketchCanvas, StrokeRenderer, ToolBar
 │   │   │   ├── coach/                 # CoachPanel, CoachMessage, FocusPrinciple
 │   │   │   ├── steps/                 # StepList, StepItem
@@ -451,15 +451,16 @@ This lets you start coding the UX before Functions deploy is wired up. Document 
 
 ## 8. UI Flow & Screens
 
-Five routes, all lazy-loaded:
+Four routes, all lazy-loaded:
 
 | Route | Component | Purpose |
 |-------|-----------|---------|
 | `/` | `HomeScreen` | Project picker + portfolio peek |
-| `/coach/:slug` | `CoachingScreen` | Introduce the focus guideline |
 | `/draw/:slug` | `DrawScreen` | Canvas + step list + coach panel |
 | `/done/:slug` | `DoneScreen` | Final feedback + save to portfolio |
 | `/portfolio` | `PortfolioScreen` | All completed work |
+
+> **Removed:** `/coach/:slug` (`CoachingScreen`) — the pre-draw intro screen was removed to reduce friction. The focus guideline (title, description, sample cue) now appears as the coach panel's welcome card on `DrawScreen`. Clicking a project card goes directly to the canvas.
 
 ### 8.1 HomeScreen
 
@@ -469,14 +470,7 @@ Five routes, all lazy-loaded:
 - Each project card: title, est. minutes, completion state (✓ once done), focus guideline preview.
 - Soft chillhop track auto-plays at low volume on first interaction (browsers block autoplay before user gesture).
 
-### 8.2 CoachingScreen
-
-- One screen, one principle. Large guideline title, 2–3 sentence description, and one example coachCue rendered as a fake "in-the-moment" message card.
-- Why a separate screen: gives the principle a moment of focus before it gets lost in the action of drawing.
-- The displayed guideline is the **first** of the project's `focusGuidelines[]` (the one most central to that project).
-- Single button: "Start drawing" → `/draw/:slug`.
-
-### 8.3 DrawScreen
+### 8.2 DrawScreen
 
 Three-pane layout (responsive):
 
@@ -497,7 +491,7 @@ Three-pane layout (responsive):
 
 Mobile/narrow viewports: panes collapse into tabs above the canvas.
 
-### 8.4 DoneScreen
+### 8.3 DoneScreen
 
 - Renders the final SVG.
 - Plays a soft completion chime.
@@ -508,7 +502,7 @@ Mobile/narrow viewports: panes collapse into tabs above the canvas.
   - **Save to portfolio** button (creates the IndexedDB entry, navigates to `/portfolio`)
   - **Discard** button (returns home without saving)
 
-### 8.5 PortfolioScreen
+### 8.4 PortfolioScreen
 
 - Grid of thumbnails sorted newest-first.
 - Click a thumbnail: modal with full SVG + saved feedback + project name + completion date.

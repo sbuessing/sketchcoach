@@ -150,3 +150,14 @@ Remember: After doing ideas.md tasks, remove them and add them to the spec or pr
 
 * Advice fetching - I think we already did this, remove.
 * Remove start drawing - yes do this.
+
+**2026-05-10 12:19**
+I dropped 3 tracks in the tracks folder, rename their names to something short and add them to the tracks.json file.  Also there should be a button to go to next track.
+
+**2026-05-10 12:22**
+Are the sound effects working?  I don't think I've heard them.  Let's make the music tracks about 30% volume so the sound effects are 100% volume and more clear.
+
+**2026-05-10 12:25**
+Looks good.  OK from ideas.md, we definitely need the pen and pencil and sketch feature for intermediate drawings, it's also referenced in some of our drawing instructions.  Take a first stab at the UI for this.  I *think* it should be in the bottom panel, though that might feel cluttered.  I'm hesitant to add a 4th panel above the drawing, it will feel boxed in.
+
+We also want to add an erase button that lets us target and erase individual strokes, probably respecting the ink/pencil mode we are in.

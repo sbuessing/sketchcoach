@@ -1,16 +1,17 @@
 // useAmbientAudio — manages the ambient backing track for a drawing session.
 //
-// Picks a random track from public/audio/tracks.json on mount (avoiding the
-// last-played track so there's no immediate repeat). Plays via HTML5 <audio>,
-// looping with a soft fade-in/out. Volume follows the audioVolume pref.
+// Picks a random track from public/audio/tracks.json on first play (avoiding
+// the last-played track so there's no immediate repeat). Plays via HTML5
+// <audio>, looping with a soft fade-in/out. Volume follows the audioVolume
+// pref. skipTrack fades out the current track and fades in the next one.
 //
 // No track list → silently no-ops so the app works without audio files.
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { prefs } from '../services/prefsStore';
 
 const TRACKS_URL = '/audio/tracks.json';
-const FADE_DURATION_MS = 600;
+const FADE_DURATION_MS = 500;
 const FADE_STEPS = 20;
 
 export interface UseAmbientAudioResult {
@@ -18,21 +19,28 @@ export interface UseAmbientAudioResult {
   play: () => void;
   /** Fade out and pause. */
   pause: () => void;
+  /** Fade out current track, load next in list, fade in. */
+  skipTrack: () => void;
   /** Immediately stop and unload. Called on unmount. */
   stop: () => void;
   /** true while a track is playing */
   isPlaying: boolean;
+  /** Display name of current track (filename without extension), or '' if none. */
+  trackName: string;
 }
-
-// We use a ref-based approach so callers don't need to re-subscribe to state.
-// The hook exposes stable callbacks.
 
 export function useAmbientAudio(volume: number): UseAmbientAudioResult {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const tracksRef = useRef<string[]>([]);
+  const currentIndexRef = useRef<number>(0);
   const fadeTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isPlayingRef = useRef(false);
+  const loadedRef = useRef(false);
   const targetVolumeRef = useRef(volume);
   targetVolumeRef.current = volume;
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [trackName, setTrackName] = useState('');
 
   // Update volume immediately when pref changes.
   useEffect(() => {
@@ -41,14 +49,13 @@ export function useAmbientAudio(volume: number): UseAmbientAudioResult {
     }
   }, [volume]);
 
-  const clearFade = () => {
+  const clearFade = useCallback(() => {
     if (fadeTimerRef.current !== null) {
       clearInterval(fadeTimerRef.current);
       fadeTimerRef.current = null;
     }
-  };
+  }, []);
 
-  // Fade helper — linearly ramps audio.volume from `from` to `to` over FADE_DURATION_MS.
   const fade = useCallback((from: number, to: number, onDone?: () => void) => {
     clearFade();
     const el = audioRef.current;
@@ -69,45 +76,56 @@ export function useAmbientAudio(volume: number): UseAmbientAudioResult {
         onDone?.();
       }
     }, interval);
+  }, [clearFade]);
+
+  // Load the track at the given index into audioRef.
+  const loadTrackAt = useCallback((index: number): HTMLAudioElement | null => {
+    const tracks = tracksRef.current;
+    if (!tracks.length) return null;
+
+    const filename = tracks[index % tracks.length];
+    const el = new Audio(`/audio/tracks/${filename}`);
+    el.loop = true;
+    el.volume = 0;
+    el.preload = 'auto';
+    el.addEventListener('error', () => {
+      if (audioRef.current === el) audioRef.current = null;
+    });
+
+    const name = filename.replace(/\.[^.]+$/, '');
+    audioRef.current = el;
+    currentIndexRef.current = index % tracks.length;
+    prefs.setLastTrack(filename);
+    setTrackName(name);
+    return el;
   }, []);
 
-  // Load and set up the audio element once.
-  const initAudio = useCallback(async () => {
-    if (audioRef.current) return; // already loaded
+  // Fetch the track list once and pick a starting track.
+  const loadTrackList = useCallback(async () => {
+    if (loadedRef.current) return;
+    loadedRef.current = true;
 
     let tracks: string[] = [];
     try {
       const res = await fetch(TRACKS_URL);
       tracks = await res.json() as string[];
     } catch {
-      // Network issue or malformed JSON — no audio.
       return;
     }
-
     if (!Array.isArray(tracks) || tracks.length === 0) return;
+    tracksRef.current = tracks;
 
-    // Pick a random track, avoiding the last-played one.
+    // Pick a starting track, avoiding the last-played one.
     const last = prefs.getLastTrack();
     const candidates = tracks.length > 1 ? tracks.filter((t) => t !== last) : tracks;
     const chosen = candidates[Math.floor(Math.random() * candidates.length)];
-
-    const el = new Audio(`/audio/tracks/${chosen}`);
-    el.loop = true;
-    el.volume = 0;
-    el.preload = 'auto';
-
-    el.addEventListener('error', () => {
-      // File missing or undecodable — silently give up.
-      audioRef.current = null;
-    });
-
-    audioRef.current = el;
-    prefs.setLastTrack(chosen);
-  }, []);
+    const startIndex = tracks.indexOf(chosen);
+    loadTrackAt(startIndex >= 0 ? startIndex : 0);
+  }, [loadTrackAt]);
 
   const play = useCallback(() => {
     void (async () => {
-      await initAudio();
+      await loadTrackList();
       const el = audioRef.current;
       if (!el) return;
       if (isPlayingRef.current) return;
@@ -116,13 +134,13 @@ export function useAmbientAudio(volume: number): UseAmbientAudioResult {
       try {
         await el.play();
       } catch {
-        // Autoplay blocked or file missing — no-op.
-        return;
+        return; // Autoplay blocked or file missing.
       }
       isPlayingRef.current = true;
+      setIsPlaying(true);
       fade(0, Math.max(0, Math.min(1, targetVolumeRef.current)));
     })();
-  }, [initAudio, fade]);
+  }, [loadTrackList, fade]);
 
   const pause = useCallback(() => {
     const el = audioRef.current;
@@ -130,24 +148,61 @@ export function useAmbientAudio(volume: number): UseAmbientAudioResult {
     fade(el.volume, 0, () => {
       el.pause();
       isPlayingRef.current = false;
+      setIsPlaying(false);
     });
   }, [fade]);
+
+  const skipTrack = useCallback(() => {
+    const tracks = tracksRef.current;
+    if (!tracks.length) return;
+    const wasPlaying = isPlayingRef.current;
+    const nextIndex = (currentIndexRef.current + 1) % tracks.length;
+
+    const doSwitch = () => {
+      // Tear down the old element.
+      clearFade();
+      const old = audioRef.current;
+      if (old) { old.pause(); old.src = ''; }
+      audioRef.current = null;
+
+      // Load the new track.
+      const el = loadTrackAt(nextIndex);
+      if (!el || !wasPlaying) return;
+
+      el.volume = 0;
+      void el.play().then(() => {
+        isPlayingRef.current = true;
+        setIsPlaying(true);
+        fade(0, Math.max(0, Math.min(1, targetVolumeRef.current)));
+      }).catch(() => {/* silently ignore */});
+    };
+
+    if (wasPlaying) {
+      // Fade out first, then switch.
+      const el = audioRef.current;
+      if (el) {
+        fade(el.volume, 0, doSwitch);
+      } else {
+        doSwitch();
+      }
+    } else {
+      doSwitch();
+    }
+  }, [clearFade, loadTrackAt, fade]);
 
   const stop = useCallback(() => {
     clearFade();
     const el = audioRef.current;
-    if (el) {
-      el.pause();
-      el.src = '';
-    }
+    if (el) { el.pause(); el.src = ''; }
     audioRef.current = null;
     isPlayingRef.current = false;
-  }, []);
+    setIsPlaying(false);
+  }, [clearFade]);
 
   // Cleanup on unmount.
   useEffect(() => {
     return () => { stop(); };
   }, [stop]);
 
-  return { play, pause, stop, isPlaying: isPlayingRef.current };
+  return { play, pause, skipTrack, stop, isPlaying, trackName };
 }

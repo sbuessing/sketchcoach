@@ -109,3 +109,39 @@
   border-left-color: var(--color-accent);
   background: var(--color-accent-soft);
 }
+
+/* ── Intro / welcome card (shown before any coach messages arrive) ── */
+
+.coach-panel__intro {
+  background: var(--color-paper);
+  border: 1px solid var(--color-shadow);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.coach-panel__intro-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+}
+
+.coach-panel__intro-cue {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--color-ink);
+  line-height: 1.4;
+  border-left: 3px solid var(--color-accent-soft);
+  padding-left: var(--space-2);
+  margin: 0;
+}
+
+.coach-panel__intro-hint {
+  font-size: 0.8rem;
+  color: var(--color-ink-faint);
+  font-style: italic;
+  margin-top: var(--space-1);
+}

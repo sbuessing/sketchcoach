@@ -6,8 +6,6 @@ Things we could add but aren't in the initial build. Kept here for reference as 
 
 ## UI & Flow
 
-- **Slow down advice fetching** — current cadence feels too frequent; cap at no more than once every 20 seconds, and only trigger after the user has been idle for at least 3 seconds; this makes the coach feel more considered and less like a ticker
-- **Remove "Start Drawing" screen** — the content on this screen (coaching intro, technique overview) feels like it belongs as the coach's opening message on the right panel of the drawing screen; removing this screen and going straight to the canvas would reduce friction and feel more immediate
 - **Trace step / sketch layer** — users need a way to rough-sketch before committing to final lines; two options to evaluate: (1) **two layers** — a light "pencil" trace layer underneath a darker "pen" final layer, toggled by visibility; (2) **two tool modes** — a pencil mode (lighter gray strokes) and a pen mode (full black), both on the same layer but visually distinct; the two-tool model may be a clearer cognitive model for new users since it maps to real physical tools they recognize
 
 ---

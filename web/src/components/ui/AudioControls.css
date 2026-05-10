@@ -7,42 +7,24 @@
   margin-right: var(--space-1);
 }
 
-.audio-controls__music-btn,
-.audio-controls__sfx-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid var(--color-shadow);
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background var(--duration-fast) var(--ease-soft);
-  flex-shrink: 0;
-}
-
-.audio-controls__music-btn {
-  cursor: default;
+/* Track name label */
+.audio-controls__track-name {
+  font-size: 0.78rem;
   color: var(--color-ink-faint);
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.01em;
 }
 
-.audio-controls__music-btn--active {
+.audio-controls__track-name--playing {
   color: var(--color-accent);
-  border-color: var(--color-accent-soft);
 }
 
-.audio-controls__sfx-btn:hover {
-  background: var(--color-paper);
-}
-
-.audio-controls__sfx-btn--muted {
-  opacity: 0.5;
-}
-
+/* Volume slider */
 .audio-controls__slider {
-  width: 72px;
+  width: 68px;
   height: 4px;
   appearance: none;
   -webkit-appearance: none;
@@ -50,6 +32,7 @@
   border-radius: 2px;
   outline: none;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .audio-controls__slider::-webkit-slider-thumb {
@@ -63,7 +46,7 @@
 }
 
 .audio-controls__slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+  transform: scale(1.25);
 }
 
 .audio-controls__slider::-moz-range-thumb {
@@ -73,4 +56,31 @@
   border-radius: 50%;
   background: var(--color-accent);
   cursor: pointer;
+}
+
+/* Small icon buttons (skip, sfx toggle) */
+.audio-controls__icon-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--color-shadow);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
+}
+
+.audio-controls__icon-btn:hover {
+  background: var(--color-paper);
+  transform: scale(1.1);
+}
+
+.audio-controls__icon-btn--muted {
+  opacity: 0.45;
 }

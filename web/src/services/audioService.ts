@@ -1,11 +1,9 @@
-// audioService — preloads and plays short SFX clips.
+// audioService — synthesizes UI sound effects via the Web Audio API.
 //
-// Gated by the sfxEnabled pref. Preloading happens lazily on first call so
-// the service can be imported without triggering any network activity until
-// the user actually enters a drawing session.
+// No files required. Each sound is generated procedurally so it works
+// immediately without any network requests or missing-file errors.
 //
 // Usage:
-//   import { sfx } from '../services/audioService';
 //   sfx.play('stroke-end');
 //   sfx.play('button');
 //   sfx.play('complete');
@@ -13,53 +11,161 @@
 
 export type SfxName = 'stroke-end' | 'button' | 'complete' | 'coach';
 
-const SFX_FILES: Record<SfxName, string> = {
-  'stroke-end': '/audio/sfx/stroke-end.wav',
-  'button':     '/audio/sfx/button.wav',
-  'complete':   '/audio/sfx/complete.wav',
-  'coach':      '/audio/sfx/coach.wav',
-};
-
 class AudioService {
-  private pool: Map<SfxName, HTMLAudioElement[]> = new Map();
-  private preloaded = false;
+  private ctx: AudioContext | null = null;
 
-  /** Call once when the user enters a session, or lazily on first play. */
-  preload(): void {
-    if (this.preloaded) return;
-    this.preloaded = true;
-    for (const [name, path] of Object.entries(SFX_FILES) as [SfxName, string][]) {
-      // Small pool of 2 per sound so rapid repeats don't cut each other off.
-      const pool: HTMLAudioElement[] = [];
-      for (let i = 0; i < 2; i++) {
-        const el = new Audio(path);
-        el.preload = 'auto';
-        pool.push(el);
-      }
-      this.pool.set(name, pool);
+  private getCtx(): AudioContext | null {
+    if (this.ctx && this.ctx.state !== 'closed') return this.ctx;
+    try {
+      this.ctx = new AudioContext();
+      return this.ctx;
+    } catch {
+      return null;
     }
   }
 
-  /**
-   * Play an SFX clip.
-   * @param name     The SFX clip to play.
-   * @param enabled  Whether SFX are enabled (from sfxEnabled pref). Default true.
-   * @param volume   0–1 volume multiplier. Default 1.
-   */
-  play(name: SfxName, enabled = true, volume = 1): void {
+  /** Resume the context after a user gesture (browsers suspend it until then). */
+  private async resumeCtx(ctx: AudioContext): Promise<boolean> {
+    if (ctx.state === 'suspended') {
+      try { await ctx.resume(); } catch { return false; }
+    }
+    return ctx.state === 'running';
+  }
+
+  play(name: SfxName, enabled = true, _volume = 1): void {
     if (!enabled) return;
-    this.preload(); // lazy init if not already done
-
-    const pool = this.pool.get(name);
-    if (!pool) return;
-
-    // Find an element that's not currently playing (currentTime === 0 or ended).
-    const el = pool.find((a) => a.paused) ?? pool[0];
-    el.volume = Math.max(0, Math.min(1, volume));
-    el.currentTime = 0;
-    el.play().catch(() => {
-      // File missing, codec unsupported, or autoplay blocked — silent no-op.
+    const ctx = this.getCtx();
+    if (!ctx) return;
+    void this.resumeCtx(ctx).then((ok) => {
+      if (!ok) return;
+      switch (name) {
+        case 'stroke-end': this.playStrokeEnd(ctx); break;
+        case 'button':     this.playButton(ctx);    break;
+        case 'complete':   this.playComplete(ctx);  break;
+        case 'coach':      this.playCoach(ctx);     break;
+      }
     });
+  }
+
+  // ── Soft pencil tap ──────────────────────────────────────────────────────
+  // Short bandpass-filtered noise burst — like a pencil touching paper.
+  private playStrokeEnd(ctx: AudioContext): void {
+    const t = ctx.currentTime;
+    const duration = 0.055;
+
+    // White noise buffer
+    const bufSize = Math.ceil(ctx.sampleRate * duration);
+    const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+
+    // Bandpass — gives it a papery "tap" character
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = 3000;
+    bp.Q.value = 0.8;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.18, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+
+    src.connect(bp);
+    bp.connect(gain);
+    gain.connect(ctx.destination);
+    src.start(t);
+    src.stop(t + duration);
+  }
+
+  // ── Crisp UI click ───────────────────────────────────────────────────────
+  // Very short sine pulse — snappy and neutral.
+  private playButton(ctx: AudioContext): void {
+    const t = ctx.currentTime;
+
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(820, t);
+    osc.frequency.exponentialRampToValueAtTime(300, t + 0.04);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.22, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.045);
+  }
+
+  // ── Gentle completion chime ──────────────────────────────────────────────
+  // Three rising sine tones — C5 → E5 → G5, staggered, soft bell quality.
+  private playComplete(ctx: AudioContext): void {
+    const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+    notes.forEach((freq, i) => {
+      const t = ctx.currentTime + i * 0.13;
+
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+
+      // Add a gentle overtone for bell character
+      const osc2 = ctx.createOscillator();
+      osc2.type = 'sine';
+      osc2.frequency.value = freq * 2.756; // inharmonic partial
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.18, t + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+
+      const gain2 = ctx.createGain();
+      gain2.gain.setValueAtTime(0, t);
+      gain2.gain.linearRampToValueAtTime(0.06, t + 0.01);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+
+      osc.connect(gain);
+      osc2.connect(gain2);
+      gain.connect(ctx.destination);
+      gain2.connect(ctx.destination);
+
+      osc.start(t); osc.stop(t + 0.6);
+      osc2.start(t); osc2.stop(t + 0.4);
+    });
+  }
+
+  // ── Coach ping ───────────────────────────────────────────────────────────
+  // Single soft bell tone — unobtrusive but audible.
+  private playCoach(ctx: AudioContext): void {
+    const t = ctx.currentTime;
+    const freq = 740; // F#5 — bright but warm
+
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+
+    const osc2 = ctx.createOscillator();
+    osc2.type = 'sine';
+    osc2.frequency.value = freq * 3.0;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(0.2, t + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+
+    const gain2 = ctx.createGain();
+    gain2.gain.setValueAtTime(0, t);
+    gain2.gain.linearRampToValueAtTime(0.05, t + 0.008);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+
+    osc.connect(gain);
+    osc2.connect(gain2);
+    gain.connect(ctx.destination);
+    gain2.connect(ctx.destination);
+
+    osc.start(t); osc.stop(t + 0.55);
+    osc2.start(t); osc2.stop(t + 0.3);
   }
 }
 

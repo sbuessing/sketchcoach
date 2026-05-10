@@ -96,7 +96,7 @@ function ProjectCard({
   }
 
   return (
-    <Link to={`/coach/${project.slug}`} className="card__link">
+    <Link to={`/draw/${project.slug}`} className="card__link">
       {inner}
     </Link>
   );
