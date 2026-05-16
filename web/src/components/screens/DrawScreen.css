@@ -27,15 +27,21 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .draw-screen__title {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .draw-screen__focus {
   color: var(--color-ink-soft);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  white-space: nowrap;
 }
 
 .draw-screen__focus strong {
@@ -43,17 +49,92 @@
   font-weight: 500;
 }
 
+/* ── Header tool controls (center, pushed by margin-left: auto) ── */
+
+.draw-screen__header-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.draw-screen__icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--color-ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--duration-fast) var(--ease-soft),
+    color var(--duration-fast) var(--ease-soft);
+  flex-shrink: 0;
+}
+
+.draw-screen__icon-btn:hover:not(:disabled) {
+  background: var(--color-paper-warm);
+  color: var(--color-ink);
+}
+
+.draw-screen__icon-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Far-right header group (audio + finish) ── */
+
+.draw-screen__header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-shadow);
+  margin-left: var(--space-2);
+}
+
+.draw-screen__finish-btn {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  font-size: 0.9rem;
+  background: var(--color-accent);
+  color: var(--color-paper);
+  border: none;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft),
+    opacity var(--duration-fast) var(--ease-soft);
+}
+
+.draw-screen__finish-btn:hover:not(:disabled) {
+  background: var(--color-accent-strong);
+  transform: translateY(-1px);
+}
+
+.draw-screen__finish-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Main layout: steps sidebar + canvas ── */
+
 .draw-screen__layout {
   flex: 1;
   display: grid;
-  grid-template-columns: 280px 1fr 320px;
+  grid-template-columns: 260px 1fr;
   gap: var(--space-3);
-  min-height: 0; /* allow children to shrink */
+  min-height: 0;
   overflow: hidden;
 }
 
-.draw-screen__steps,
-.draw-screen__coach {
+.draw-screen__steps {
   min-height: 0;
   overflow-y: auto;
 }
@@ -62,38 +143,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
   min-height: 0;
+  position: relative;
 }
 
 .draw-screen__canvas {
-  /* Square canvas: match the shorter of available width or height */
   aspect-ratio: 1 / 1;
   width: 100%;
-  max-width: calc(100vh - 120px); /* subtract header + padding */
-  max-height: calc(100vh - 120px);
+  max-width: calc(100vh - 100px);
+  max-height: calc(100vh - 100px);
   min-height: 0;
   display: flex;
 }
 
-@media (max-width: 1024px) {
-  .draw-screen__layout {
-    grid-template-columns: 240px 1fr 280px;
-  }
-}
-
 @media (max-width: 860px) {
-  /* Stack panels under the canvas; canvas stays primary */
+  .draw-screen__header-tools {
+    display: none;
+  }
+  .draw-screen__title {
+    font-size: 1.1rem;
+  }
   .draw-screen {
     overflow-y: auto;
   }
   .draw-screen__layout {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto;
     overflow: visible;
   }
-  .draw-screen__steps,
-  .draw-screen__coach {
+  .draw-screen__steps {
     max-height: 40vh;
   }
   .draw-screen__canvas {

@@ -10,6 +10,8 @@ interface CoachPanelProps {
   disabled?: boolean;
   /** Message to show when disabled. Defaults to a generic fallback. */
   disabledReason?: string;
+  /** 'toast' shows only the latest message as a floating overlay. Default is the full panel. */
+  variant?: 'panel' | 'toast';
 }
 
 export default function CoachPanel({
@@ -19,7 +21,19 @@ export default function CoachPanel({
   error,
   disabled,
   disabledReason,
+  variant = 'panel',
 }: CoachPanelProps) {
+  if (variant === 'toast') {
+    return <CoachToast
+      messages={messages}
+      isFetching={isFetching}
+      focusGuideline={focusGuideline}
+      error={error}
+      disabled={disabled}
+      disabledReason={disabledReason}
+    />;
+  }
+
   return (
     <div className="coach-panel">
       {focusGuideline && (
@@ -73,6 +87,51 @@ export default function CoachPanel({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function CoachToast({
+  messages,
+  isFetching,
+  focusGuideline,
+  error,
+  disabled,
+}: Omit<CoachPanelProps, 'variant'>) {
+  const latestMessage = messages[messages.length - 1] ?? null;
+
+  if (disabled) {
+    return null;
+  }
+
+  return (
+    <div className="coach-toast" aria-live="polite">
+      {error && !latestMessage && (
+        <p className="coach-toast__text coach-toast__text--error">
+          Coach hiccup: {error}
+        </p>
+      )}
+
+      {isFetching && !latestMessage && (
+        <p className="coach-toast__loading">
+          <span className="dot" />
+          <span className="dot" />
+          <span className="dot" />
+          <span>Looking at your sketch…</span>
+        </p>
+      )}
+
+      {latestMessage && (
+        <p key={latestMessage.id} className={`coach-toast__text coach-toast__text--${latestMessage.encouragement}`}>
+          {latestMessage.text}
+        </p>
+      )}
+
+      {!latestMessage && !isFetching && !error && focusGuideline?.coachCues[0] && (
+        <p className="coach-toast__text coach-toast__text--cue">
+          "{focusGuideline.coachCues[0]}"
+        </p>
+      )}
     </div>
   );
 }

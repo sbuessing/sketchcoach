@@ -32,24 +32,25 @@ class AudioService {
     return ctx.state === 'running';
   }
 
-  play(name: SfxName, enabled = true): void {
+  play(name: SfxName, enabled = true, volume = 1): void {
     if (!enabled) return;
     const ctx = this.getCtx();
     if (!ctx) return;
+    const v = Math.max(0, Math.min(1, volume));
     void this.resumeCtx(ctx).then((ok) => {
       if (!ok) return;
       switch (name) {
-        case 'stroke-end': this.playStrokeEnd(ctx); break;
-        case 'button':     this.playButton(ctx);    break;
-        case 'complete':   this.playComplete(ctx);  break;
-        case 'coach':      this.playCoach(ctx);     break;
+        case 'stroke-end': this.playStrokeEnd(ctx, v); break;
+        case 'button':     this.playButton(ctx, v);    break;
+        case 'complete':   this.playComplete(ctx, v);  break;
+        case 'coach':      this.playCoach(ctx, v);     break;
       }
     });
   }
 
   // ── Soft pencil tap ──────────────────────────────────────────────────────
   // Short bandpass-filtered noise burst — like a pencil touching paper.
-  private playStrokeEnd(ctx: AudioContext): void {
+  private playStrokeEnd(ctx: AudioContext, volume: number): void {
     const t = ctx.currentTime;
     const duration = 0.055;
 
@@ -69,7 +70,7 @@ class AudioService {
     bp.Q.value = 0.8;
 
     const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0.18, t);
+    gain.gain.setValueAtTime(0.18 * volume, t);
     gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
 
     src.connect(bp);
@@ -81,7 +82,7 @@ class AudioService {
 
   // ── Crisp UI click ───────────────────────────────────────────────────────
   // Very short sine pulse — snappy and neutral.
-  private playButton(ctx: AudioContext): void {
+  private playButton(ctx: AudioContext, volume: number): void {
     const t = ctx.currentTime;
 
     const osc = ctx.createOscillator();
@@ -90,7 +91,7 @@ class AudioService {
     osc.frequency.exponentialRampToValueAtTime(300, t + 0.04);
 
     const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0.22, t);
+    gain.gain.setValueAtTime(0.22 * volume, t);
     gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
 
     osc.connect(gain);
@@ -101,7 +102,7 @@ class AudioService {
 
   // ── Gentle completion chime ──────────────────────────────────────────────
   // Three rising sine tones — C5 → E5 → G5, staggered, soft bell quality.
-  private playComplete(ctx: AudioContext): void {
+  private playComplete(ctx: AudioContext, volume: number): void {
     const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
     notes.forEach((freq, i) => {
       const t = ctx.currentTime + i * 0.13;
@@ -117,12 +118,12 @@ class AudioService {
 
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.18, t + 0.01);
+      gain.gain.linearRampToValueAtTime(0.18 * volume, t + 0.01);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
 
       const gain2 = ctx.createGain();
       gain2.gain.setValueAtTime(0, t);
-      gain2.gain.linearRampToValueAtTime(0.06, t + 0.01);
+      gain2.gain.linearRampToValueAtTime(0.06 * volume, t + 0.01);
       gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
 
       osc.connect(gain);
@@ -137,7 +138,7 @@ class AudioService {
 
   // ── Coach ping ───────────────────────────────────────────────────────────
   // Single soft bell tone — unobtrusive but audible.
-  private playCoach(ctx: AudioContext): void {
+  private playCoach(ctx: AudioContext, volume: number): void {
     const t = ctx.currentTime;
     const freq = 740; // F#5 — bright but warm
 
@@ -151,12 +152,12 @@ class AudioService {
 
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(0.2, t + 0.008);
+    gain.gain.linearRampToValueAtTime(0.2 * volume, t + 0.008);
     gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
 
     const gain2 = ctx.createGain();
     gain2.gain.setValueAtTime(0, t);
-    gain2.gain.linearRampToValueAtTime(0.05, t + 0.008);
+    gain2.gain.linearRampToValueAtTime(0.05 * volume, t + 0.008);
     gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
 
     osc.connect(gain);

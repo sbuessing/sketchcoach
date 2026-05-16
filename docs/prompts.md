@@ -215,3 +215,17 @@ I want to make this easier for first time sketchers, and avoid feeling like an o
 
 
 Next, I don't think we need the advice to be  a scrollable window.  You probably just need the most recent advice.  Let's try making it a toast but floating over the bottom of the screen, preferrably below the drawing if the layout allows for that.
+
+**2026-05-16 09:25**
+I want this to be a great drawing experience for me, and right now the pencil and pen don't feel... correct.  I want this to feel more like what you would real world do where you sketch lightly, then erase, then ink final.  I also want the inking to feel more expressive.  And eventually, I want that reflected in the instructions to guide users on how to use those two techniques together.
+
+First of all, let's work on making ink more expressive by using touch pad pressure sensitivity.  I acknowledge it will be a Safari only feature, but on Safari I'd like to use that instead of our current adaptive width.  Start with implementation of that.
+
+**2026-05-16 09:29**
+Center the advice box on the drawing
+
+**2026-05-16 09:32**
+The music is overpowering.  I didn't adjust the tracks, so let's automatically divide the music audio by half, and then keep all sound effects and music controlled by the one volume bar.
+
+**2026-05-16 09:33**
+It's not working.  I bounced the server and hard refreshed Safari.  Help me troubleshoot this.  Also, turn off adaptive width on pencil sketch it should always be fixed width.

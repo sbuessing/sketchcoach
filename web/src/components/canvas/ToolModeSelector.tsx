@@ -43,7 +43,7 @@ export default function ToolModeSelector({ drawMode, toolMode, onChange }: ToolM
         aria-pressed={isErase}
         title={`Erase — click strokes to remove them (${drawMode} only)`}
       >
-        ◌
+        🧽
       </button>
     </div>
   );

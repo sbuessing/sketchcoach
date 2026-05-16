@@ -7,21 +7,36 @@ import { getStroke } from 'perfect-freehand';
 import type { DrawMode, Stroke, StrokePoint, StrokePointerType } from '../shared/types';
 
 export const VIEWBOX_SIZE = 1000;
-export const BRUSH_SIZE = 9;
-export const PENCIL_SIZE = 6;
+export const BRUSH_SIZE = 12;
+export const PENCIL_SIZE = 5;
 
-// Base perfect-freehand options shared across modes.
+// Safari on macOS is the only browser that exposes Force Touch trackpad pressure
+// through pointer events. We detect it once at module load so callers can pass
+// raw e.pressure without coercing 0 → 0.5.
+export const hasSafariPressure: boolean = (() => {
+  if (typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent;
+  return /Safari/.test(ua) && !/Chrome/.test(ua) && !/Android/.test(ua) && /Mac OS X/.test(ua);
+})();
+
+// Expressive inking pen — noticeable width swing with pressure, tapered ends.
+// With real pressure (stylus or Safari Force Touch) the contrast between a
+// hard press and a whisper stroke is dramatic and calligraphic.
 const BASE_PEN = {
   size: BRUSH_SIZE,
-  thinning: 0.5,
+  thinning: 0.75,
   smoothing: 0.5,
-  streamline: 0.5,
+  streamline: 0.4,
+  easing: (t: number) => t,
+  start: { taper: 20, easing: (t: number) => t * t * t },
+  end:   { taper: 20, easing: (t: number) => { const u = t - 1; return u * u * u + 1; } },
 };
 
-// Pencil feels finer and more variable: smaller, more thinning, slightly more streamline.
+// Pencil for loose construction sketching — fine, consistent, no tapers.
+// Deliberately plain so it reads as a disposable under-drawing layer.
 const BASE_PENCIL = {
   size: PENCIL_SIZE,
-  thinning: 0.65,
+  thinning: 0.5,
   smoothing: 0.5,
   streamline: 0.55,
 };
@@ -35,6 +50,8 @@ const OPTIONS: Record<DrawMode, Record<StrokePointerType, ReturnType<typeof buil
   pen: {
     pen:   buildOptions(false, 'pen'),
     touch: buildOptions(false, 'pen'),
+    // Mouse without real pressure: simulate so the stroke still tapers nicely.
+    // Overridden at runtime for Safari Force Touch (see pointsToPath).
     mouse: buildOptions(true,  'pen'),
   },
   pencil: {
@@ -44,9 +61,13 @@ const OPTIONS: Record<DrawMode, Record<StrokePointerType, ReturnType<typeof buil
   },
 };
 
+// Pen options used for Safari mouse events where Force Touch gives real pressure.
+const SAFARI_PEN_MOUSE = buildOptions(false, 'pen');
+
 /** SVG fill colour and opacity for a given draw mode. */
 export function getStrokeStyle(drawMode?: DrawMode): { fill: string; opacity: string } {
-  if (drawMode === 'pencil') return { fill: '#808080', opacity: '0.55' };
+  // Pencil is intentionally light and ghostly — it's a disposable under-drawing.
+  if (drawMode === 'pencil') return { fill: '#808080', opacity: '0.4' };
   return { fill: '#2d3f2a', opacity: '1' };
 }
 
@@ -60,7 +81,13 @@ export function pointsToPath(
   const inputs = points.map(
     (p) => [p.x, p.y, p.pressure] as [number, number, number],
   );
-  const outline = getStroke(inputs, OPTIONS[drawMode][pointerType]);
+  // On Safari+Mac, mouse events carry real Force Touch pressure — use it for
+  // the pen (not pencil; pencil intentionally ignores pressure).
+  const opts =
+    hasSafariPressure && pointerType === 'mouse' && drawMode === 'pen'
+      ? SAFARI_PEN_MOUSE
+      : OPTIONS[drawMode][pointerType];
+  const outline = getStroke(inputs, opts);
   return outlineToPath(outline);
 }
 

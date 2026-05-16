@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState, type PointerEvent as RPointerEvent } from 'react';
 import type { DrawMode, Stroke, StrokePoint, StrokePointerType, ToolMode } from '../../shared/types';
-import { VIEWBOX_SIZE, getStrokeStyle, makeId, pointsToPath } from '../../services/strokeUtils';
+import { VIEWBOX_SIZE, getStrokeStyle, hasSafariPressure, makeId, pointsToPath } from '../../services/strokeUtils';
 import './SketchCanvas.css';
 
 function normalizePointerType(t: string): StrokePointerType {
@@ -22,6 +22,15 @@ const CURSOR: Record<ToolMode, Record<DrawMode, string>> = {
   draw:  { pen: 'crosshair', pencil: 'crosshair' },
   erase: { pen: 'cell',      pencil: 'cell'       },
 };
+
+// On Safari+Mac, pointer events from a Force Touch trackpad carry real pressure
+// data even though pointerType is 'mouse'. We pass it through raw so the stroke
+// engine can use it (simulatePressure will be false for that path).
+// On every other browser/device, 0 pressure means the button isn't held — coerce
+// to 0.5 so the simulated path has something sensible to work with.
+function capturePressure(e: RPointerEvent<SVGSVGElement>): number {
+  return hasSafariPressure ? e.pressure : (e.pressure || 0.5);
+}
 
 export default function SketchCanvas({
   strokes,
@@ -97,7 +106,7 @@ export default function SketchCanvas({
       strokeStartRef.current = performance.now();
 
       const { x, y } = screenToSvg(e.clientX, e.clientY);
-      livePointsRef.current = [{ x, y, pressure: e.pressure || 0.5, t: 0 }];
+      livePointsRef.current = [{ x, y, pressure: capturePressure(e), t: 0 }];
       setLivePathD(pointsToPath(livePointsRef.current, livePointerTypeRef.current, drawMode));
     },
     [toolMode, handleEraseDown, screenToSvg, drawMode],
@@ -111,7 +120,7 @@ export default function SketchCanvas({
       const { x, y } = screenToSvg(e.clientX, e.clientY);
       livePointsRef.current = [
         ...livePointsRef.current,
-        { x, y, pressure: e.pressure || 0.5, t: performance.now() - strokeStartRef.current },
+        { x, y, pressure: capturePressure(e), t: performance.now() - strokeStartRef.current },
       ];
       setLivePathD(pointsToPath(livePointsRef.current, livePointerTypeRef.current, drawMode));
     },

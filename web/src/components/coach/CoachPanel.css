@@ -110,6 +110,88 @@
   background: var(--color-accent-soft);
 }
 
+/* ── Toast variant ── */
+
+.coach-toast {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 520px;
+  width: calc(100% - var(--space-6, 48px));
+  z-index: 50;
+  pointer-events: none;
+  animation: toast-fade-in 0.35s var(--ease-soft, ease) both;
+}
+
+@keyframes toast-fade-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.coach-toast__text {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  border-left: 3px solid var(--color-accent-soft);
+  margin: 0;
+}
+
+.coach-toast__text--gentle-praise {
+  border-left-color: var(--color-tier-beginner);
+}
+
+.coach-toast__text--celebrate {
+  border-left-color: var(--color-accent);
+  background: rgba(255, 251, 245, 0.95);
+}
+
+.coach-toast__text--error {
+  border-left-color: var(--color-tier-intermediate);
+  color: var(--color-ink-soft);
+}
+
+.coach-toast__text--cue {
+  font-style: italic;
+  color: var(--color-ink-soft);
+  border-left-color: var(--color-shadow);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.coach-toast__loading {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.88rem;
+  color: var(--color-ink-soft);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.coach-toast__loading .dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-ink-soft);
+  animation: coach-bounce 1s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.coach-toast__loading .dot:nth-child(2) { animation-delay: 0.15s; }
+.coach-toast__loading .dot:nth-child(3) { animation-delay: 0.3s; }
+
 /* ── Intro / welcome card (shown before any coach messages arrive) ── */
 
 .coach-panel__intro {

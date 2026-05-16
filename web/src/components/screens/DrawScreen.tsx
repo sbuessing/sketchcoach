@@ -16,7 +16,6 @@ import { useAmbientAudio } from '../../hooks/useAmbientAudio';
 import { sfx } from '../../services/audioService';
 import { prefs } from '../../services/prefsStore';
 import SketchCanvas from '../canvas/SketchCanvas';
-import Toolbar from '../canvas/Toolbar';
 import StepList from '../steps/StepList';
 import CoachPanel from '../coach/CoachPanel';
 import AudioControls from '../ui/AudioControls';
@@ -48,7 +47,6 @@ export default function DrawScreen() {
     strokes,
     addStroke,
     undo,
-    eraseAll,
     eraseStroke,
     resumeStatus,
     resume,
@@ -66,7 +64,7 @@ export default function DrawScreen() {
   const handleToolChange = useCallback((dm: DrawMode, tm: ToolMode) => {
     setDrawMode(dm);
     setToolMode(tm);
-    sfx.play('button', sfxEnabled);
+    sfx.play('button', sfxEnabled, audioVolume);
   }, [sfxEnabled]);
 
   // Load step list for this project
@@ -136,13 +134,13 @@ export default function DrawScreen() {
   const coachCountRef = useRef(coachMessages.length);
   useEffect(() => {
     if (coachMessages.length > coachCountRef.current) {
-      sfx.play('coach', sfxEnabled);
+      sfx.play('coach', sfxEnabled, audioVolume);
     }
     coachCountRef.current = coachMessages.length;
   }, [coachMessages.length, sfxEnabled]);
 
   const handleStrokeEnd = useCallback(() => {
-    sfx.play('stroke-end', sfxEnabled);
+    sfx.play('stroke-end', sfxEnabled, audioVolume);
   }, [sfxEnabled]);
 
   if (!project) {
@@ -190,6 +188,46 @@ export default function DrawScreen() {
             </p>
           )}
         </div>
+
+        <div className="draw-screen__header-tools">
+          <ToolModeSelector
+            drawMode={drawMode}
+            toolMode={toolMode}
+            onChange={handleToolChange}
+          />
+          <button
+            className="draw-screen__icon-btn"
+            type="button"
+            onClick={() => { sfx.play('button', sfxEnabled, audioVolume); undo(); }}
+            disabled={strokes.length === 0}
+            aria-label="Undo last stroke"
+            title="Undo"
+          >
+            ↩
+          </button>
+          <SaveIndicator savedAt={savedAt} />
+        </div>
+
+        <div className="draw-screen__header-right">
+          <AudioControls
+            volume={audioVolume}
+            onVolumeChange={setAudioVolume}
+            sfxEnabled={sfxEnabled}
+            onSfxToggle={() => setSfxEnabled(!sfxEnabled)}
+            isPlaying={ambient.isPlaying}
+            trackName={ambient.trackName}
+            onSkipTrack={ambient.skipTrack}
+            onPlayPause={() => ambient.isPlaying ? ambient.pause() : ambient.play()}
+          />
+          <button
+            className="draw-screen__finish-btn"
+            type="button"
+            onClick={handleFinish}
+            disabled={strokes.length === 0}
+          >
+            Finish
+          </button>
+        </div>
       </header>
 
       <div className="draw-screen__layout">
@@ -214,39 +252,6 @@ export default function DrawScreen() {
               toolMode={toolMode}
             />
           </div>
-          <Toolbar
-            canUndo={strokes.length > 0}
-            canErase={strokes.length > 0}
-            canFinish={strokes.length > 0}
-            onUndo={() => { sfx.play('button', sfxEnabled); undo(); }}
-            onErase={() => { sfx.play('button', sfxEnabled); eraseAll(); }}
-            onFinish={handleFinish}
-            leftSlot={
-              <AudioControls
-                volume={audioVolume}
-                onVolumeChange={setAudioVolume}
-                sfxEnabled={sfxEnabled}
-                onSfxToggle={() => setSfxEnabled(!sfxEnabled)}
-                isPlaying={ambient.isPlaying}
-                trackName={ambient.trackName}
-                onSkipTrack={ambient.skipTrack}
-                onPlayPause={() => ambient.isPlaying ? ambient.pause() : ambient.play()}
-              />
-            }
-            centerSlot={
-              <>
-                <ToolModeSelector
-                  drawMode={drawMode}
-                  toolMode={toolMode}
-                  onChange={handleToolChange}
-                />
-                <SaveIndicator savedAt={savedAt} />
-              </>
-            }
-          />
-        </main>
-
-        <aside className="draw-screen__coach">
           <CoachPanel
             messages={coachMessages}
             isFetching={coachFetching}
@@ -254,8 +259,9 @@ export default function DrawScreen() {
             error={coachError}
             disabled={!isCoachConfigured()}
             disabledReason="Add your Anthropic API key via the home screen settings to enable coaching."
+            variant="toast"
           />
-        </aside>
+        </main>
       </div>
 
       {resumeStatus === 'has-resume' && (

@@ -12,6 +12,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 const TRACKS_URL = '/audio/tracks.json';
 const FADE_DURATION_MS = 500;
 const FADE_STEPS = 20;
+const MUSIC_SCALE = 0.5; // tracks are loud; halve before applying user volume
+
+const toMusicVolume = (v: number) => Math.max(0, Math.min(1, v * MUSIC_SCALE));
 
 export interface UseAmbientAudioOptions {
   /** The track filename to start from (avoids repeating the last-played track). */
@@ -56,7 +59,7 @@ export function useAmbientAudio(volume: number, options?: UseAmbientAudioOptions
   // Update volume immediately when pref changes.
   useEffect(() => {
     if (audioRef.current && isPlayingRef.current) {
-      audioRef.current.volume = Math.max(0, Math.min(1, volume));
+      audioRef.current.volume = toMusicVolume(volume);
     }
   }, [volume]);
 
@@ -149,7 +152,7 @@ export function useAmbientAudio(volume: number, options?: UseAmbientAudioOptions
       }
       isPlayingRef.current = true;
       setIsPlaying(true);
-      fade(0, Math.max(0, Math.min(1, targetVolumeRef.current)));
+      fade(0, toMusicVolume(targetVolumeRef.current));
     })();
   }, [loadTrackList, fade]);
 
@@ -184,7 +187,7 @@ export function useAmbientAudio(volume: number, options?: UseAmbientAudioOptions
       void el.play().then(() => {
         isPlayingRef.current = true;
         setIsPlaying(true);
-        fade(0, Math.max(0, Math.min(1, targetVolumeRef.current)));
+        fade(0, toMusicVolume(targetVolumeRef.current));
       }).catch(() => {/* silently ignore */});
     };
 
