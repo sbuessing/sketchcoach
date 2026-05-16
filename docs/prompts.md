@@ -266,3 +266,14 @@ One additional thing, we have pencil and pen in our UI and the instructions don'
 
 **2026-05-16 10:03**
 Add to ideas.md, the ability to tap erase a full line, or drag erase a portion of a line.
+
+**2026-05-16 10:11**
+1. yes ok to retire
+2. We can loosen the number of projects to better match the scene.  Let's say 10 to 20, and bias towards more projects at early levels, since they are shorters.  Like 4, 4, 2, 1 or 6, 6, 4, 2
+3. Let's remove project and scene unlock, if an expert sketcher wants to start at a high level that's fine.
+4. Let's store all scenes in local state and treat it just as navigation.   Users are welcome to switch between scenes.
+5.
+
+**2026-05-16 10:13**
+There was no number 5.  Add scene completion ceremony to ideas.md I like that.  Let's not worry about scaling and fidelity yet.
+Backgrounds - I do think we should have a light sketch background that we drop your images on top of.  Let's just put that in ideas.md for now.

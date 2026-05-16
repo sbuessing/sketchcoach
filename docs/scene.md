@@ -1,6 +1,8 @@
-# Sketch Coach — Assembled Scene Spec
+# Sketch Coach — Assembled Scenes Spec
 
 Each completed drawing populates a shared scene canvas. The scene starts as a beautiful, evocative background and fills in drawing by drawing until it becomes a fully realised composition. Every project is still a standalone drawing exercise with coaching — the scene layer is the reward.
+
+**v2 direction:** Ship **three** scenes — Harbor, Windowsill, Garden Courtyard — each a full 16-project set with its own background and slot layout. The home screen gets a **scene selector**; the user picks which scene they're working on and the project grid filters to that scene. Future: AI-generated custom scenes (see `ideas.md`).
 
 ---
 
@@ -14,9 +16,9 @@ Each completed drawing populates a shared scene canvas. The scene starts as a be
 
 ---
 
-## Three Scene Options
+## The Three Scenes
 
-### Option A — Harbor at Golden Hour ⭐ Recommended
+### Scene 1 — Harbor at Golden Hour
 
 A fishing dock at late afternoon, looking out over calm water toward a distant headland and lighthouse. The dock planks recede in perspective. You can smell the sea.
 
@@ -45,9 +47,11 @@ A fishing dock at late afternoon, looking out over calm water toward a distant h
 
 **Background treatment:** Warm cream-to-amber sky with a few loose cloud marks. Water as horizontal pencil lines, slightly denser near the horizon. Dock planks as a one-point perspective grid converging center-right, drawn in pen with warm brown ink weight. Distant headland: a single soft curve line at the horizon.
 
+**Identity:** *Adventurous, atmospheric, romantic.* For the user who wants to draw the world outside their window.
+
 ---
 
-### Option B — Morning Windowsill
+### Scene 2 — Morning Windowsill
 
 A wide kitchen or studio windowsill in morning light. A double-hung window looks out onto a soft garden. Objects sit on the sill and counter below.
 
@@ -70,14 +74,11 @@ A wide kitchen or studio windowsill in morning light. A double-hung window looks
 - Classic still-life format — a recognized art tradition
 - Warm, domestic, aspirational
 
-**Why it's the second choice:**
-- The horizontal arrangement is less spatially interesting — everything is on one or two shelves
-- Objects feel like a catalogue rather than a place
-- Less depth layering opportunity
+**Identity:** *Cozy, domestic, contemplative.* Classic still-life territory — the most beginner-friendly of the three.
 
 ---
 
-### Option C — Garden Courtyard
+### Scene 3 — Garden Courtyard
 
 A walled Mediterranean courtyard in afternoon light, viewed from a slightly elevated angle. Terracotta tiles in perspective, a tree trunk, a low stone wall, and a scatter of garden objects.
 
@@ -100,14 +101,17 @@ A walled Mediterranean courtyard in afternoon light, viewed from a slightly elev
 - Great mix of architectural, botanical, and animal subjects
 - The perspective tile floor gives immediate spatial depth
 
-**Why it's third:**
-- Small animals (snail, ladybug, bee, butterfly) are fun but don't teach as much
-- The gate and trellis are complex to draw well at any tier
-- Harder to see individual contributions clearly in the assembled scene
+**Identity:** *Whimsical, alive, full of small joys.* The scene with the most character and the widest variety of subjects.
 
 ---
 
-## Recommended Scene: Harbor at Golden Hour
+## Detailed Build Specs
+
+The three sections below give each scene the full treatment: background, 16-object catalog with positions and tiers, and intentional overlaps. This is the content brief — step files are written from this.
+
+---
+
+## Scene 1 — Harbor at Golden Hour
 
 ### Background SVG
 
@@ -208,16 +212,229 @@ The six beginner objects are distributed across the scene so early completions p
 
 ---
 
-## Data Model Changes
+## Scene 2 — Morning Windowsill
 
-### Project additions
+### Background SVG
 
-Each project entry in `projects.json` gets a `sceneSlot` field:
+A wide, generous windowsill with morning light streaming in from the upper-left. The background carries strong domestic warmth before any object is drawn.
+
+**Components:**
+- **Window frame:** A double-hung window occupying the upper two-thirds of the canvas, drawn in pen weight. Vertical sash bar at center, simple sill and apron at the bottom of the window.
+- **Outside garden view:** Behind the glass, loose impressionistic plant shapes — soft round bushes, a hint of a tree trunk, a few leaf marks. All in pencil weight, low opacity, suggesting "out there" without competing for attention.
+- **Morning light rays:** Two or three faint diagonal pencil strokes coming down from the upper-left, suggesting sun through the window.
+- **Windowsill surface:** A horizontal line at the base of the window (y ≈ 600), then a deeper sill running to the bottom edge. Wood grain hinted at with 3–4 long horizontal pencil lines.
+- **Wall:** The areas left of the window and right of the window are warm cream (the paper color). A single short shadow line under the window frame suggests it sits on the wall.
+
+Before any object is drawn, the scene reads as *a sunlit kitchen window in the morning, ready for breakfast to assemble.*
+
+### Object Catalog
+
+#### Z-Layer 1 — Behind/on the window
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 1 | Small framed picture | Beginner | 100, 220 | 180 × 160 | `simple-shapes-first`, `confident-lines` |
+| 2 | Hanging herb bundle | Beginner | 500, 130 | 160 × 160 | `find-the-gesture`, `embrace-imperfection` |
+| 3 | Bird outside window | Developing | 760, 240 | 180 × 140 | `find-the-gesture`, `suggest-dont-render` |
+
+#### Z-Layer 2 — Back of the windowsill (taller items)
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 4 | Potted herb (rosemary) | Beginner | 130, 560 | 170 × 220 | `simple-shapes-first`, `find-the-axis` |
+| 5 | Glass bottle with single flower | Developing | 320, 480 | 130 × 280 | `find-the-axis`, `clean-junctions` |
+| 6 | Ceramic crock | Developing | 480, 540 | 160 × 220 | `find-the-axis`, `mind-the-curves` |
+| 7 | Small succulent in pot | Beginner | 640, 580 | 140 × 180 | `simple-shapes-first`, `embrace-imperfection` |
+| 8 | Flower vase | Intermediate | 800, 470 | 170 × 290 | `find-the-axis`, `mind-the-curves`, `clean-junctions` |
+
+#### Z-Layer 3 — Counter / front of sill (laid out)
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 9  | Lemon | Beginner | 100, 800 | 130 × 100 | `simple-shapes-first`, `embrace-imperfection` |
+| 10 | Apple | Beginner | 230, 790 | 140 × 140 | `start-light`, `find-the-axis`, `embrace-imperfection` |
+| 11 | Pear | Beginner | 370, 790 | 130 × 150 | `find-the-gesture`, `mind-the-curves` |
+| 12 | Bunch of grapes | Developing | 510, 800 | 160 × 150 | `show-overlap`, `mind-the-curves` |
+| 13 | Teacup with saucer | Developing | 680, 830 | 160 × 110 | `find-the-axis`, `clean-junctions` |
+| 14 | Open book | Developing | 850, 850 | 180 × 110 | `notice-the-angles`, `clean-junctions` |
+
+#### Z-Layer 4 — Near edge of counter
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 15 | Honey jar (with dipper) | Intermediate | 360, 910 | 130 × 170 | `find-the-axis`, `show-overlap` |
+| 16 | Folded napkin | Advanced | 580, 920 | 200 × 130 | `notice-the-angles`, `vary-line-weight`, `edit-with-restraint` |
+
+### Scene Composition Map
+
+```
+y=0   ┌────────────────────────────────────────────────────────┐
+      │  [picture]      WINDOW + GARDEN OUTSIDE                │
+      │                 [herbs hanging]      [bird]            │ ← z:1
+y=400 │                                                        │
+      ├────────────────────────────────────────────────────────┤ ← sill begins
+      │  [potted    [bottle+   [crock]  [succulent]  [vase]   │ ← z:2
+      │   herb]      flower]                                   │
+y=750 ├────────────────────────────────────────────────────────┤ ← counter edge
+      │  [lemon] [apple] [pear] [grapes] [teacup] [book]      │ ← z:3
+y=880 │             [honey jar]      [folded napkin]           │ ← z:4
+y=1000└────────────────────────────────────────────────────────┘
+```
+
+#### Intentional overlaps:
+
+- **Herb bundle hangs in front of window frame** — bundle in z:1 drawn after window frame; rope/twine cleanly covers the frame line behind it
+- **Vase and grapes** — grapes slightly overlap the base of the vase if their slots touch; grapes (z:3) are drawn after vase (z:2)
+- **Honey jar overlaps counter edge** — jar (z:4) is drawn last, sitting on top of the implied edge line
+- **Bird outside window** — drawn behind the window glass, so it appears "through" the frame. The frame muntins stay drawn on top.
+
+### Tier Distribution
+
+| Tier | Count | Objects |
+|------|-------|---------|
+| Beginner | 6 | Framed picture, herb bundle, potted herb, succulent, lemon, apple, pear *(7 listed; drop one)* |
+| Developing | 6 | Bird outside, glass bottle, ceramic crock, grapes, teacup, open book |
+| Intermediate | 3 | Flower vase, honey jar, hanging herbs *(adjust to 3)* |
+| Advanced | 1 | Folded napkin |
+
+*To-resolve: rebalance to exactly 4/5/4/3 or 6/5/3/2 — the table above is over by 1 in beginner.*
+
+---
+
+## Scene 3 — Garden Courtyard
+
+### Background SVG
+
+A walled Mediterranean courtyard in late afternoon. Terracotta tiles run in perspective from foreground to back wall. A low stone wall caps the back; a tree trunk anchors one side. Warm golden light.
+
+**Components:**
+- **Sky:** Visible above the back wall, top ~15% of canvas. Pale warm cream, perhaps one or two cloud marks in pencil.
+- **Back wall:** A low stone wall at y ≈ 280, drawn in pen weight with irregular brick or stone marks suggested loosely. The wall caps the courtyard's far edge.
+- **Tree trunk:** A single tall trunk on the right side, rising from behind the back wall. Just trunk and one or two lower branches — no full canopy. Drawn in pen with a few texture marks for bark.
+- **Climbing vines:** Soft tendrils dripping over the back wall in two or three spots, drawn in pencil weight.
+- **Terracotta tiles:** Floor of the courtyard, from y ≈ 350 to y = 1000. Square tiles in two-point perspective, vanishing point hidden beyond the back wall. Tile lines in pen, slightly irregular spacing. The tile pattern *is* the depth indicator.
+- **Wall shadow:** A faint diagonal pencil wash across the lower-right tiles suggests afternoon shadow from the tree.
+
+Before any object is drawn, the scene reads as *a quiet sun-warmed courtyard waiting for someone to bring it to life.*
+
+### Object Catalog
+
+#### Z-Layer 1 — Back wall and tree (far)
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 1 | Garden gate (in back wall) | Intermediate | 180, 220 | 200 × 240 | `notice-the-angles`, `clean-junctions`, `draw-from-the-shoulder` |
+| 2 | Tree canopy (upper) | Developing | 800, 100 | 350 × 280 | `find-the-gesture`, `suggest-dont-render` |
+| 3 | Climbing rose | Developing | 480, 200 | 180 × 200 | `find-the-gesture`, `embrace-imperfection` |
+
+#### Z-Layer 2 — Mid courtyard (against or near the wall)
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 4 | Large terracotta pot (planted) | Beginner | 130, 540 | 200 × 280 | `simple-shapes-first`, `find-the-axis` |
+| 5 | Stone birdbath | Developing | 380, 480 | 200 × 280 | `find-the-axis`, `mind-the-curves`, `clean-junctions` |
+| 6 | Olive tree in small pot | Developing | 660, 500 | 180 × 320 | `find-the-gesture`, `suggest-dont-render` |
+| 7 | Watering can | Beginner | 870, 580 | 180 × 200 | `simple-shapes-first`, `clean-junctions` |
+
+#### Z-Layer 3 — Tile floor (mid-foreground items)
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 8 | Sunflower (cut, lying) | Beginner | 100, 800 | 200 × 150 | `find-the-axis`, `embrace-imperfection` |
+| 9 | Garden gloves (pair) | Beginner | 290, 820 | 170 × 130 | `notice-the-angles`, `embrace-imperfection` |
+| 10 | Wicker basket (with produce) | Developing | 480, 780 | 220 × 190 | `mind-the-curves`, `show-overlap` |
+| 11 | Daisy cluster | Beginner | 690, 810 | 170 × 150 | `find-the-axis`, `embrace-imperfection` |
+| 12 | Garden trowel | Beginner | 850, 830 | 170 × 100 | `notice-the-angles`, `confident-lines` |
+
+#### Z-Layer 4 — Foreground edge (very near viewer)
+
+| # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
+|---|--------|------|--------------------|-----------|----------------|
+| 13 | Cat sleeping | Intermediate | 130, 920 | 220 × 130 | `find-the-gesture`, `suggest-dont-render`, `balance-detail` |
+| 14 | Butterfly | Beginner | 410, 920 | 140 × 110 | `find-the-axis`, `confident-lines` |
+| 15 | Snail | Beginner | 580, 950 | 130 × 90 | `simple-shapes-first`, `mind-the-curves` |
+| 16 | Frog | Intermediate | 770, 930 | 180 × 130 | `find-the-gesture`, `block-big-then-small`, `balance-detail` |
+
+### Scene Composition Map
+
+```
+y=0   ┌────────────────────────────────────────────────────────┐
+      │            SKY              [tree canopy]              │
+y=200 ├──────────────[gate]──────[climbing rose]───────────────┤ ← z:1 back wall
+      │            STONE WALL (with vines)                     │
+y=400 ├────────────────────────────────────────────────────────┤
+      │  [terracotta  [birdbath]   [olive tree]   [watering   │ ← z:2
+      │   pot]                                       can]      │
+y=730 ├────────────────────────────────────────────────────────┤
+      │  [sunflower]  [gloves]  [basket]  [daisies] [trowel]  │ ← z:3
+y=880 ├────────────────────────────────────────────────────────┤
+      │   [cat sleeping]   [butterfly] [snail]   [frog]        │ ← z:4
+y=1000└────────────────────────────────────────────────────────┘
+```
+
+#### Intentional overlaps:
+
+- **Tree canopy and back wall** — canopy (z:1) extends above and to the side; trunk grows from behind the wall and the wall covers its base cleanly
+- **Olive tree pot, basket** — anything taller than the foreground line is layered behind it; layered drawing handles this
+- **Cat sleeping in the foreground** — cat (z:4) is drawn last, fully on top of any tile lines and over the nearest pot edges if it spills past its slot
+- **Climbing rose drapes over wall** — rose vines (z:1) drawn after wall, so vines visibly cap the wall edge
+
+### Tier Distribution
+
+| Tier | Count | Objects |
+|------|-------|---------|
+| Beginner | 7 | Pot, watering can, sunflower, gloves, daisy, trowel, butterfly, snail *(8 listed; trim)* |
+| Developing | 5 | Tree canopy, climbing rose, birdbath, olive tree, wicker basket |
+| Intermediate | 3 | Garden gate, cat sleeping, frog |
+| Advanced | 1 | *(none allocated — consider promoting one from intermediate)* |
+
+*To-resolve: rebalance to give the advanced tier at least one object — `frog` could move up.*
+
+---
+
+## Data Model
+
+### New file: `scenes.json`
+
+A new top-level data file lists the available scenes:
 
 ```json
 {
-  "slug": "seagull",
+  "scenes": [
+    {
+      "id": "harbor",
+      "title": "Harbor at Golden Hour",
+      "tagline": "Adventurous, atmospheric.",
+      "backgroundSvg": "/data/scenes/harbor-bg.svg",
+      "coverThumbnail": "/data/scenes/harbor-cover.svg"
+    },
+    {
+      "id": "windowsill",
+      "title": "Morning Windowsill",
+      "tagline": "Cozy, contemplative.",
+      "backgroundSvg": "/data/scenes/windowsill-bg.svg",
+      "coverThumbnail": "/data/scenes/windowsill-cover.svg"
+    },
+    {
+      "id": "garden",
+      "title": "Garden Courtyard",
+      "tagline": "Whimsical, alive.",
+      "backgroundSvg": "/data/scenes/garden-bg.svg",
+      "coverThumbnail": "/data/scenes/garden-cover.svg"
+    }
+  ]
+}
+```
+
+### Project schema changes
+
+Each project gains a `sceneId` and a `sceneSlot`:
+
+```json
+{
+  "slug": "harbor-seagull",
   "title": "Seagull in Flight",
+  "sceneId": "harbor",
   "tier": "beginner",
   "estimatedMinutes": 8,
   "description": "...",
@@ -232,50 +449,123 @@ Each project entry in `projects.json` gets a `sceneSlot` field:
 }
 ```
 
-Projects without `sceneSlot` continue to work as standalone exercises (backwards compatible).
+Slugs are namespaced by scene (`harbor-seagull`, `windowsill-apple`, `garden-cat`) so each scene can have its own treatment of the same subject (e.g. an apple drawn for the windowsill is a different exercise from no apple existing in the harbor).
 
-### Scene background
+### Static asset layout
 
-A new static asset: `web/public/data/scene-harbor-bg.svg` — the baked background described above. Loaded once and rendered beneath all slot drawings.
+```
+web/public/data/
+  scenes.json
+  guidelines.json
+  projects.json
+  scenes/
+    harbor-bg.svg
+    harbor-cover.svg
+    windowsill-bg.svg
+    windowsill-cover.svg
+    garden-bg.svg
+    garden-cover.svg
+  steps/
+    harbor-seagull.json
+    harbor-bollard.json
+    ... (16 per scene = 48 total)
+```
+
+The existing `apple.json`, `teapot.json`, etc. step files are either retired or reorganized under one of the scene directories.
 
 ### Portfolio entries
 
-No change needed — `PortfolioEntry` already stores the completed SVG and project slug. The assembled scene renders by looking up all completed slugs, finding their slots, and compositing.
+`PortfolioEntry` doesn't need a `sceneId` field — it can be derived from the linked `projectSlug → project.sceneId`. The assembled scene view filters portfolio entries by their project's scene.
 
 ---
 
-## UX Integration Points
+## UX Integration
 
-**Home screen:**
-- A thumbnail of the assembling scene replaces or supplements the plain portfolio count
-- Shows the background + all completed drawings composited, scaled to fit a card
-- Visually communicates "you're building something" rather than "you completed N items"
+### Home screen — scene selector
 
-**Done screen:**
-- After finishing a project, animate the drawing "flying" into its scene position
-- Show the assembled scene with the new piece highlighted/glowing briefly
-- "Your [object] has joined the harbor" moment
+The home screen leads with a **horizontal scene picker** above the project grid. Each scene appears as a card showing:
 
-**Draw screen:**
-- Consider showing a small scene preview in the coach panel — "here's where this will live" — so the user knows the context they're drawing for
+- The scene's cover thumbnail (the assembled scene-so-far, rendered as a small image)
+- Title and tagline
+- Progress indicator (e.g. "5/16 complete")
+- Selected state visually distinct
 
-**Scene view (new screen?):**
-- A full-screen view of the assembled scene, pannable/zoomable
-- Accessible from home screen
-- Doubles as a portfolio showcase
+Selecting a scene filters the project grid below to that scene's 16 projects. The user can switch scenes freely; per-scene progress is preserved.
+
+The current "Portfolio" link continues to show all completed drawings across all scenes.
+
+### Done screen
+
+After finishing a project, the assembled scene fills the screen with the new piece animating into place ("Your seagull has joined the harbor"). The coach's final summary still appears.
+
+### Draw screen
+
+A small scene-preview ghost in the coach panel sidebar shows the user where their drawing will live. Optional v2 detail.
+
+### Scene view (full screen)
+
+A dedicated screen accessible from each scene card on the home screen. Shows the assembled scene full-bleed at maximum fidelity. Empty slots can show a faint pencil placeholder ("⌗ rope coil — beginner") that the user can tap to start that project.
 
 ---
+
+## Resolved Decisions
+
+1. **Retire existing 16 projects.** The three scenes replace the flat list. Strong existing step files (apple, beach-ball, etc.) may be cannibalized as templates but the slugs go away.
+
+2. **Per-scene project count: flexible, 10–20.** Each scene picks the count that fits its composition. Bias toward more beginner projects since they're shorter. Two target shapes:
+   - **Small scene:** 4 / 4 / 2 / 1 = 11 projects (beginner / developing / intermediate / advanced)
+   - **Large scene:** 6 / 6 / 4 / 2 = 18 projects
+   - Each scene independently picks a shape. Harbor likely large (18); Windowsill medium; Garden medium-to-large.
+
+3. **No unlocking — all projects always available.** Drop `isTierUnlocked` from the home screen. An experienced sketcher can start at advanced if they want. Tiers are still labels on the project card (so users know the relative difficulty) but never gate access.
+
+4. **Scenes are local-state navigation.** The active scene is a UI state, not progression. Stored in `localStorage` so it persists between visits but the user can switch scenes freely at any time. No "current scene lock-in." Per-scene progress derives from portfolio entries filtered by scene ID.
 
 ## Open Questions
 
-1. **Replace or alongside?** Do the 16 scene projects *replace* the current 16 projects, or exist as a parallel "Scene" track? Replacing is cleaner but loses the existing work. Alongside adds content but complicates the home screen.
+1. **Scaling fidelity.** Slots are as small as 60×80 (the fishing rod). Coaching should advise "draw big and simple — your work will sit at scene scale." Worth a "scene preview" toggle on the draw screen that shows what the slot will look like.
 
-2. **Scaling fidelity.** When a 1000×1000 drawing is scaled into a 160×80 slot, fine detail is lost. Does that matter? The seagull in its slot will be quite small. Should some objects (seagull, crab) be drawn at a lower viewbox resolution — or should users be told "draw big and simple, it'll be small in the scene"?
+2. **Step file authoring.** Each scene's step files should be written together for consistent voice. Best done with an agent batched per scene using `content-guidelines.md` as the rubric.
 
-3. **Step files.** All 16 objects need step-by-step instruction files written. That's roughly 80–100 steps total. Worth doing properly before implementing.
+3. **Background SVGs.** Three backgrounds need to be authored. Hand-crafted in SVG, shipped static. Style match: pen weight matches the user's ink stroke (`#2d3f2a`); pencil-weight elements match the user's pencil (`#808080` at 40% opacity).
 
-4. **Background as SVG vs. drawn.** Should the background be a hand-crafted SVG file (precise control, ships static) or generated via the same drawing primitives the user uses (consistent art style, more work)? Recommendation: hand-crafted SVG using the same stroke style, shipped as a static asset.
+4. **Scene completion ceremony.** When all of a scene's projects are done, something should happen — full-screen view, downloadable poster, coach message ("you finished the harbor"). Define before implementation.
 
-5. **Scene reveal order.** Should the user be able to do projects in any order (within tier), or should there be a recommended sequence that builds the scene in a visually satisfying way? (E.g., draw the dock before the objects that sit on it.) Recommendation: free order within tier, but the scene always renders correctly regardless.
+---
 
-6. **What happens to the bucket?** The bucket with catch is the only advanced object. If a user never unlocks advanced tier, is the scene "complete" without it? The composition should read as complete at intermediate too — the bucket is a bonus detail, not a structural element.
+## Implementation Phases
+
+Suggested order of work, dependency-first:
+
+1. **Content foundation** ✅ (in progress)
+   - `content-guidelines.md` with canonical pencil→ink pattern ✅
+   - `scene.md` with all three scenes detailed ✅
+   - Retrofit beginner-tier existing step files as model examples ✅ (apple, beach-ball done)
+
+2. **Bulk content authoring** (next)
+   - Write all 48 step files, following `content-guidelines.md`
+   - One agent per scene, batched
+   - Resolve tier rebalancing during authoring
+
+3. **Scene backgrounds**
+   - Author three SVG backgrounds; ship as static assets
+
+4. **Data model + scene loading**
+   - Add `scenes.json`, restructure `projects.json` with scene IDs
+   - Update `dataService` to load scene-aware data
+   - Migrate existing portfolio entries (or retire them with a notice)
+
+5. **Scene selector UI**
+   - Horizontal scene picker on home screen
+   - Per-scene project grid filter
+   - Per-scene progress indicators
+
+6. **Assembled scene view**
+   - New screen rendering background + completed drawings composited at their slots
+   - Empty-slot pencil placeholders
+   - Linked from each scene card
+
+7. **Polish**
+   - Done-screen "drawing joins the scene" animation
+   - Optional draw-screen scene preview
+   - Completion ceremony when a scene reaches 16/16

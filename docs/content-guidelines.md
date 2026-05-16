@@ -34,13 +34,81 @@ The user is drawing that curve. They are not pushing anything.
 
 ## The Two-Mode Workflow
 
-The app has **pencil mode** (light, sketchy, gray) and **pen/ink mode** (dark, committed, black). Instructions should reflect this in sequence:
+The app has **pencil mode** (light, sketchy, gray, fixed thin width, ~40% opacity) and **pen/ink mode** (dark, committed, expressive, pressure/velocity-driven width). The user toggles between them with a tool selector. Instructions should mirror the real-world sketching workflow: **pencil first, ink last.** That sequence — block out loose, then commit to clean lines — *is* the lesson for beginners. Don't bury it; make it the structure of every project.
 
-- **Early steps** = pencil. Use language like: *"Lightly sketch…", "Make a loose guide mark for…", "Block in with light strokes…"*
-- **Later steps** = pen/ink. Use language like: *"Trace the outline with a confident ink stroke…", "Commit to this edge with a single dark line…", "Draw the final contour…"*
-- Avoid saying "draw lightly" in a late step or "draw confidently" in a step 1. The mode language should match where the user is in the process.
+### Canonical Beginner Lesson Pattern
 
-When a step explicitly asks the user to switch modes, say so: *"Switch to ink and draw the final outline…"*
+A beginner project (5–7 steps) follows this shape:
+
+| Phase | Steps | Mode | What the step does |
+|-------|-------|------|---------------------|
+| **Block** | 1–2 | pencil | Loose gestural guides, big shapes, axes, proportions |
+| **Refine** | 1 | pencil | Adjust the construction; erase and redraw if needed |
+| **Commit** | 1 | switch to ink | Explicit mode switch. The first ink step is always this one. |
+| **Ink the silhouette** | 1 | ink | Trace the main outline as a confident stroke |
+| **Ink the details** | 1–2 | ink | Smaller features, junctions, expressive accents |
+| **Erase guides** | 1 (optional) | — | Remove leftover pencil construction the user wants gone |
+
+**Why this pattern matters:** The single biggest skill jump for a novice is learning to *commit* to lines after planning them. Many beginners draw every line tentatively because they never made a decision about which line was the "real" one. The pencil-then-ink workflow forces that decision, and the tool change makes it physical and memorable.
+
+### Explicit Mode-Switch Language
+
+Always name the mode transition when it happens. The user is switching tools — make sure the step makes them do it.
+
+**At the start of a project (implicit pencil):**
+> "Switch to **pencil** if you aren't already, then lightly sketch a circle for the body…"
+
+(For step 1 you can also just say "lightly sketch…" — the "lightly" is the cue. Either is fine.)
+
+**At the commit moment (always explicit):**
+> "**Switch to ink.** Trace the outline you sketched with a single confident stroke. The pencil guide stays underneath — you can erase it later or leave it as faint construction."
+
+**At any later "back to pencil" moment** (e.g., to plan a new element):
+> "**Switch back to pencil** and sketch a guide for where the handle will attach."
+
+### Mode Cue Vocabulary
+
+Different phrasing makes the workflow feel intentional rather than rote. Use these freely:
+
+| Pencil cues | Ink cues |
+|-------------|----------|
+| Lightly sketch | Switch to ink and trace |
+| Block in | Commit to |
+| Loosely mark | Lay down a confident line |
+| Rough in | Ink the contour |
+| Make a guide for | Draw the final outline |
+| Get the proportions with | Anchor the silhouette with |
+| Plan the placement of | Finish with |
+
+### What to Avoid
+
+- **Don't mix modes within a single step.** A step should be all pencil or all ink, never both. If you need both, split it.
+- **Don't say "draw lightly" in step 5.** By step 5 the user is in ink. Light marks belong in early steps.
+- **Don't say "draw a confident line" in step 1.** Confidence comes after planning — that's the whole point. Step 1 is exploratory.
+- **Don't forget to call the mode switch.** If you skip "Switch to ink," beginners stay in pencil for the whole drawing and never get the final ink commitment that makes a sketch feel finished.
+
+### Intermediate and Advanced Variations
+
+The pencil-first principle scales up:
+
+- **Developing tier (6–8 steps):** Same shape, but the Block/Refine phase gets 2–3 steps as proportions and structure get more complex. Still one explicit "Switch to ink" moment.
+- **Intermediate tier (7–9 steps):** May have **two** ink phases — silhouette ink first, then detail ink later, sometimes with a pencil sub-pass between them (e.g., "switch back to pencil to lightly mark where the shadow falls, then back to ink to render it").
+- **Advanced tier (8–10 steps):** Multiple back-and-forth mode switches are fine here. Advanced users are expected to use pencil as a thinking tool throughout, not just at the start.
+
+### Beginner Step Example (5-step apple, fully mode-aware)
+
+```
+1. (pencil) Lightly sketch a slightly squashed circle — wider than tall, a touch asymmetric.
+2. (pencil) Add a small inward dip at the top center and a shallow one at the bottom.
+   These are your placement guides for the stem and base.
+3. (switch to ink) Switch to ink and trace the outline as a single confident stroke,
+   following your pencil guide. Don't worry about matching it exactly — your hand will
+   pick the cleanest path.
+4. (ink) Add a short stem rising from the top dip, tilted slightly to one side, and a
+   small leaf beside it.
+5. (optional, erase) Erase any pencil guide lines that distract from the ink drawing.
+   Leave the ones that feel like nice texture.
+```
 
 ---
 
@@ -142,13 +210,17 @@ Explaining a 3D concept without resorting to manipulation language:
 
 ---
 
-## Known Issues in Existing Step Files
+## Current Status of Existing Step Files
 
-These steps need rewrites before the next content update:
+The four originally-flagged sculpting/off-canvas/adjust-language issues have all been resolved. The **outstanding issue across every existing step file** is missing explicit pencil → ink mode-switch language: instructions imply the workflow ("lightly sketch…", "draw a confident outline…") but never tell the user to physically switch tools. This needs retrofitting in all 16 existing projects, with the beginner tier as the highest priority since the mode-switch *is* the lesson at that level.
 
-| File | Step | Problem |
-|------|------|---------|
-| `apple.json` | Step 2 ("Carve the top and bottom") | "Push the top center down" and "Carve" are sculpting language |
-| `still-life.json` | Step 1 ("Thumbnail the composition") | Implies drawing a separate off-canvas thumbnail |
-| `still-life.json` | Step 5 ("Establish a consistent light direction") | "lightly shade" is tonal language — should specify mark type |
-| `hands.json` | Step 5 ("Check the negative space") | "gently adjust any finger" — ambiguous, should say erase and redraw |
+### Retrofit priority
+
+| Tier | Files | What to add |
+|------|-------|-------------|
+| Beginner | `apple`, `beach-ball`, `mug`, `leaf` | Full canonical pattern: explicit "Switch to ink" step before the final outline; pencil cues in every early step |
+| Developing | `bird`, `turtle`, `cat`, `teapot` | One explicit "Switch to ink" step; two ink steps may follow (silhouette, then detail) |
+| Intermediate | `mushrooms`, `house`, `tree`, `bicycle` | Mode switches at construction → silhouette → detail transitions |
+| Advanced | `fox`, `still-life`, `hands`, `doorway` | Multiple back-and-forth switches acceptable; pencil sub-passes between ink phases |
+
+When writing new step files (e.g., the 48 scene-mode projects), apply the canonical pattern from the start — don't repeat the retrofit work.
