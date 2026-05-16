@@ -97,14 +97,16 @@
 }
 
 .home__about-link {
-  width: 32px;
-  height: 32px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  font-size: 1.1rem;
+  vertical-align: middle;
+  margin-left: 0.3em;
+  font-size: 0.55em;
+  line-height: 1;
   color: var(--color-ink-faint);
+  border-radius: 50%;
+  padding: 2px;
   transition:
     color var(--duration-fast) var(--ease-soft),
     background var(--duration-fast) var(--ease-soft);
@@ -116,12 +118,11 @@
   text-decoration: none;
 }
 
-/* Scene picker — horizontal row above the tier grids */
+/* Scene picker grid — used inside the scene modal */
 .scene-picker {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-3);
-  margin-bottom: var(--space-5);
 }
 
 .scene-card {
@@ -172,24 +173,139 @@
   margin-top: 4px;
 }
 
-.home__scene-link-row {
+/* ── Scene chip in the header (opens scene modal) ── */
+
+.home__title-block {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: var(--space-4);
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
 }
 
-.home__scene-link {
-  color: var(--color-accent-strong);
+.home__scene-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 6px 14px;
+  background: var(--color-paper-warm);
+  border: 1px solid var(--color-shadow);
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-soft), border-color var(--duration-fast) var(--ease-soft);
+}
+
+.home__scene-chip:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.home__scene-chip-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-faint);
+}
+
+.home__scene-chip-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.home__scene-chip-caret {
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
+}
+
+/* ── View-scene primary button (top-right in header) ── */
+
+.home__view-scene-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-paper);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-sm);
-  transition: background var(--duration-fast) var(--ease-soft);
+  transition: background var(--duration-fast) var(--ease-soft), transform var(--duration-fast) var(--ease-soft);
 }
 
-.home__scene-link:hover {
-  background: var(--color-accent-soft);
+.home__view-scene-btn:hover {
+  background: var(--color-accent-strong);
   text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* ── Scene modal ── */
+
+.home__scene-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 37, 32, 0.45);
+  backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  padding: var(--space-3);
+  animation: home-scene-modal-fade var(--duration-fast) var(--ease-soft);
+}
+
+@keyframes home-scene-modal-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.home__scene-modal {
+  position: relative;
+  background: var(--color-paper);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  max-width: 760px;
+  width: 100%;
+  /* Cap to viewport so the modal stays vertically centered even when content
+     would otherwise be taller than the screen — content scrolls inside instead. */
+  max-height: calc(100vh - 2 * var(--space-3));
+  overflow-y: auto;
+  box-shadow: 0 12px 36px var(--color-shadow-strong);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.home__scene-modal-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-3);
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-soft), color var(--duration-fast) var(--ease-soft);
+}
+
+.home__scene-modal-close:hover {
+  background: var(--color-paper-warm);
+  color: var(--color-ink);
+}
+
+.home__scene-modal-title {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.home__scene-modal-intro {
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .tier {

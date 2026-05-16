@@ -542,3 +542,24 @@ Is this unreasonable? Should I switch from SVG scene construction to having you 
 
 **2026-05-16 15:55**
 No, it adds too much user complexity right now, they'd need to get a second key.  Let's make it easy for them to get a raster image and then they can paste it into the tool of their choosing.  We can even offer some advice and a sample prompt on this page.  The raster image should be a "copy to clipboard" link and it should not include the missing objects. I'll do some testing. with that images in Gemini just to see if the output feels motivating to users.
+
+**2026-05-16 15:59**
+Put the "want to flesh this out with aI" button in the top right.  Make it pop up the content as a modal just so it doesn't have to change screen layout.  Let's find a different phrase that doesn't use "flesh".
+
+**2026-05-16 16:01**
+Adjust the prompt to include notes about what the scene is, and what the background line art represents.  It's pretty hard to tell right now.
+
+**2026-05-16 16:03**
+The "View assembled scene" button needs more prominence.  Let's try making it a button in the top right.  Rather than list the three scenes directly in this page, let's make that a button in the top that pulls these options up in a modal.
+
+**2026-05-16 16:07**
+Choose a scene modal should center on the viewport not the full page length.
+
+**2026-05-16 16:11**
+I did apple shift r in Chrome and killed the server and reran npm run dev. It isn't fixed.
+
+**2026-05-16 16:12**
+Move the info/about icon right after the title Sketch Coach, it's breaking up the button bar and looks dumb where it is.
+
+**2026-05-16 16:14**
+Confirmed fixed, thank you

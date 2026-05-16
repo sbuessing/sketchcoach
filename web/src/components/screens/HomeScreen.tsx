@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import ApiKeyModal from '../settings/ApiKeyModal';
 import { isByokMode, isCoachConfigured } from '../../services/claudeClient';
-import { projectsInScene } from '../../services/dataService';
+import { findScene, projectsInScene } from '../../services/dataService';
 import type { Project, Scene, Tier } from '../../shared/types';
 import './HomeScreen.css';
 
@@ -18,6 +19,7 @@ const TIER_LABEL: Record<Tier, string> = {
 export default function HomeScreen() {
   const { projects, scenes, activeSceneId, setActiveSceneId, portfolio } = useApp();
   const [showKeyModal, setShowKeyModal] = useState(false);
+  const [showSceneModal, setShowSceneModal] = useState(false);
 
   const completedSlugs = useMemo(
     () => new Set(portfolio.map((e) => e.projectSlug)),
@@ -29,15 +31,31 @@ export default function HomeScreen() {
     [projects, activeSceneId],
   );
 
+  const activeScene = findScene(scenes, activeSceneId);
   const configured = isCoachConfigured();
   const byok = isByokMode();
 
   return (
     <div className="home">
       <header className="home__header">
-        <div>
-          <h1 className="home__title">Sketch Coach</h1>
+        <div className="home__title-block">
+          <h1 className="home__title">
+            Sketch Coach
+            <Link to="/about" className="home__about-link" aria-label="About Sketch Coach">ⓘ</Link>
+          </h1>
           <p className="home__subtitle">A cozy place to practice line drawing.</p>
+          {activeScene && (
+            <button
+              type="button"
+              className="home__scene-chip"
+              onClick={() => setShowSceneModal(true)}
+              title="Switch scene"
+            >
+              <span className="home__scene-chip-label">Scene</span>
+              <span className="home__scene-chip-name">{activeScene.title}</span>
+              <span className="home__scene-chip-caret" aria-hidden>▾</span>
+            </button>
+          )}
         </div>
         <div className="home__header-actions">
           <button
@@ -55,8 +73,8 @@ export default function HomeScreen() {
           <Link to="/portfolio" className="home__portfolio-link">
             Portfolio · {portfolio.length}
           </Link>
-          <Link to="/about" className="home__about-link" aria-label="About Sketch Coach">
-            ⓘ
+          <Link to={`/scene/${activeSceneId}`} className="home__view-scene-btn">
+            View scene →
           </Link>
         </div>
       </header>
@@ -72,19 +90,19 @@ export default function HomeScreen() {
 
       {showKeyModal && <ApiKeyModal onClose={() => setShowKeyModal(false)} />}
 
-      <SceneSelector
-        scenes={scenes}
-        activeSceneId={activeSceneId}
-        onSelect={setActiveSceneId}
-        projects={projects}
-        completedSlugs={completedSlugs}
-      />
-
-      <div className="home__scene-link-row">
-        <Link to={`/scene/${activeSceneId}`} className="home__scene-link">
-          View assembled scene →
-        </Link>
-      </div>
+      {showSceneModal && (
+        <SceneModal
+          scenes={scenes}
+          activeSceneId={activeSceneId}
+          projects={projects}
+          completedSlugs={completedSlugs}
+          onSelect={(id) => {
+            setActiveSceneId(id);
+            setShowSceneModal(false);
+          }}
+          onClose={() => setShowSceneModal(false)}
+        />
+      )}
 
       {TIER_ORDER.map((tier) => {
         const tierProjects = sceneProjects.filter((p) => p.tier === tier);
@@ -110,39 +128,80 @@ export default function HomeScreen() {
   );
 }
 
-function SceneSelector({
+/**
+ * Modal scene picker — replaces the previously inline horizontal card row.
+ * Triggered by the scene chip in the home header. Picking a scene closes the modal.
+ */
+function SceneModal({
   scenes,
   activeSceneId,
-  onSelect,
   projects,
   completedSlugs,
+  onSelect,
+  onClose,
 }: {
   scenes: Scene[];
   activeSceneId: string;
-  onSelect: (id: string) => void;
   projects: Project[];
   completedSlugs: Set<string>;
+  onSelect: (id: string) => void;
+  onClose: () => void;
 }) {
-  return (
-    <div className="scene-picker">
-      {scenes.map((scene) => {
-        const sp = projectsInScene(projects, scene.id);
-        const done = sp.filter((p) => completedSlugs.has(p.slug)).length;
-        const active = scene.id === activeSceneId;
-        return (
-          <button
-            key={scene.id}
-            type="button"
-            className={`scene-card ${active ? 'scene-card--active' : ''}`}
-            onClick={() => onSelect(scene.id)}
-          >
-            <span className="scene-card__title">{scene.title}</span>
-            <span className="scene-card__tagline">{scene.tagline}</span>
-            <span className="scene-card__progress">{done} / {sp.length} complete</span>
-          </button>
-        );
-      })}
-    </div>
+  // Escape closes the modal.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  // Portal to <body> so the modal escapes .home's transform animation, which
+  // would otherwise become the containing block for position: fixed and break
+  // viewport-anchored centering on a long scrolled page.
+  return createPortal(
+    <div className="home__scene-modal-backdrop" onClick={onClose} role="presentation">
+      <div
+        className="home__scene-modal"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="scene-modal-title"
+      >
+        <button
+          type="button"
+          className="home__scene-modal-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <h2 id="scene-modal-title" className="home__scene-modal-title">Choose a scene</h2>
+        <p className="home__scene-modal-intro">
+          Each scene is a themed collection of projects that build into one assembled picture. Switch any time — your progress in each scene stays put.
+        </p>
+        <div className="scene-picker">
+          {scenes.map((scene) => {
+            const sp = projectsInScene(projects, scene.id);
+            const done = sp.filter((p) => completedSlugs.has(p.slug)).length;
+            const active = scene.id === activeSceneId;
+            return (
+              <button
+                key={scene.id}
+                type="button"
+                className={`scene-card ${active ? 'scene-card--active' : ''}`}
+                onClick={() => onSelect(scene.id)}
+              >
+                <span className="scene-card__title">{scene.title}</span>
+                <span className="scene-card__tagline">{scene.tagline}</span>
+                <span className="scene-card__progress">{done} / {sp.length} complete</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>,
+    document.body,
   );
 }
 

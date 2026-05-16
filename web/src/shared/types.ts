@@ -30,6 +30,12 @@ export interface Scene {
   tagline: string;
   /** Public URL to the pencil-scaffolding SVG that sits behind the user's drawings. */
   backgroundSvg?: string;
+  /**
+   * Plain-English description of what the faint pencil background represents.
+   * Used in the Remix prompt so an external image AI can tell scaffolding from
+   * user drawings and complete the scene appropriately.
+   */
+  backgroundDescription?: string;
 }
 
 export interface Project {

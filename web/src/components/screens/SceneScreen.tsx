@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import { findScene, projectsInScene } from '../../services/dataService';
 import { VIEWBOX_SIZE } from '../../services/strokeUtils';
 import { svgToPngDataUrl } from '../../services/snapshot';
-import type { PortfolioEntry, Project, SceneSlot } from '../../shared/types';
+import type { PortfolioEntry, Project, Scene, SceneSlot } from '../../shared/types';
 import './SceneScreen.css';
 
 /** Paper color baked into the exported PNG. Mirrors --color-paper in index.css. */
@@ -56,10 +57,22 @@ async function dataUrlToBlob(dataUrl: string): Promise<Blob> {
 }
 
 /**
- * The sample prompt we suggest users paste alongside the image. Generic enough
- * to work with Gemini, ChatGPT, Claude, etc.
+ * Build a scene-specific prompt for the user to paste alongside the image.
+ * Critical: tell the AI (a) what the scene depicts and (b) what the faint
+ * pencil scaffolding represents — without that context the AI tends to
+ * treat the background as noise and either ignore it or weirdly interpret it.
  */
-const SAMPLE_PROMPT = `Here's a hand-drawn pencil-and-ink scene I made. Please render a fully-developed illustration in the same loose, hand-drawn style. Keep my drawn objects as the focal points — don't redraw them or change their shapes. Fill in the empty areas with matching atmosphere, light, and supporting detail so it reads as one cohesive scene. Same square aspect ratio. Pen-and-ink with watercolor wash, warm and quiet.`;
+function buildSamplePrompt(scene: Scene): string {
+  const bgLine = scene.backgroundDescription
+    ? `\n\nAbout the setting: ${scene.backgroundDescription}\n\nThose faint pencil marks are scaffolding — they show what the scene is supposed to contain. Bring them to life by rendering full versions of those elements in the same hand-drawn aesthetic, around and behind my finished objects.`
+    : '';
+
+  return (
+    `Here's a hand-drawn pencil-and-ink scene I made for a project called "${scene.title}" — ${scene.tagline}` +
+    bgLine +
+    `\n\nPlease render a fully-developed illustration in the same loose, hand-drawn style. Keep my drawn objects as the focal points — don't redraw them or change their shapes; preserve their proportions and placement. Fill the rest of the scene with matching atmosphere, light, and supporting detail so it all reads as one cohesive picture. Same square aspect ratio. Pen-and-ink linework with a soft watercolor wash, warm and quiet.`
+  );
+}
 
 export default function SceneScreen() {
   const { sceneId = '' } = useParams<{ sceneId: string }>();
@@ -95,6 +108,7 @@ export default function SceneScreen() {
   const [copyState, setCopyState] = useState<'idle' | 'copying' | 'copied' | 'error'>('idle');
   const [copyError, setCopyError] = useState<string | null>(null);
   const [promptCopied, setPromptCopied] = useState(false);
+  const [showRemix, setShowRemix] = useState(false);
 
   // Sort projects by z so back layers render first and front layers cover them.
   // Tie-breaker: slot y so within a z-layer, more-distant items still go behind.
@@ -144,15 +158,23 @@ export default function SceneScreen() {
     }
   }, [canCopy, sortedProjects, entriesBySlug, bgInner]);
 
+  // Memoize the scene-specific prompt so the modal renders it consistently
+  // and clipboard copies the exact same text the user sees.
+  const samplePrompt = useMemo(
+    () => (scene ? buildSamplePrompt(scene) : ''),
+    [scene],
+  );
+
   const handleCopyPrompt = useCallback(async () => {
+    if (!samplePrompt) return;
     try {
-      await navigator.clipboard.writeText(SAMPLE_PROMPT);
+      await navigator.clipboard.writeText(samplePrompt);
       setPromptCopied(true);
       window.setTimeout(() => setPromptCopied(false), 2200);
     } catch (err) {
       console.warn('Prompt copy failed', err);
     }
-  }, []);
+  }, [samplePrompt]);
 
   if (!scene) {
     return (
@@ -184,6 +206,15 @@ export default function SceneScreen() {
             }
           >
             {copyState === 'copying' ? 'Copying…' : copyState === 'copied' ? '✓ Copied!' : 'Copy scene as image'}
+          </button>
+          <button
+            type="button"
+            className="scenescreen__btn scenescreen__btn--ghost"
+            onClick={() => setShowRemix(true)}
+            disabled={!canCopy}
+            title={canCopy ? 'Get a sample prompt to remix this scene in an image AI.' : 'Draw at least one piece first.'}
+          >
+            Remix with AI →
           </button>
         </div>
       </header>
@@ -225,30 +256,79 @@ export default function SceneScreen() {
         </svg>
       </div>
 
-      {canCopy && (
-        <details className="scenescreen__remix">
-          <summary>Want to flesh this out with an AI? →</summary>
-          <div className="scenescreen__remix-body">
-            <p className="scenescreen__remix-intro">
-              Copy the scene above, then paste it into <strong>Gemini</strong>, <strong>ChatGPT</strong>, or any image-generation tool along with a prompt like this:
-            </p>
-            <div className="scenescreen__remix-prompt">
-              <pre>{SAMPLE_PROMPT}</pre>
-              <button
-                type="button"
-                className="scenescreen__remix-copy"
-                onClick={handleCopyPrompt}
-              >
-                {promptCopied ? '✓ Copied' : 'Copy prompt'}
-              </button>
-            </div>
-            <p className="scenescreen__remix-tip">
-              Tip: experiment with the style ("watercolor wash", "muted pen-and-ink", "soft pastel") and the mood ("warm afternoon light", "early morning fog"). Your drawings will stay the centerpiece — the AI fills in the world around them.
-            </p>
-          </div>
-        </details>
+      {showRemix && (
+        <RemixModal
+          onClose={() => setShowRemix(false)}
+          onCopyPrompt={handleCopyPrompt}
+          promptCopied={promptCopied}
+          samplePrompt={samplePrompt}
+        />
       )}
     </div>
+  );
+}
+
+/** Modal explaining how to take the copied scene into an image AI. */
+function RemixModal({
+  onClose,
+  onCopyPrompt,
+  promptCopied,
+  samplePrompt,
+}: {
+  onClose: () => void;
+  onCopyPrompt: () => void;
+  promptCopied: boolean;
+  samplePrompt: string;
+}) {
+  // Close on Escape — small ergonomic win.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  // Portal to <body> so the modal escapes any ancestor transform that would
+  // otherwise become the containing block for position: fixed and break
+  // viewport-anchored centering.
+  return createPortal(
+    <div className="scenescreen__modal-backdrop" onClick={onClose} role="presentation">
+      <div
+        className="scenescreen__modal"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="remix-modal-title"
+      >
+        <button
+          type="button"
+          className="scenescreen__modal-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <h2 id="remix-modal-title" className="scenescreen__modal-title">Remix with AI</h2>
+        <p className="scenescreen__modal-intro">
+          You've already copied your scene as an image (or you can hit <strong>Copy scene as image</strong> behind this dialog). Paste it into <strong>Gemini</strong>, <strong>ChatGPT</strong>, or any image-generation tool along with a prompt like this:
+        </p>
+        <div className="scenescreen__modal-prompt">
+          <pre>{samplePrompt}</pre>
+          <button
+            type="button"
+            className="scenescreen__modal-copy"
+            onClick={onCopyPrompt}
+          >
+            {promptCopied ? '✓ Copied' : 'Copy prompt'}
+          </button>
+        </div>
+        <p className="scenescreen__modal-tip">
+          Tip: experiment with the style ("watercolor wash", "muted pen-and-ink", "soft pastel") and the mood ("warm afternoon light", "early morning fog"). Your drawings stay the centerpiece — the AI fills in the world around them.
+        </p>
+      </div>
+    </div>,
+    document.body,
   );
 }
 

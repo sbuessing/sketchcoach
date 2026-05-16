@@ -4,19 +4,22 @@
       "id": "harbor",
       "title": "Harbor at Golden Hour",
       "tagline": "Adventurous, atmospheric.",
-      "backgroundSvg": "/data/scenes/harbor-bg.svg"
+      "backgroundSvg": "/data/scenes/harbor-bg.svg",
+      "backgroundDescription": "A wooden fishing dock at late afternoon, looking out across calm water toward a distant headland. The faint pencil scaffolding shows: wispy clouds in the upper sky; a low headland curve on the left horizon; horizontal ripple lines across the water (denser near the horizon, opening toward the dock); a one-point perspective dock surface with planks converging to a vanishing point on the right; and a heavier line where the dock meets the water."
     },
     {
       "id": "windowsill",
       "title": "Morning Windowsill",
       "tagline": "Cozy, contemplative.",
-      "backgroundSvg": "/data/scenes/windowsill-bg.svg"
+      "backgroundSvg": "/data/scenes/windowsill-bg.svg",
+      "backgroundDescription": "A sunlit kitchen window with a still-life arrangement on the sill and counter below. The faint pencil scaffolding shows: a double-hung window frame with vertical and horizontal sash bars; an impressionistic garden suggestion outside the glass (a tree silhouette, shrubs, soft clouds); a windowsill shelf below the window; a horizontal counter line; long wavy wood-grain lines on the counter; and a few diagonal morning light rays from the upper-left."
     },
     {
       "id": "garden",
       "title": "Garden Courtyard",
       "tagline": "Whimsical, alive.",
-      "backgroundSvg": "/data/scenes/garden-bg.svg"
+      "backgroundSvg": "/data/scenes/garden-bg.svg",
+      "backgroundDescription": "A walled Mediterranean courtyard in late afternoon. The faint pencil scaffolding shows: a single wispy cloud high in the sky; a low stone wall capping the back with brick suggestion marks; climbing vines draping over the wall; a single tree trunk with lower branches on the right side; and a terracotta tile floor in two-point perspective with afternoon shadow streaks across the foreground."
     }
   ]
 }

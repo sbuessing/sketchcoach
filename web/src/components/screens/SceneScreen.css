@@ -102,31 +102,117 @@
   font-size: 0.88rem;
 }
 
-.scenescreen__notice {
-  margin: 0 var(--space-3) var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  background: var(--color-accent-soft);
-  border: 1px solid var(--color-accent);
+/* Remix-with-AI modal: dimmed backdrop + centered card. */
+.scenescreen__modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 37, 32, 0.45);
+  backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  padding: var(--space-3);
+  animation: scenescreen-modal-fade var(--duration-fast) var(--ease-soft);
+}
+
+@keyframes scenescreen-modal-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.scenescreen__modal {
+  position: relative;
+  background: var(--color-paper);
   border-radius: var(--radius-md);
-  color: var(--color-accent-strong);
-  font-size: 0.9rem;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  max-width: 560px;
+  width: 100%;
+  /* Cap to viewport so the modal stays centered on short screens. */
+  max-height: calc(100vh - 2 * var(--space-3));
+  overflow-y: auto;
+  box-shadow: 0 12px 36px var(--color-shadow-strong);
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
-.scenescreen__spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--color-accent-soft);
-  border-top-color: var(--color-accent);
-  border-radius: 50%;
-  animation: scenescreen-spin 0.8s linear infinite;
-  flex-shrink: 0;
+.scenescreen__modal-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-3);
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-soft), color var(--duration-fast) var(--ease-soft);
 }
 
-@keyframes scenescreen-spin {
-  to { transform: rotate(360deg); }
+.scenescreen__modal-close:hover {
+  background: var(--color-paper-warm);
+  color: var(--color-ink);
+}
+
+.scenescreen__modal-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.scenescreen__modal-intro,
+.scenescreen__modal-tip {
+  line-height: 1.5;
+  margin: 0;
+}
+
+.scenescreen__modal-intro {
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+
+.scenescreen__modal-tip {
+  color: var(--color-ink-faint);
+  font-size: 0.85rem;
+}
+
+.scenescreen__modal-prompt {
+  position: relative;
+  background: var(--color-paper-warm);
+  border: 1px solid var(--color-shadow);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+}
+
+.scenescreen__modal-prompt > pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+  padding-right: 92px; /* room for the copy button */
+}
+
+.scenescreen__modal-copy {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-shadow);
+  background: var(--color-paper);
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background var(--duration-fast) var(--ease-soft);
+}
+
+.scenescreen__modal-copy:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
 }
 
 /* Canvas: square, capped by the shorter of viewport width or height, centered. */
