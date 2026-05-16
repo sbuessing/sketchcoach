@@ -6,6 +6,10 @@ Things we could add but aren't in the initial build. Kept here for reference as 
 
 ## UI & Flow
 
+- **Confirm before leaving** — if the user has unsaved strokes and tries to navigate away (back button, closing the tab), prompt "Leave this sketch?" so nothing is accidentally lost. Use the `beforeunload` event for tab closes and a React Router blocker for in-app navigation.
+
+- **Offline graceful degradation** — the app should still load and let you sketch when offline (canvas, steps, and portfolio all live locally). Coach calls should fail quietly with a small "coach unavailable — no internet" note rather than spinning forever.
+
 ### Scene Library & AI-Generated Project Packs
 
 Users choose from a set of **scenes** on the home screen — each scene is a themed collection of ~16 projects spanning beginner to advanced (e.g. "Cozy Kitchen", "Forest Creatures", "City Skylines", "Botanicals"). The current flat project list becomes scene-aware.
@@ -21,7 +25,19 @@ Implementation sketch:
 
 ---
 
+## Scenes
+
+- **Scene completion ceremony** — when all of a scene's projects are done, trigger something memorable: a full-screen reveal of the assembled scene, a downloadable poster export, a coach message acknowledging the scene's name ("you finished the harbor"), maybe even a subtle animation that re-traces a few signature lines. The N/N moment should feel like an arrival, not just the disappearance of a "1 left" counter.
+
+- **Hand-drawn scene backgrounds** — v1 scenes ship with just the canvas color behind the user's drawings. Once scenes prove themselves, add a light pencil-sketch background per scene that drawings sit on top of. Style match: pencil weight (`#808080` at ~30% opacity), same stroke aesthetic as the user's own pencil. Harbor would get a hint of dock perspective and horizon; Windowsill a window frame and garden suggestion; Garden Courtyard tile lines and a wall silhouette. Faint enough to never compete with the actual drawings — scaffolding the user's work is mounted onto, not a rendered illustration.
+
+---
+
 ## Canvas & Drawing
+
+- **iOS / Apple Pencil support** — verify `pointerType === 'pen'` and `PointerEvent.pressure` come through correctly on iPad Safari. The drawing code is already structured for this; it just needs real-device testing and any Safari-specific event fixes.
+
+- **Backing track auto-pause** — pause the ambient music when the browser tab loses focus (visibilitychange event), resume when it returns. Polite for users with headphones who switch tabs.
 
 - **Smarter eraser modes** — two additional erase gestures beyond the current stroke-level tap-to-erase: (1) **tap erase** already works (removes the whole stroke); (2) **drag erase** — dragging across strokes removes only the segments the eraser path crosses, splitting strokes at the intersection. This mirrors how a physical eraser works and is especially useful for cleaning up a single crossing line without removing the whole stroke.
 

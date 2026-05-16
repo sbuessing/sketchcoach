@@ -521,15 +521,15 @@ A dedicated screen accessible from each scene card on the home screen. Shows the
 
 4. **Scenes are local-state navigation.** The active scene is a UI state, not progression. Stored in `localStorage` so it persists between visits but the user can switch scenes freely at any time. No "current scene lock-in." Per-scene progress derives from portfolio entries filtered by scene ID.
 
-## Open Questions
+## Deferred to `ideas.md`
 
-1. **Scaling fidelity.** Slots are as small as 60×80 (the fishing rod). Coaching should advise "draw big and simple — your work will sit at scene scale." Worth a "scene preview" toggle on the draw screen that shows what the slot will look like.
+- Hand-drawn scene backgrounds — v1 ships with no background behind the assembled drawings; just the paper color. Adds simplicity now; rich backgrounds come later.
+- Scene completion ceremony — the 16/16 "you finished the harbor" moment.
+- Scaling-fidelity polish — slot sizes vary widely; for v1 we just scale and trust the user to draw something readable.
 
-2. **Step file authoring.** Each scene's step files should be written together for consistent voice. Best done with an agent batched per scene using `content-guidelines.md` as the rubric.
+## Remaining Open Question
 
-3. **Background SVGs.** Three backgrounds need to be authored. Hand-crafted in SVG, shipped static. Style match: pen weight matches the user's ink stroke (`#2d3f2a`); pencil-weight elements match the user's pencil (`#808080` at 40% opacity).
-
-4. **Scene completion ceremony.** When all of a scene's projects are done, something should happen — full-screen view, downloadable poster, coach message ("you finished the harbor"). Define before implementation.
+- **Step file authoring.** Each scene's step files should be written together for consistent voice. Best done with an agent batched per scene using `content-guidelines.md` as the rubric. Estimate 5–7 steps per project.
 
 ---
 
@@ -543,29 +543,23 @@ Suggested order of work, dependency-first:
    - Retrofit beginner-tier existing step files as model examples ✅ (apple, beach-ball done)
 
 2. **Bulk content authoring** (next)
-   - Write all 48 step files, following `content-guidelines.md`
+   - Write all scene step files following `content-guidelines.md`
    - One agent per scene, batched
-   - Resolve tier rebalancing during authoring
+   - Counts per scene: flexible 10–20 with bias to early tiers (e.g. 6/6/4/2 = 18 for Harbor, 4/4/2/1 = 11 for the smaller two)
 
-3. **Scene backgrounds**
-   - Author three SVG backgrounds; ship as static assets
-
-4. **Data model + scene loading**
+3. **Data model + scene loading**
    - Add `scenes.json`, restructure `projects.json` with scene IDs
    - Update `dataService` to load scene-aware data
-   - Migrate existing portfolio entries (or retire them with a notice)
+   - Retire old portfolio entries (clean break with v1)
 
-5. **Scene selector UI**
-   - Horizontal scene picker on home screen
-   - Per-scene project grid filter
-   - Per-scene progress indicators
+4. **Scene selector UI**
+   - Horizontal scene picker on home screen with active scene in `localStorage`
+   - Per-scene project grid filter (no tier locking — every project always accessible)
+   - Per-scene progress indicator (N/M complete)
 
-6. **Assembled scene view**
-   - New screen rendering background + completed drawings composited at their slots
-   - Empty-slot pencil placeholders
+5. **Assembled scene view**
+   - New screen rendering completed drawings composited at their slots over the paper color
+   - Empty-slot pencil placeholders ("⌗ rope coil")
    - Linked from each scene card
 
-7. **Polish**
-   - Done-screen "drawing joins the scene" animation
-   - Optional draw-screen scene preview
-   - Completion ceremony when a scene reaches 16/16
+Items deferred to `ideas.md`: hand-drawn backgrounds, completion ceremony, scaling-fidelity polish.

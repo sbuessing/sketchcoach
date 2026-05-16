@@ -277,3 +277,13 @@ Add to ideas.md, the ability to tap erase a full line, or drag erase a portion o
 **2026-05-16 10:13**
 There was no number 5.  Add scene completion ceremony to ideas.md I like that.  Let's not worry about scaling and fidelity yet.
 Backgrounds - I do think we should have a light sketch background that we drop your images on top of.  Let's just put that in ideas.md for now.
+
+**2026-05-16 10:15**
+Let's clean up the TODO file, and possibly delete it.  We are going to stick with BYOK and a lot of security related things are irrelevant now.  What is worth saving and moving to ideas.md?
+
+**2026-05-16 10:17**
+The tracks were all from pixabay which says "Chillhop no copyright music
+Download chillhop royalty-free audio tracks and instrumentals for your next project.".  Maybe just acknowledge where I fetched them from?
+
+**2026-05-16 10:20**
+Please iterate through and do it for me
