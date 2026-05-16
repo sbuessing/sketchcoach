@@ -1,5 +1,6 @@
 .done-screen {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   padding: var(--space-3);
@@ -61,7 +62,7 @@
 }
 
 .done-screen__title {
-  font-size: 1.6rem;
+  font-size: 1.35rem;
   margin: 0;
 }
 
@@ -76,8 +77,8 @@
 .done-screen__layout {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: var(--space-4);
+  grid-template-columns: 1fr 280px;
+  gap: var(--space-3);
   min-height: 0;
 }
 
@@ -97,8 +98,8 @@
 
 .done-screen__toggle {
   position: absolute;
-  bottom: var(--space-2);
-  left: var(--space-2);
+  top: var(--space-2);
+  right: var(--space-2);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -150,7 +151,8 @@
 }
 
 .done-screen__summary-text {
-  line-height: 1.65;
+  font-size: 0.93rem;
+  line-height: 1.6;
   color: var(--color-ink);
 }
 
@@ -209,10 +211,10 @@
 
 .done-screen__btn {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-pill);
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.95rem;
   transition:
     background var(--duration-fast) var(--ease-soft),
     transform var(--duration-fast) var(--ease-soft);

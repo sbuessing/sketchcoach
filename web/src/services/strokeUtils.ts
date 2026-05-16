@@ -7,8 +7,8 @@ import { getStroke } from 'perfect-freehand';
 import type { DrawMode, Stroke, StrokePoint, StrokePointerType } from '../shared/types';
 
 export const VIEWBOX_SIZE = 1000;
-export const BRUSH_SIZE = 12;
-export const PENCIL_SIZE = 5;
+export const BRUSH_SIZE = 6;    // halved from 12 — feels right at current canvas size
+export const PENCIL_SIZE = 3;   // narrower construction line
 
 // Expressive inking pen — noticeable width swing with pressure, tapered ends.
 // With real pressure (stylus or Safari Force Touch) the contrast between a

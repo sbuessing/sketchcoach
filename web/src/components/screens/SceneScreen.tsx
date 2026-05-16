@@ -1,15 +1,65 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import { findScene, projectsInScene } from '../../services/dataService';
 import { VIEWBOX_SIZE } from '../../services/strokeUtils';
+import { svgToPngDataUrl } from '../../services/snapshot';
 import type { PortfolioEntry, Project, SceneSlot } from '../../shared/types';
 import './SceneScreen.css';
+
+/** Paper color baked into the exported PNG. Mirrors --color-paper in index.css. */
+const PAPER_COLOR = '#fbfaf4';
+
+/** Size of the exported PNG. 2048 looks sharp pasted at native screen res. */
+const EXPORT_PNG_SIZE = 2048;
 
 interface SceneNavState {
   /** Slug of a piece that just landed in this scene — animate it in. */
   newSlug?: string;
 }
+
+/** Strip the outer <svg ...>…</svg> wrapper, leaving just the inner content. */
+function stripSvgWrapper(svg: string): string {
+  return svg
+    .replace(/^[\s\S]*?<svg[^>]*>/i, '')
+    .replace(/<\/svg>\s*$/i, '');
+}
+
+/**
+ * Build a self-contained SVG of the scene for export: paper-color background,
+ * the pencil scaffolding, and every completed piece in its slot. Crucially,
+ * NO dashed placeholders — the image is meant to be handed to an image AI for
+ * "fill in the rest" prompting, so showing what's missing would just confuse it.
+ */
+function buildExportSvg(
+  bgInner: string,
+  completedPieces: Array<{ project: Project; entry: PortfolioEntry }>,
+): string {
+  const piecesSvg = completedPieces
+    .map(({ project, entry }) => {
+      const inner = stripSvgWrapper(entry.svg);
+      const { x, y, width, height } = project.sceneSlot;
+      return `<svg x="${x}" y="${y}" width="${width}" height="${height}" viewBox="0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}" overflow="visible">${inner}</svg>`;
+    })
+    .join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}">` +
+    `<rect width="${VIEWBOX_SIZE}" height="${VIEWBOX_SIZE}" fill="${PAPER_COLOR}"/>` +
+    `<g>${bgInner}</g>` +
+    piecesSvg +
+    `</svg>`;
+}
+
+/** Convert a data URL into a Blob via fetch — concise and well-supported. */
+async function dataUrlToBlob(dataUrl: string): Promise<Blob> {
+  const res = await fetch(dataUrl);
+  return res.blob();
+}
+
+/**
+ * The sample prompt we suggest users paste alongside the image. Generic enough
+ * to work with Gemini, ChatGPT, Claude, etc.
+ */
+const SAMPLE_PROMPT = `Here's a hand-drawn pencil-and-ink scene I made. Please render a fully-developed illustration in the same loose, hand-drawn style. Keep my drawn objects as the focal points — don't redraw them or change their shapes. Fill in the empty areas with matching atmosphere, light, and supporting detail so it reads as one cohesive scene. Same square aspect ratio. Pen-and-ink with watercolor wash, warm and quiet.`;
 
 export default function SceneScreen() {
   const { sceneId = '' } = useParams<{ sceneId: string }>();
@@ -29,6 +79,23 @@ export default function SceneScreen() {
 
   const scene = findScene(scenes, sceneId);
 
+  // Background SVG content (just the inner paths) — fetched once per scene.
+  const [bgInner, setBgInner] = useState<string>('');
+  useEffect(() => {
+    if (!scene?.backgroundSvg) { setBgInner(''); return; }
+    let cancelled = false;
+    fetch(scene.backgroundSvg)
+      .then((r) => r.text())
+      .then((text) => { if (!cancelled) setBgInner(stripSvgWrapper(text)); })
+      .catch((err) => { if (!cancelled) console.warn('Failed to load scene background', err); });
+    return () => { cancelled = true; };
+  }, [scene?.backgroundSvg]);
+
+  // Copy-to-clipboard state. 'copied' shows for a couple seconds after success.
+  const [copyState, setCopyState] = useState<'idle' | 'copying' | 'copied' | 'error'>('idle');
+  const [copyError, setCopyError] = useState<string | null>(null);
+  const [promptCopied, setPromptCopied] = useState(false);
+
   // Sort projects by z so back layers render first and front layers cover them.
   // Tie-breaker: slot y so within a z-layer, more-distant items still go behind.
   const sortedProjects = useMemo(() => {
@@ -45,6 +112,48 @@ export default function SceneScreen() {
     return m;
   }, [portfolio]);
 
+  const completedCount = sortedProjects.filter((p) => entriesBySlug.has(p.slug)).length;
+  const totalCount = sortedProjects.length;
+  const canCopy = completedCount > 0;
+
+  const handleCopyImage = useCallback(async () => {
+    if (!canCopy) return;
+    setCopyState('copying');
+    setCopyError(null);
+    try {
+      const completedPieces = sortedProjects
+        .map((p) => {
+          const entry = entriesBySlug.get(p.slug);
+          return entry ? { project: p, entry } : null;
+        })
+        .filter((x): x is { project: Project; entry: PortfolioEntry } => x !== null);
+
+      const exportSvg = buildExportSvg(bgInner, completedPieces);
+      const pngDataUrl = await svgToPngDataUrl(exportSvg, EXPORT_PNG_SIZE);
+      const blob = await dataUrlToBlob(pngDataUrl);
+
+      if (!navigator.clipboard || !window.ClipboardItem) {
+        throw new Error('Your browser does not support image clipboard. Try Chrome, Safari, or Edge.');
+      }
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      setCopyState('copied');
+      window.setTimeout(() => setCopyState('idle'), 2200);
+    } catch (err) {
+      setCopyState('error');
+      setCopyError(err instanceof Error ? err.message : String(err));
+    }
+  }, [canCopy, sortedProjects, entriesBySlug, bgInner]);
+
+  const handleCopyPrompt = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(SAMPLE_PROMPT);
+      setPromptCopied(true);
+      window.setTimeout(() => setPromptCopied(false), 2200);
+    } catch (err) {
+      console.warn('Prompt copy failed', err);
+    }
+  }, []);
+
   if (!scene) {
     return (
       <div className="scenescreen scenescreen--missing">
@@ -54,9 +163,6 @@ export default function SceneScreen() {
     );
   }
 
-  const completedCount = sortedProjects.filter((p) => entriesBySlug.has(p.slug)).length;
-  const totalCount = sortedProjects.length;
-
   return (
     <div className="scenescreen">
       <header className="scenescreen__header">
@@ -65,7 +171,26 @@ export default function SceneScreen() {
           <h1 className="scenescreen__title">{scene.title}</h1>
           <span className="scenescreen__progress">{completedCount} / {totalCount} complete</span>
         </div>
+        <div className="scenescreen__actions">
+          <button
+            type="button"
+            className="scenescreen__btn scenescreen__btn--primary"
+            onClick={handleCopyImage}
+            disabled={!canCopy || copyState === 'copying'}
+            title={
+              !canCopy
+                ? 'Draw at least one piece first.'
+                : 'Copy your scene (without empty placeholders) as a PNG to paste into an image AI.'
+            }
+          >
+            {copyState === 'copying' ? 'Copying…' : copyState === 'copied' ? '✓ Copied!' : 'Copy scene as image'}
+          </button>
+        </div>
       </header>
+
+      {copyState === 'error' && copyError && (
+        <div className="scenescreen__error">Couldn't copy: {copyError}</div>
+      )}
 
       <div className="scenescreen__canvas-wrap">
         <svg
@@ -73,6 +198,13 @@ export default function SceneScreen() {
           viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
           xmlns="http://www.w3.org/2000/svg"
         >
+          {bgInner && (
+            <g
+              className="scenescreen__background"
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{ __html: bgInner }}
+            />
+          )}
           {sortedProjects.map((project) => {
             const entry = entriesBySlug.get(project.slug);
             return entry ? (
@@ -92,14 +224,38 @@ export default function SceneScreen() {
           })}
         </svg>
       </div>
+
+      {canCopy && (
+        <details className="scenescreen__remix">
+          <summary>Want to flesh this out with an AI? →</summary>
+          <div className="scenescreen__remix-body">
+            <p className="scenescreen__remix-intro">
+              Copy the scene above, then paste it into <strong>Gemini</strong>, <strong>ChatGPT</strong>, or any image-generation tool along with a prompt like this:
+            </p>
+            <div className="scenescreen__remix-prompt">
+              <pre>{SAMPLE_PROMPT}</pre>
+              <button
+                type="button"
+                className="scenescreen__remix-copy"
+                onClick={handleCopyPrompt}
+              >
+                {promptCopied ? '✓ Copied' : 'Copy prompt'}
+              </button>
+            </div>
+            <p className="scenescreen__remix-tip">
+              Tip: experiment with the style ("watercolor wash", "muted pen-and-ink", "soft pastel") and the mood ("warm afternoon light", "early morning fog"). Your drawings will stay the centerpiece — the AI fills in the world around them.
+            </p>
+          </div>
+        </details>
+      )}
     </div>
   );
 }
 
 /**
  * Render a saved drawing into its slot. The saved SVG is 1000×1000 in its own
- * viewBox; we strip the outer <svg> wrapper and embed the inner content inside
- * a <g> with a translate+scale transform so it lands cleanly in the slot box.
+ * viewBox; we use a nested <svg> with x/y/width/height + viewBox so CSS
+ * transform (used for the bounce-in animation) doesn't conflict with positioning.
  */
 function DrawingAtSlot({
   entry,
@@ -110,11 +266,7 @@ function DrawingAtSlot({
   slot: SceneSlot;
   isNew?: boolean;
 }) {
-  const inner = entry.svg
-    .replace(/^<svg[^>]*>/i, '')
-    .replace(/<\/svg>\s*$/i, '');
-  // Nested <svg> handles slot positioning via x/y/width/height + viewBox,
-  // leaving CSS transform free to drive the bounce animation without conflict.
+  const inner = stripSvgWrapper(entry.svg);
   return (
     <svg
       x={slot.x}

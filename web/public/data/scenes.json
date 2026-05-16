@@ -3,17 +3,20 @@
     {
       "id": "harbor",
       "title": "Harbor at Golden Hour",
-      "tagline": "Adventurous, atmospheric."
+      "tagline": "Adventurous, atmospheric.",
+      "backgroundSvg": "/data/scenes/harbor-bg.svg"
     },
     {
       "id": "windowsill",
       "title": "Morning Windowsill",
-      "tagline": "Cozy, contemplative."
+      "tagline": "Cozy, contemplative.",
+      "backgroundSvg": "/data/scenes/windowsill-bg.svg"
     },
     {
       "id": "garden",
       "title": "Garden Courtyard",
-      "tagline": "Whimsical, alive."
+      "tagline": "Whimsical, alive.",
+      "backgroundSvg": "/data/scenes/garden-bg.svg"
     }
   ]
 }

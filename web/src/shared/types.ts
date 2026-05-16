@@ -28,6 +28,8 @@ export interface Scene {
   id: string;
   title: string;
   tagline: string;
+  /** Public URL to the pencil-scaffolding SVG that sits behind the user's drawings. */
+  backgroundSvg?: string;
 }
 
 export interface Project {

@@ -99,12 +99,10 @@ const FINAL_SYSTEM_PROMPT = `You are the enthusiastic, big-hearted coach of Sket
 
 Your personality is Bob Ross doing his end-of-episode reveal, Mr. Rogers telling a kid they did something wonderful, and Yo Gabba Gabba throwing a tiny party. Warm, specific, and genuinely thrilled.
 
-The user has just finished their drawing. Look at the image and write a final summary that:
-- Opens with a genuine moment of delight at what they made — not generic ("great job!") but specific ("Look at that turtle — the shell dome has real weight to it!").
-- Names ONE specific thing they did well, calling it out clearly so they know exactly what to be proud of.
-- Names ONE specific, actionable thing to try in their next drawing — framed as an exciting next step, not a correction.
-- Briefly reflects on the session's focus principle with warmth.
-- Ends with an encouraging send-off. 4–6 short sentences total.
+The user has just finished their drawing. Look at the image and write a final summary of 2–3 sentences that:
+- Opens with one specific, genuine observation about what they made — name something you actually see, not generic praise.
+- Calls out one thing they did well and one thing to try next, woven naturally into the sentences (not as a list).
+Keep it short and warm. Think Bob Ross's end-of-episode reveal — delighted, specific, brief.
 
 Then list 1–2 "try next time" tips as short punchy phrases. Make these feel like fun challenges, not homework.
 
@@ -157,7 +155,7 @@ const FINAL_SUMMARY_TOOL: Anthropic.Tool = {
     properties: {
       summary: {
         type: 'string',
-        description: '4–6 short sentences. Warm, specific, balanced.',
+        description: '2–3 sentences. Warm and specific — name what you actually see. No generic praise.',
       },
       tryNext: {
         type: 'array',
@@ -528,4 +526,126 @@ export async function requestFinalSummary(
     summary,
     tryNext,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Scene composition — "make a unified picture from my pieces"
+// ---------------------------------------------------------------------------
+
+const COMPOSE_SYSTEM_PROMPT = `You are composing a final scene illustration for Sketch Coach.
+
+The user has drawn several pieces that each belong in a designated slot inside a 1000×1000 canvas. Your job: produce a single SVG that places every piece in its slot, layers the faint pencil background, and adds connective tissue so the whole reads as one unified scene.
+
+## Rules — non-negotiable
+
+1. **PRESERVE the user's drawings.** For each provided piece, embed its inner SVG verbatim inside a nested <svg> element positioned with x/y/width/height + viewBox="0 0 1000 1000". Do not redraw, restyle, or alter the user's lines.
+
+2. **LAYER ORDER, back to front:**
+   a. The provided background paths (pencil weight, low opacity), wrapped in a <g>.
+   b. Any NEW background detail you add (pencil weight, #808080, opacity ~0.3): extend dock planks behind objects, fill in water around boats, suggest a continuing horizon, etc.
+   c. Each user piece, in z-order (lowest z first), as nested <svg> at the slot position.
+   d. Optional NEW foreground accents (cast shadows, contact lines, hint of overlap) in pen weight #2d3f2a, used sparingly.
+
+3. **FIX pass-throughs.** When two pieces overlap or when one piece's content visibly continues past a piece that should be in front of it, add a short connective stroke, cast shadow, or occluding pencil mark that resolves the ambiguity. Keep additions minimal — the user's drawings are the hero.
+
+4. **MATCH the existing aesthetic:**
+   - Pencil weight: stroke="#808080", opacity="0.3", stroke-width="1.2", fill="none", stroke-linecap="round".
+   - Pen weight: fill="#2d3f2a" for filled shapes, or stroke="#2d3f2a" stroke-width="3" fill="none" for outlines.
+   - No drop-shadows, gradients, filters, or text. SVG primitives only: <path>, <g>, <rect>, <line>, <circle>, <ellipse>, nested <svg>.
+
+5. **Output a single, self-contained SVG document** with xmlns and viewBox="0 0 1000 1000". Nothing outside the <svg> tags.
+
+You will respond by calling the compose_scene tool. Do not produce any text outside the tool call.`;
+
+const COMPOSE_TOOL: Anthropic.Tool = {
+  name: 'compose_scene',
+  description: 'Return the composed scene as a single SVG document.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      svg: {
+        type: 'string',
+        description:
+          'A complete SVG document starting with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"> and ending with </svg>. Contains the background, the user pieces (as nested <svg> elements positioned at their slot coordinates), and any new connective elements.',
+      },
+    },
+    required: ['svg'],
+  },
+};
+
+export interface SceneCompositionPiece {
+  title: string;
+  slot: { x: number; y: number; width: number; height: number; z: number };
+  /** The inner content of the user's saved SVG — <path> elements, no outer <svg>. */
+  innerSvg: string;
+}
+
+export interface SceneCompositionArgs {
+  sceneTitle: string;
+  sceneTagline: string;
+  /** Inner content of the scene's background SVG — <g>/<path> elements only. */
+  backgroundInnerSvg: string;
+  pieces: SceneCompositionPiece[];
+}
+
+export interface SceneCompositionResult {
+  svg: string;
+}
+
+export async function requestSceneComposition(
+  args: SceneCompositionArgs,
+): Promise<SceneCompositionResult> {
+  const client = getClient();
+
+  const piecesBlock = args.pieces
+    .map((p, i) => {
+      const { x, y, width, height, z } = p.slot;
+      return `--- Piece ${i + 1}: ${p.title}
+Slot: x=${x} y=${y} width=${width} height=${height} z=${z}
+Inner SVG (embed verbatim inside a nested <svg> at this slot):
+${p.innerSvg}`;
+    })
+    .join('\n\n');
+
+  const userText = `Scene: ${args.sceneTitle}
+Vibe: ${args.sceneTagline}
+
+== Background paths (pencil, render first) ==
+${args.backgroundInnerSvg}
+
+== User pieces (${args.pieces.length} total, render in z-order) ==
+${piecesBlock}
+
+Compose the scene now. Call the compose_scene tool.`;
+
+  const response = await client.messages.create({
+    model: MODEL,
+    // Scene composition output is verbose — generous budget so the SVG isn't truncated.
+    max_tokens: 16000,
+    system: [
+      {
+        type: 'text',
+        text: COMPOSE_SYSTEM_PROMPT,
+        cache_control: { type: 'ephemeral' },
+      },
+    ],
+    tools: [COMPOSE_TOOL],
+    tool_choice: { type: 'tool', name: 'compose_scene' },
+    messages: [{ role: 'user', content: [{ type: 'text', text: userText }] }],
+  });
+
+  if (response.usage) logUsage('compose', response.usage);
+
+  const toolUse = response.content.find(
+    (b): b is Anthropic.ToolUseBlock => b.type === 'tool_use',
+  );
+  if (!toolUse) {
+    throw new Error('Scene composition response missing tool_use block');
+  }
+  const raw = toolUse.input as Record<string, unknown>;
+  const svg = typeof raw.svg === 'string' ? raw.svg : '';
+  if (!svg) {
+    throw new Error('Scene composition returned an empty SVG');
+  }
+  return { svg };
 }

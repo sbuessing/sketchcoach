@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <!-- Morning Windowsill — pencil scaffolding. Window frame, garden suggestion
+       through the glass, and warm wood counter grain below. -->
+  <g stroke="#808080" fill="none" stroke-linecap="round" opacity="0.3">
+    <!-- Window frame outer rectangle -->
+    <rect x="100" y="80" width="800" height="540" stroke-width="2" />
+
+    <!-- Garden glimpse outside: a soft tree silhouette and bushy shapes -->
+    <g opacity="0.65">
+      <!-- Distant tree trunk + canopy on the left -->
+      <path d="M 220 480 Q 200 400 220 320 Q 250 270 290 310 Q 320 360 310 470" stroke-width="1.2" />
+      <path d="M 240 320 Q 280 290 320 320" stroke-width="1" />
+      <!-- Rolling shrub line along the bottom of the view -->
+      <path d="M 110 510 Q 200 470 290 490 Q 380 460 470 485 Q 560 470 650 490 Q 740 470 830 488 Q 880 482 890 490" stroke-width="1.2" />
+      <!-- A few cloud puffs in the upper window -->
+      <path d="M 480 180 Q 540 168 600 182 Q 640 178 680 188" stroke-width="1" opacity="0.7" />
+      <path d="M 720 230 Q 770 222 820 234" stroke-width="1" opacity="0.7" />
+    </g>
+
+    <!-- Vertical sash bar dividing the window -->
+    <path d="M 500 80 L 500 620" stroke-width="1.5" />
+
+    <!-- Horizontal sash bar -->
+    <path d="M 100 320 L 900 320" stroke-width="1.5" />
+
+    <!-- Window sill: a deeper shelf below the window frame -->
+    <path d="M 60 620 L 940 620" stroke-width="2.5" />
+    <path d="M 80 660 L 920 660" stroke-width="1.5" />
+
+    <!-- Counter surface line (where the lower laydown objects sit) -->
+    <path d="M 0 730 L 1000 730" stroke-width="2" opacity="0.45" />
+
+    <!-- Wood grain on the counter, long and gently wavy -->
+    <path d="M 30 800 Q 280 794 560 802 Q 800 796 970 802" stroke-width="0.7" />
+    <path d="M 30 850 Q 220 844 520 852 Q 760 846 970 852" stroke-width="0.7" />
+    <path d="M 30 900 Q 260 894 560 902 Q 800 896 970 902" stroke-width="0.7" />
+    <path d="M 30 950 Q 220 944 520 952 Q 760 946 970 952" stroke-width="0.7" />
+
+    <!-- Tiny morning light rays from upper-left -->
+    <g opacity="0.4">
+      <path d="M 120 100 L 250 230" stroke-width="0.8" />
+      <path d="M 100 180 L 220 300" stroke-width="0.8" />
+      <path d="M 160 90 L 290 220" stroke-width="0.8" />
+    </g>
+  </g>
+</svg>
