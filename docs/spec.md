@@ -1,14 +1,14 @@
 # Sketch Coach — Technical Spec
 
-This document specifies the architecture and implementation plan for Sketch Coach v1. It builds on `docs/proposal.md` and follows the patterns established in the reference project at `/Users/shawn/Documents/GitHub/anotterlanguage/travel` (deployed at https://travelsimulator.web.app).
+This document describes the current architecture and implementation of Sketch Coach. It is kept up to date after major feature additions.
 
-The major difference from the reference project: Sketch Coach has **no offline content-generation pipeline**. There is one runtime — the React web app — which calls Claude directly from the browser.
+The app follows the patterns established in the reference project at `/Users/shawn/Documents/GitHub/anotterlanguage/travel` (deployed at https://travelsimulator.web.app).
 
 ---
 
 ## 1. Architecture
 
-### Beta (current)
+### Current (beta)
 
 ```
 Browser (React + SVG canvas)
@@ -36,9 +36,9 @@ Claude API (Anthropic)
 
 **Runtime:**
 - The React app is the entire product surface.
-- Static project data (10 projects, 10 step files, 23 guidelines) ships in `web/public/data/` as JSON.
-- User data (portfolio, preferences, drawings-in-progress) lives in the user's browser (`localStorage` + `IndexedDB`).
-- **Beta API key strategy:** users provide their own Anthropic key via a settings modal (BYOK). Key is saved to `localStorage` and passed to the Anthropic SDK with `dangerouslyAllowBrowser: true`. `VITE_ANTHROPIC_API_KEY` env var is the local dev fallback. Key priority: localStorage BYOK key → env var.
+- Static content (3 scenes × ~14 projects each = 40 projects total, 40 step files, 25+ guidelines) ships in `web/public/data/` as JSON.
+- User data (portfolio, preferences, drawings-in-progress, active scene) lives in the user's browser (`localStorage` + `IndexedDB`).
+- **API key strategy:** users provide their own Anthropic key via a settings modal (BYOK). Key saved to `localStorage`, passed to Anthropic SDK with `dangerouslyAllowBrowser: true`. `VITE_ANTHROPIC_API_KEY` env var is the local dev fallback. Key priority: localStorage BYOK → env var.
 - **Future:** a Firebase Cloud Functions proxy replaces the direct call for managed production deploys.
 
 **No backend database, no auth, no server pipeline.**
@@ -47,77 +47,83 @@ Claude API (Anthropic)
 
 ## 2. Project Layout
 
-Mirror the travel project's `web/` folder structure. No `functions/` directory exists yet — the Cloud Functions proxy is a future production path.
-
 ```
 sketchcoach/
-├── docs/                              # proposal, spec, ideas, TODO, prompts
-├── web/                               # React/Vite frontend
-│   ├── src/
-│   │   ├── main.tsx                   # Entry: Router + AppProvider
-│   │   ├── App.tsx                    # Routes
-│   │   ├── index.css                  # Global CSS variables (Garden Studio palette)
-│   │   ├── contexts/
-│   │   │   └── AppContext.tsx         # Session-wide state (projects, guidelines, audio, portfolio)
-│   │   ├── components/
-│   │   │   ├── screens/               # HomeScreen, DrawScreen, DoneScreen, PortfolioScreen
-│   │   │   ├── canvas/                # SketchCanvas, ToolModeSelector, Toolbar
-│   │   │   ├── coach/                 # CoachPanel, CoachMessage
-│   │   │   ├── steps/                 # StepList, StepItem
-│   │   │   └── settings/              # ApiKeyModal (BYOK key management)
-│   │   ├── hooks/
-│   │   │   ├── useDrawing.ts          # Stroke state, undo, erase
-│   │   │   ├── useCoach.ts            # Coach trigger logic + Claude calls
-│   │   │   └── useAmbientAudio.ts     # Backing track + SFX
-│   │   ├── services/
-│   │   │   ├── claudeClient.ts        # Anthropic SDK wrapper (direct browser calls)
-│   │   │   ├── dataService.ts         # Loads projects.json, guidelines.json, step files
-│   │   │   ├── portfolioStore.ts      # IndexedDB schema + CRUD
-│   │   │   ├── prefsStore.ts          # localStorage wrapper (prefs + BYOK key)
-│   │   │   ├── snapshot.ts            # SVG → PNG rasterizer
-│   │   │   └── strokeUtils.ts         # Stroke helpers
-│   │   ├── shared/
-│   │   │   └── types.ts               # All TypeScript types
-│   │   └── vite-env.d.ts
-│   ├── public/
-│   │   ├── data/                      # projects.json, guidelines.json, <slug>.json × 10
-│   │   └── audio/
-│   │       ├── tracks/                # chillhop loops
-│   │       └── sfx/                   # button clicks, completion chime, etc.
-│   ├── index.html
-│   ├── vite.config.ts
-│   ├── tsconfig.json
-│   ├── firebase.json                  # Hosting config (in web/ dir)
-│   ├── .firebaserc                    # Firebase project: sketchcoach-fae4f
-│   └── package.json
-└── .gitignore
+├── .claude/
+│   ├── CLAUDE.md                          # Claude instructions (this kind of file)
+│   ├── hooks/log_prompt.py                # Logs every prompt to docs/prompts.md
+│   └── settings.json                      # Hook config
+├── docs/                                  # proposal, spec, ideas, prompts, content-guidelines
+└── web/                                   # React/Vite frontend
+    ├── src/
+    │   ├── main.tsx                       # Entry: Router + AppProvider
+    │   ├── App.tsx                        # Routes (lazy-loaded screens)
+    │   ├── index.css                      # Global CSS variables (Garden Studio palette)
+    │   ├── contexts/
+    │   │   └── AppContext.tsx             # Session-wide state (projects, scenes, guidelines, audio, portfolio)
+    │   ├── components/
+    │   │   ├── screens/
+    │   │   │   ├── HomeScreen.tsx         # Scene selector + project grid
+    │   │   │   ├── DrawScreen.tsx         # Canvas + steps + coach + toolbar
+    │   │   │   ├── DoneScreen.tsx         # Final feedback + save → scene view
+    │   │   │   ├── SceneScreen.tsx        # Assembled scene canvas (composited SVGs)
+    │   │   │   ├── PortfolioScreen.tsx    # All completed drawings grid + detail modal
+    │   │   │   ├── TipsScreen.tsx         # Drawing guidelines, encountered vs. not yet seen
+    │   │   │   └── AboutScreen.tsx        # Design philosophy page
+    │   │   ├── canvas/
+    │   │   │   ├── SketchCanvas.tsx       # SVG drawing surface
+    │   │   │   ├── ToolModeSelector.tsx   # Pencil / Pen / Erase toggle
+    │   │   │   └── Toolbar.tsx            # Undo, Finish; leftSlot / centerSlot / rightSlot
+    │   │   ├── coach/                     # CoachPanel, CoachMessage
+    │   │   ├── steps/                     # StepList, StepItem
+    │   │   ├── settings/                  # ApiKeyModal (BYOK)
+    │   │   └── ui/                        # AudioControls, SaveIndicator
+    │   ├── hooks/
+    │   │   ├── useDrawing.ts              # Stroke state, undo, per-stroke erase, autosave
+    │   │   ├── useCoach.ts                # Coach trigger logic + Claude calls
+    │   │   └── useAmbientAudio.ts         # Backing track (skip, fade) + isPlaying / trackName
+    │   ├── services/
+    │   │   ├── claudeClient.ts            # Anthropic SDK wrapper (BYOK key resolution)
+    │   │   ├── dataService.ts             # Loads projects, scenes, guidelines, step files
+    │   │   ├── portfolioStore.ts          # IndexedDB CRUD (portfolio + in-progress)
+    │   │   ├── prefsStore.ts              # localStorage (prefs, BYOK key, data_version)
+    │   │   ├── audioService.ts            # Web Audio API SFX synthesizer
+    │   │   ├── snapshot.ts                # SVG → PNG rasterizer
+    │   │   └── strokeUtils.ts             # Stroke smoothing, SVG serialization, style helpers
+    │   └── shared/
+    │       └── types.ts                   # All TypeScript types
+    ├── public/
+    │   ├── data/
+    │   │   ├── scenes.json                # 3 scene metadata records
+    │   │   ├── projects.json              # 40 project records (sceneId + sceneSlot)
+    │   │   ├── guidelines.json            # 25+ drawing principles
+    │   │   └── <slug>.json × 40          # Per-project step lists
+    │   └── audio/
+    │       ├── tracks/                    # 3 chillhop loops (Pixabay royalty-free)
+    │       ├── ATTRIBUTION.md             # Track source notes
+    │       └── tracks.json                # Ordered track list
+    ├── index.html
+    ├── vite.config.ts
+    ├── tsconfig.json
+    ├── firebase.json                      # Hosting config
+    └── .firebaserc                        # Firebase project: sketchcoach-fae4f
 ```
 
 ---
 
 ## 3. Tech Stack
 
-Follow travel's stack exactly where it applies.
-
 **Frontend:**
 - **React 19** + **TypeScript 5.9** (strict mode)
 - **Vite 7** with `@vitejs/plugin-react`
 - **React Router DOM v7** (lazy-loaded screens)
-- **Framer Motion** (entrance animations, page transitions, coach message fade-ins)
-- **perfect-freehand** (stroke smoothing — converts pointer points + pressure into smooth SVG paths)
+- **perfect-freehand** (stroke smoothing — pointer points + pressure → smooth SVG fill paths)
 - **Pure CSS with CSS variables** — no Tailwind, no CSS modules; co-located `.css` per component
 
-**Functions:**
-- **Node 20** runtime
-- **Firebase Functions v2** (HTTPS callable)
-- **`@anthropic-ai/sdk`** (the official Claude SDK)
-
 **Tooling:**
-- ESLint + Prettier (mirror travel's config)
-- Vitest for unit tests on services and hooks
+- ESLint + Prettier
+- `tsc --noEmit` typecheck + `vite build` as the CI gate
 - No e2e tests for v1
-
-**Why perfect-freehand:** the proposal opens the door to pressure-sensitive drawing. Hand-rolled SVG path stitching gets jagged on fast strokes, and writing our own smoothing is a yak shave. perfect-freehand is small, well-maintained, accepts pressure data, and outputs SVG path strings that are easy to render and serialize.
 
 ---
 
@@ -125,17 +131,21 @@ Follow travel's stack exactly where it applies.
 
 ### 4.1 Static data (ships with the app)
 
-Files live in `web/public/data/` and are fetched on-demand:
-- `projects.json` — 10 project metadata records
-- `guidelines.json` — 23 drawing principles
-- `<slug>.json` × 10 — per-project step lists
+Files in `web/public/data/`, fetched on demand and cached:
 
-Loaded by `services/dataService.ts`:
-- `loadProjects(): Promise<Project[]>` — caches in module-level Map after first call
-- `loadGuidelines(): Promise<Guideline[]>` — same
-- `loadProjectSteps(slug: string): Promise<ProjectSteps>` — lazy
+- `scenes.json` — 3 scene metadata records
+- `projects.json` — 40 project records, each with `sceneId` and `sceneSlot`
+- `guidelines.json` — 25+ drawing principles (novice → advanced)
+- `<slug>.json` × 40 — per-project step lists (5–8 steps each)
 
-The cross-references (project `focusGuidelines[]` → guideline `id`) are validated at load time in dev; in prod we fail soft with a console warning.
+`dataService.ts` exports:
+- `loadScenes(): Promise<Scene[]>`
+- `loadProjects(): Promise<Project[]>`
+- `loadGuidelines(): Promise<Guideline[]>`
+- `loadProjectSteps(slug): Promise<ProjectSteps>`
+- `findScene(scenes, id): Scene | undefined`
+- `findProject(projects, slug): Project | undefined`
+- `projectsInScene(projects, sceneId): Project[]`
 
 ### 4.2 User data (browser-local)
 
@@ -145,47 +155,62 @@ The cross-references (project `focusGuidelines[]` → guideline `id`) are valida
 | `sketchcoach_audio_volume` | number 0–1 | Backing track volume |
 | `sketchcoach_sfx_enabled` | boolean | Sound effects toggle |
 | `sketchcoach_last_track` | string | Last-played track filename |
+| `sketchcoach_byok_key` | string | User's Anthropic API key |
+| `sketchcoach_active_scene` | string | Last selected scene ID |
+| `sketchcoach_data_version` | number | Schema version; mismatch wipes IndexedDB |
 
 **`IndexedDB` (`portfolioStore.ts`):** database `sketchcoach`, schema version 1.
 
 Object store `portfolioEntries`:
 ```ts
 {
-  id: string;              // uuid
+  id: string;
   projectSlug: string;
-  completedAt: number;     // epoch ms
-  svg: string;             // final canvas SVG markup
-  thumbnailDataUrl: string; // 200x200 PNG for the gallery
-  finalFeedback: string;   // Claude's submission summary
+  completedAt: number;
+  svg: string;
+  thumbnailDataUrl: string;
+  finalFeedback: string;
+  tryNext: string[];
   focusGuidelineId: string;
   durationSeconds: number;
 }
 ```
 
-Indexed by `completedAt` (descending) and `projectSlug` (for "completed projects" set).
+Object store `drawingsInProgress` (keyed by slug): working SVG + strokes JSON, so a page refresh doesn't lose progress.
 
-Object store `drawingsInProgress` (single object per slug, last-writer-wins): keeps the working SVG so a refresh doesn't lose progress.
+**Data version wipe:** `AppContext` checks `data_version` in localStorage on mount. If the stored version is below the current app version, it calls `clearPortfolio()` + `clearAllInProgress()` once before loading. This handles the v1→v2 transition when old project slugs were retired.
 
-**Why IndexedDB over localStorage for drawings:** SVG markup for a finished sketch can be 10–100 KB; localStorage's ~5 MB ceiling fills up fast across 10+ portfolio entries. IndexedDB also handles binary thumbnails cleanly.
-
-### 4.3 Types
-
-All in `web/src/shared/types.ts`. Mirror the JSON schemas the data files already use:
+### 4.3 Types (`shared/types.ts`)
 
 ```ts
-type Tier = 'beginner' | 'developing' | 'intermediate';
-type Level = 'novice' | 'developing' | 'intermediate';
-type GuidelineCategory =
-  | 'foundational' | 'construction' | 'proportion'
-  | 'line-quality' | 'observation' | 'composition' | 'style';
+type Tier = 'beginner' | 'developing' | 'intermediate' | 'advanced';
+type Level = 'novice' | 'developing' | 'intermediate' | 'advanced';
+type DrawMode = 'pen' | 'pencil';
+type ToolMode = 'draw' | 'erase';
+
+interface Scene {
+  id: string;
+  title: string;
+  tagline: string;
+}
+
+interface SceneSlot {
+  x: number;    // top-left in 1000×1000 scene canvas
+  y: number;
+  width: number;
+  height: number;
+  z: number;    // render order; higher = closer to viewer
+}
 
 interface Project {
   slug: string;
   title: string;
+  sceneId: string;
   tier: Tier;
   estimatedMinutes: number;
   description: string;
-  focusGuidelines: string[];   // guideline ids
+  focusGuidelines: string[];
+  sceneSlot: SceneSlot;
 }
 
 interface Guideline {
@@ -197,305 +222,210 @@ interface Guideline {
   coachCues: string[];
 }
 
-interface ProjectStep {
-  number: number;
-  title: string;
-  description: string;
-}
-
-interface ProjectSteps {
-  slug: string;
-  title: string;
-  steps: ProjectStep[];
-}
-
 interface Stroke {
   id: string;
-  points: Array<{ x: number; y: number; pressure: number; t: number }>;
-  pathD: string;        // SVG path data after perfect-freehand smoothing
+  points: StrokePoint[];
+  pathD: string;
+  pointerType?: StrokePointerType;
+  drawMode?: DrawMode;    // persisted; undefined = 'pen' (backwards compat)
 }
 
 interface CoachMessage {
   id: string;
   text: string;
   highlightedGuidelineId?: string;
+  encouragement: 'gentle-praise' | 'gentle-nudge' | 'celebrate';
   createdAt: number;
 }
 
-interface PortfolioEntry { /* see 4.2 above */ }
+interface PortfolioEntry { /* see §4.2 */ }
 ```
 
 ---
 
 ## 5. The Drawing Canvas
 
-### 5.1 Component shape
+### 5.1 Component
 
-`<SketchCanvas>` owns:
-- An `<svg>` element sized to fill its container, with `viewBox="0 0 1000 1000"` (logical coords; CSS scales it).
-- A `<g>` of finalized stroke `<path>`s.
-- A separate `<path>` for the in-progress stroke (re-renders on every pointer move).
-- Pointer event handlers attached to the SVG: `onPointerDown`, `onPointerMove`, `onPointerUp`, `onPointerCancel`.
+`<SketchCanvas>` owns an `<svg viewBox="0 0 1000 1000">` with:
+- A `<g>` of finalized stroke `<path>`s (one per stroke).
+- A separate in-progress `<path>` re-rendered on every pointer move.
+- Pointer event handlers on the SVG; `setPointerCapture` keeps events flowing if the cursor leaves mid-stroke.
 
-**Coordinate handling:** convert client coords to SVG user space using `svg.getScreenCTM().inverse()` so the same `viewBox` works at any display size.
+Coordinate transforms: client → SVG user space via `svg.getScreenCTM().inverse()`.
 
-### 5.2 Input pipeline
+### 5.2 Drawing modes
 
-`usePointerInput` captures `PointerEvent` and emits `{x, y, pressure, t}` per point. Pressure resolution by source:
-- **Apple Pencil / stylus on touchpad:** `event.pressure` is real (0–1).
-- **Mouse:** `event.pressure` is constant `0.5` while pressed.
-- **Trackpad (Force Touch):** `event.webkitForce` on Safari; PointerEvent.pressure may also be populated.
+| Mode | Fill | Opacity | Size | Notes |
+|------|------|---------|------|-------|
+| Pen | `#2d3f2a` | 1.0 | 9 | Pressure/velocity-responsive width |
+| Pencil | `#808080` | 0.55 | 6 | Fixed width; light construction marks |
 
-We capture pressure on every event but **render fixed-width strokes in v1**. Pressure is stored on each point so a future variable-width renderer can use it without data backfill.
+Both use `perfect-freehand` with mode-appropriate options (`thinning`, `smoothing`, `streamline`). `Stroke.drawMode` is stored so pencil vs pen is preserved on resume.
 
-`pointer-events: none` on the in-progress stroke; capture happens on the SVG itself with `setPointerCapture()` to keep events flowing if the cursor leaves the canvas mid-stroke.
+### 5.3 Erase mode
 
-### 5.3 Stroke rendering
-
-Each completed stroke is a `<path>` with:
-- `d` = perfect-freehand output, converted to a single `M ... Q ... ` path (filled outline, not stroked, so `stroke-linecap` weirdness disappears)
-- `fill="black"`, `stroke="none"`
-- Fixed brush width: `8` (logical units), tunable via a constant.
-
-`stroke-linecap: round` and `stroke-linejoin: round` if we ever fall back to plain stroked paths.
+`ToolMode = 'erase'` turns on per-stroke pointer events. Each `<path>` gets `data-stroke-id`; pointer events bubble up and `event.target.dataset.strokeId` identifies the hovered/clicked stroke. The eraser is mode-aware: pencil eraser only removes pencil strokes; pen eraser only removes pen strokes. Non-erasable strokes dim to 0.25 opacity. Hoverable erasable strokes turn red (`#c04444`).
 
 ### 5.4 Tools
 
-`<Toolbar>` (in `components/canvas/`):
-- **Undo** — pops the last stroke off the strokes array. Stroke history is the array itself; no separate undo stack needed for v1.
-- **Erase All** — clears with confirm dialog.
-- **Finish** — opens the submission flow (see §8).
+`<ToolModeSelector>` (three-button pill in toolbar center slot):
+- **✏ Pencil** — `drawMode='pencil'`, `toolMode='draw'`
+- **🖊 Pen** — `drawMode='pen'`, `toolMode='draw'`
+- **🧹 Erase** — `toolMode='erase'`, drawMode preserved (determines which strokes are erasable)
 
-No multi-stroke eraser, no per-stroke move, no tracing layer — those are in `ideas.md`.
+`<Toolbar>` layout: `leftSlot` (audio controls) | `centerSlot` (ToolModeSelector + SaveIndicator) | right (Undo, Finish).
+
+**Undo** pops the last stroke. No separate undo stack — the strokes array is the history.
 
 ### 5.5 Persistence
 
-The `useDrawing` hook autosaves to IndexedDB (`drawingsInProgress` store) every 5 seconds when strokes have changed. On `<DrawScreen>` mount, if there's a saved drawing for this slug, we offer "Resume" or "Start fresh."
+`useDrawing(slug)` autosaves strokes to IndexedDB every 5 s when changed. On `DrawScreen` mount, if a saved drawing exists, the user is offered "Resume" or "Start fresh."
+
+`<SaveIndicator>` watches `savedAt` (updated after each successful save) and shows "Saved ✓" for 2 s.
 
 ---
 
 ## 6. The Coach Loop
 
-This is the central interaction. It must feel **occasional**, not chatty.
-
-### 6.1 Trigger logic
-
-Implemented in `useCoach`:
+### 6.1 Trigger logic (`useCoach`)
 
 ```
-state:
-  lastStrokeAt:   number   // ms timestamp of last stroke end
-  lastFetchAt:    number   // ms timestamp of last successful coach response
-  strokesAtLastFetch: number
-  isFetching:     boolean
-  messages:       CoachMessage[]
-
-every 1 second tick (setInterval), check:
-  if isFetching                                    → skip
-  if strokes.length === strokesAtLastFetch         → skip   (nothing new to look at)
-  if (now - lastStrokeAt) < 3000                   → skip   (user still drawing)
-  if (now - lastFetchAt) < 20000                   → skip   (rate limit floor)
+every 1s tick:
+  skip if isFetching
+  skip if strokes.length === strokesAtLastFetch   (nothing new)
+  skip if (now - lastStrokeAt) < 3000             (user still drawing)
+  skip if (now - lastFetchAt)  < 20000            (rate limit floor)
   → trigger coach fetch
 ```
 
-When a fetch starts, `isFetching = true` so subsequent ticks short-circuit. On response, we set `lastFetchAt = now`, `strokesAtLastFetch = current`, append the message to `messages`.
-
-The 1s tick is acceptable battery-wise; if it becomes a concern we can collapse it into pointer-up + a single trailing timeout.
-
 ### 6.2 What gets sent to Claude
 
-Each fetch includes:
-1. **System prompt** (cached) — defines voice, audience, output schema.
-2. **Project + focus guideline** (cached for the session) — `Project` object, the chosen `Guideline` object, the project's full step list.
-3. **Recent advice summary** (last 3 coach messages, plain text).
-4. **Snapshot** — a 1024×1024 PNG rasterized from the current SVG (see §6.4).
+1. **System prompt** (prompt-cached) — voice, audience, output schema.
+2. **Project + focus guideline + steps** (prompt-cached per session).
+3. **Recent advice** (last 3 messages, plain text, not cached).
+4. **Snapshot** — 1024×1024 PNG rasterized from the current SVG.
 
 ### 6.3 What Claude returns
 
-A **tool-use response** invoking `provide_coaching` with this schema:
-
+Forced tool-use call to `provide_coaching`:
 ```ts
 {
-  message: string;                 // 1–3 short sentences, cozy/encouraging tone
-  highlightedGuidelineId?: string; // one of the focusGuidelines (for UI highlight)
+  message: string;
+  highlightedGuidelineId?: string;
   encouragement: 'gentle-praise' | 'gentle-nudge' | 'celebrate';
 }
 ```
 
-We use tool-use (not bare JSON) for schema reliability. Anthropic SDK `tool_choice: { type: 'tool', name: 'provide_coaching' }` forces the call.
+### 6.4 Coach panel UX
 
-### 6.4 Snapshot strategy: PNG, not SVG
+The panel is a floating toast anchored below the canvas. Only the most recent message is shown (not a scroll log). Before any messages arrive, a welcome card shows the focus guideline's description and first sample cue.
 
-**Decision:** the canvas snapshot sent to Claude is a **rasterized PNG**, not the SVG markup.
+### 6.5 Final summary
 
-Rationale:
-- Claude's vision is reliable; parsing dense SVG path data for visual judgment is not.
-- PNG keeps token count predictable (image tokens ~ resolution-dependent, not stroke-count-dependent).
-- The SVG remains the canonical data store for portfolio/replay.
-
-`services/snapshot.ts`:
-```ts
-async function svgToPng(svgEl: SVGElement, size = 1024): Promise<string>
-// returns base64 data url. Uses an offscreen <canvas> + serialized SVG → Image → drawImage.
-```
-
-Resolution is tunable via constant. **Default is 1024px** — pending real-world testing, we may step down to 768 or 512 if cost/latency becomes an issue. Logged in `TODO.md`.
-
-### 6.5 Final summary (submission)
-
-A separate Functions endpoint, `coachFinalSummary`, is called once on the Done screen. Same payload shape but:
-- Same 1024px snapshot.
-- Different system prompt asking for a 4–6 sentence summary plus 1–2 things the user could try in their next session.
-- Returns `{ summary: string, tryNext: string[] }`.
-
-The result is persisted to IndexedDB as part of the `PortfolioEntry`.
+Called once on `DoneScreen` mount. Same snapshot + different system prompt → `{ summary: string, tryNext: string[] }`. Persisted to `PortfolioEntry`.
 
 ---
 
 ## 7. Claude API Integration
 
-### 7.1 API key strategy
+### 7.1 Key resolution (`claudeClient.ts`)
 
-**Beta (current):** BYOK — users paste their own Anthropic API key into the settings modal on HomeScreen. Key is stored in `localStorage` via `prefsStore.getApiKey()` / `setApiKey()`. The `claudeClient.ts` module resolves the key at call time (localStorage key takes precedence over `VITE_ANTHROPIC_API_KEY`). The Anthropic SDK is called with `dangerouslyAllowBrowser: true`.
+```
+localStorage BYOK key  →  VITE_ANTHROPIC_API_KEY  →  null (coach disabled)
+```
 
-**Future production:** move calls behind a Firebase Cloud Functions proxy. The proxy holds `ANTHROPIC_API_KEY` as a Firebase secret, adds rate limiting and App Check verification, and the browser never touches the key. The `claudeClient.ts` module is the only file that changes — the rest of the app is proxy-agnostic.
+Exports: `resolveApiKey()`, `isCoachConfigured()`, `isByokMode()`, `requestCoachAdvice()`, `requestFinalSummary()`.
 
-**`claudeClient.ts` exported API:**
-- `resolveApiKey(): string | null` — localStorage key → env var → null
-- `isCoachConfigured(): boolean` — true if any key source is available
-- `isByokMode(): boolean` — true if a personal key is saved
-- `requestCoachAdvice(args): Promise<CoachAdviceResult>`
-- `requestFinalSummary(args): Promise<FinalSummaryResult>`
-
-### 7.2 Anthropic SDK call shape
+### 7.2 SDK call shape
 
 ```ts
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({ apiKey: ANTHROPIC_API_KEY.value() });
-
-const response = await client.messages.create({
-  model: 'claude-sonnet-4-7',          // confirm latest at impl time
+const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
+await client.messages.create({
+  model: 'claude-sonnet-4-7',
   max_tokens: 400,
-  system: [
-    { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } },
-  ],
-  tools: [
-    {
-      name: 'provide_coaching',
-      description: '...',
-      input_schema: PROVIDE_COACHING_SCHEMA,
-    },
-  ],
+  system: [{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
+  tools: [{ name: 'provide_coaching', input_schema: SCHEMA }],
   tool_choice: { type: 'tool', name: 'provide_coaching' },
-  messages: [
-    {
-      role: 'user',
-      content: [
-        // Cached project context
-        { type: 'text', text: projectContextBlock, cache_control: { type: 'ephemeral' } },
-        // Per-call, not cached
-        { type: 'text', text: `Recent advice you've already given: ${recentSummary}` },
-        { type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
-        { type: 'text', text: 'What would you say to the user right now?' },
-      ],
-    },
-  ],
+  messages: [{
+    role: 'user',
+    content: [
+      { type: 'text', text: projectContext, cache_control: { type: 'ephemeral' } },
+      { type: 'text', text: recentAdviceSummary },
+      { type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
+      { type: 'text', text: 'What would you say to the user right now?' },
+    ],
+  }],
 });
 ```
 
-**Prompt caching is required.** The system prompt + project/guideline/steps block are reused on every coach call within a session. Caching cuts both latency and cost on second-and-later calls. Cache lifetime is 5 minutes — naturally aligned to a typical drawing session.
+Prompt caching is required — system prompt + project context are reused on every coach call within a session. Cache lifetime aligns with a typical drawing session (~5 min).
 
-### 7.3 System prompt persona
+### 7.3 Coach persona
 
-The coach personality is a blend of **Bob Ross** (every mark is a happy little accident), **Mr. Rogers** (genuine warmth, proud of you for showing up), and **Yo Gabba Gabba** (unabashedly excited, learning is fun). The 80/20 rule: 80% delight, 20% gentle nudge.
-
-In-session calls use `provide_coaching` tool (forced tool use). Final summary uses `provide_final_summary`. Both system prompts are marked `cache_control: ephemeral` and reused across all calls in a session for prompt caching.
-
-### 7.4 Cost / budget guardrails
-
-- Sonnet at 1024px image + ~1.5K cached tokens + ~400 output tokens ≈ a few cents per coaching call.
-- 20s minimum gap → max 3 calls/min while drawing.
-- A 30-min session ≈ ~20–45 calls in the worst case.
-- Final summary is 1 extra call per finished drawing.
-- With BYOK, cost is borne by the user on their own account. Set Anthropic budget alerts as a safeguard.
-- When the Functions proxy is added: in-memory rate limit + App Check cover the realistic abuse cases.
+Bob Ross warmth + Mr. Rogers sincerity + Yo Gabba Gabba enthusiasm. 80% delight, 20% gentle nudge. Never grades, never scores.
 
 ---
 
 ## 8. UI Flow & Screens
 
-Four routes, all lazy-loaded:
-
 | Route | Component | Purpose |
 |-------|-----------|---------|
-| `/` | `HomeScreen` | Project picker + portfolio peek |
-| `/draw/:slug` | `DrawScreen` | Canvas + step list + coach panel |
-| `/done/:slug` | `DoneScreen` | Final feedback + save to portfolio |
-| `/portfolio` | `PortfolioScreen` | All completed work |
+| `/` | `HomeScreen` | Scene picker + project grid per scene |
+| `/draw/:slug` | `DrawScreen` | Canvas + steps + coach + toolbar |
+| `/done/:slug` | `DoneScreen` | Final feedback + save → assembled scene |
+| `/scene/:sceneId` | `SceneScreen` | Assembled scene canvas (composited drawings) |
+| `/portfolio` | `PortfolioScreen` | All completed drawings across all scenes |
+| `/tips` | `TipsScreen` | Drawing guidelines (encountered vs. not yet seen) |
+| `/about` | `AboutScreen` | Design philosophy page |
 
-> **Removed:** `/coach/:slug` (`CoachingScreen`) — the pre-draw intro screen was removed to reduce friction. The focus guideline (title, description, sample cue) now appears as the coach panel's welcome card on `DrawScreen`. Clicking a project card goes directly to the canvas.
+All routes lazy-loaded via `React.lazy`.
 
 ### 8.1 HomeScreen
 
-- Header: "Sketch Coach" + **API key button** (green dot = key active, amber dot = missing) + portfolio count
-- If no key is configured, an amber banner prompts the user to add one
-- API key modal: password input, show/hide toggle, save/remove, `sk-ant-` validation hint, link to console.anthropic.com
-- Four horizontal rows: Beginner / Developing / Intermediate / Advanced
-- Tier locking: Developing locked until ≥2 Beginner complete; Intermediate locked until ≥2 Developing; Advanced locked until ≥2 Intermediate
-- Each project card: title, est. minutes, completion state (✓ once done)
-- Soft chillhop track auto-plays at low volume on first interaction (browsers block autoplay before user gesture)
+- **Scene selector** — horizontal row of scene cards above the project grid. Each card shows title, tagline, and N/M progress. Selecting a scene stores the choice in `localStorage` and filters the project grid below.
+- **"View assembled scene →"** link navigates to `/scene/:activeSceneId`.
+- **Project grid** — filtered to the active scene, sorted by tier (beginner → advanced). Tiers are display labels only — no locking. Each card shows title, est. minutes, ✓ if complete.
+- **Header actions** — API key button (green/amber status dot), Sketching Tips link, Portfolio count, About (ⓘ) icon.
+- **API key banner** — shown when no key is configured.
 
 ### 8.2 DrawScreen
 
-Three-pane layout (responsive):
+Three-pane layout (steps | canvas | coach):
 
-```
-+-----------+--------------------------+--------------+
-| Steps     |      Canvas              |  Coach       |
-| (left)    |                          |  Panel       |
-| collapsib |   <svg> drawing area     |  (right)     |
-| le        |                          |              |
-|           +--------------------------+              |
-|           |  Toolbar: undo erase finish             |
-+-----------+--------------------------+--------------+
-```
-
-- **Steps pane:** the project's `steps[]`, with the current step highlighted. The user marks steps as "done" manually — we don't try to detect it.
-- **Coach panel:** stack of recent `CoachMessage`s, newest at top. When `highlightedGuidelineId` is set, briefly pulse a small "principle" badge. Before any messages arrive, the panel shows the focus guideline description and a sample cue as a welcome card.
-- **Loading state:** a soft "Looking at your sketch…" indicator while a coach fetch is in flight. Keep it small — it should not be the most visible thing on screen.
-- **Toolbar:** lives below the canvas. Left slot: audio controls (volume slider, skip track, SFX toggle). Center slot: `ToolModeSelector` + autosave indicator. Right slot: Undo, Erase All, Finish.
-
-#### Drawing tools
-
-The toolbar contains a compact three-button `ToolModeSelector`:
-
-| Button | Mode | Visual |
-|--------|------|--------|
-| ✏ Pencil | `drawMode='pencil'`, `toolMode='draw'` | Gray `#808080` strokes at 0.55 opacity, finer size (6 vs 9) |
-| 🖊 Pen | `drawMode='pen'`, `toolMode='draw'` | Full ink `#2d3f2a` at size 9 |
-| ◌ Erase | `toolMode='erase'` (drawMode preserved) | Click any stroke to remove it; mode-aware (pencil eraser only removes pencil strokes, pen eraser only pen strokes); non-erasable strokes dim to 0.25 opacity; hovering an erasable stroke turns it red |
-
-Both pencil and pen modes use the same pressure/velocity handling as before; only the `size`, `thinning`, and fill colour differ. `Stroke.drawMode` is persisted in IndexedDB so pencil vs pen is preserved on resume.
-
-Mobile/narrow viewports: panes collapse into tabs above the canvas.
+- **Steps pane (left):** step list; current step highlighted. User advances manually.
+- **Canvas (center):** `<SketchCanvas>` with `drawMode` and `toolMode` from local state.
+- **Coach panel (right/bottom):** floating toast below canvas; most recent message only; welcome card before first message.
+- **Toolbar:** audio controls (volume, skip track, SFX toggle) | ToolModeSelector + SaveIndicator | Undo + Finish.
+- Music starts on first "Start fresh" (not on "Resume" or if already playing).
 
 ### 8.3 DoneScreen
 
-- Renders the final SVG.
-- Plays a soft completion chime.
-- Calls `coachFinalSummary` once on mount, shows a loading state.
-- When the summary returns, displays:
-  - Claude's 4–6 sentence summary
-  - "Try next time" bullet(s)
-  - **Save to portfolio** button (creates the IndexedDB entry, navigates to `/portfolio`)
-  - **Discard** button (returns home without saving)
+- Renders final SVG.
+- Calls `requestFinalSummary` on mount; shows loading state.
+- Displays summary + "Try next time" bullets.
+- **Save:** creates `PortfolioEntry`, navigates to `/scene/:sceneId` with `{ state: { newSlug } }` so the scene animates the new piece in.
+- **Discard:** returns home.
 
-### 8.4 PortfolioScreen
+### 8.4 SceneScreen
 
-- Grid of thumbnails sorted newest-first.
-- Click a thumbnail: modal with full SVG + saved feedback + project name + completion date.
-- Empty state: friendly illustration + "Pick a project to get started" link.
+- Renders a 1000×1000 SVG canvas.
+- All projects sorted by `sceneSlot.z` then `sceneSlot.y` (back-to-front render order).
+- Completed drawings embedded as `<g transform="translate(x,y) scale(...)">` with the saved SVG's inner content (outer `<svg>` wrapper stripped).
+- Incomplete slots: faint dashed rectangle + project title. Clicking navigates to `/draw/:slug`.
+- Newly-placed piece animates with a bounce (driven by `navState.newSlug`).
+
+### 8.5 TipsScreen
+
+Two sections: **Principles you've encountered** (guidelines from projects the user has started or completed) and **Coming up** (the rest). Each guideline is a card with title, category badge, full description, and sample coach cue. Encountered section has a warm background; coming-up section is dimmer.
+
+### 8.6 PortfolioScreen
+
+Grid of thumbnails, newest-first. Click opens a modal with full SVG, final feedback, completion date, duration, "Try next time" list, "Draw again" link, and Delete. "Clear all" button in header when portfolio is non-empty.
+
+### 8.7 AboutScreen
+
+Static content page. Design philosophy: safe/non-judged practice space, contextual learning, adjustable difficulty, no scores. Accessible via ⓘ icon in HomeScreen header.
 
 ---
 
@@ -503,37 +433,31 @@ Mobile/narrow viewports: panes collapse into tabs above the canvas.
 
 ### 9.1 AppContext
 
-Single React Context provider in `contexts/AppContext.tsx`:
-
 ```ts
 interface AppContextValue {
-  // Static data (loaded once, cached)
   projects: Project[];
+  scenes: Scene[];
   guidelines: Guideline[];
-
-  // Audio
+  activeSceneId: string;
+  setActiveSceneId: (id: string) => void;
   audioVolume: number;
   setAudioVolume: (v: number) => void;
   sfxEnabled: boolean;
   setSfxEnabled: (b: boolean) => void;
-
-  // Portfolio (read-only here; writes go through usePortfolio)
   portfolio: PortfolioEntry[];
   refreshPortfolio: () => Promise<void>;
+  isReady: boolean;
 }
 ```
 
-Persisted prefs hydrate on mount; portfolio loads from IndexedDB on mount.
+`isReady` is false until static data and portfolio have loaded. `App.tsx` gates all routes behind it.
 
 ### 9.2 Drawing-session state
 
-**Lives in `<DrawScreen>` and its hooks**, not in AppContext. Reasons:
-- It's expensive (stroke arrays update many times per second) and re-rendering global subscribers on each pointer move is wasteful.
-- It's scoped to one screen.
-- It clears when leaving the screen.
-
-`useDrawing(slug)` — strokes array, undo, erase, persist.
-`useCoach(project, focusGuideline, getSnapshot, recentMessages)` — fires Claude calls per §6.
+Lives in `DrawScreen` and its hooks, not in AppContext (stroke arrays update many times per second):
+- `useDrawing(slug)` — strokes, drawMode, toolMode, undo, eraseStroke, savedAt, autosave.
+- `useCoach(project, focusGuideline, getSnapshot, ...)` — fires Claude calls per §6.
+- `useAmbientAudio()` — play/pause/skip, `isPlaying`, `trackName`.
 
 ---
 
@@ -541,117 +465,104 @@ Persisted prefs hydrate on mount; portfolio loads from IndexedDB on mount.
 
 ### 10.1 Backing tracks
 
-`web/public/audio/tracks/` holds 10 royalty-free chillhop loops (sourced from Pixabay Music or Free Music Archive — confirm licensing per track and add an `ATTRIBUTION.md`).
+`web/public/audio/tracks/` holds 3 royalty-free chillhop loops sourced from Pixabay (royalty-free license). Track list in `tracks.json`. `ATTRIBUTION.md` notes the source.
 
 `useAmbientAudio` hook:
-- Picks a random track on session start (excluding `prefsStore.lastTrack` to avoid immediate repeat).
-- HTML5 `<audio>` element, `loop=true`.
-- Volume controlled via `audioVolume` from AppContext.
-- Fade in/out on play/pause (200ms linear gain ramp via `AudioContext` or simple JS interval).
+- Loads track list from `tracks.json` on mount.
+- HTML5 `<audio>` element with JavaScript fade-in/fade-out (20ms interval gain ramp).
+- `skipTrack()` fades out → loads next track → fades in.
+- Music volume is halved automatically relative to the master volume slider so SFX are clearly audible.
+- `trackName` and `isPlaying` are reactive state (shown in `AudioControls`).
 
 ### 10.2 Sound effects
 
-`web/public/audio/sfx/`:
-- `stroke-end.mp3` — soft pencil tap
-- `button.mp3` — UI click
-- `complete.mp3` — gentle chime on finish
-- `coach.mp3` — quiet ding when a coach message arrives
+`audioService.ts` — all SFX are **synthesized via the Web Audio API** (no audio files):
+- `stroke-end` — bandpass noise burst (55 ms)
+- `button` — sine 820→300 Hz sweep (40 ms)
+- `complete` — C5+E5+G5 arpeggiated chime with overtones
+- `coach` — F#5 bell ping (500 ms)
 
-All gated by `sfxEnabled`. Preloaded at app start so first plays don't lag.
+All gated by `sfxEnabled`. `AudioContext` is created on first user gesture (browser autoplay policy).
 
 ---
 
 ## 11. Visual Design
 
-**Garden Studio** — cozy, botanical, lo-fi. Forest greens with cream paper. Animal-Crossing-adjacent without being literal about it.
-
-CSS variable palette (in `index.css`):
+**Garden Studio** — cozy, botanical, lo-fi.
 
 ```css
 :root {
-  --color-paper:         #fbfaf4;   /* cream paper */
-  --color-paper-warm:    #ece6d8;   /* linen */
-  --color-ink:           #2d3f2a;   /* forest */
-  --color-ink-soft:      #5a6b57;   /* mid-tone forest */
-  --color-ink-faint:     #b8c4a8;   /* sage */
-  --color-accent:        #6b8e5a;   /* moss */
-  --color-accent-soft:   #c7d5ba;   /* pale moss */
-  --color-accent-strong: #547348;   /* hover/active moss */
-  --color-shadow:        rgba(45, 63, 42, 0.10);
-  --color-shadow-strong: rgba(45, 63, 42, 0.18);
+  --color-paper:             #fbfaf4;
+  --color-paper-warm:        #ece6d8;
+  --color-ink:               #2d3f2a;
+  --color-ink-soft:          #5a6b57;
+  --color-ink-faint:         #b8c4a8;
+  --color-accent:            #6b8e5a;
+  --color-accent-soft:       #c7d5ba;
+  --color-accent-strong:     #547348;
 
   --color-tier-beginner:     #8ba876;
   --color-tier-developing:   #c5a85e;
   --color-tier-intermediate: #a87b6a;
+  --color-tier-advanced:     #7a6aa8;
 
   --font-display: 'Caveat', 'Bradley Hand', cursive;
   --font-body:    'DM Sans', -apple-system, sans-serif;
 }
 ```
 
-Google Fonts: **Caveat** (handwritten display, weight 400–700) + **DM Sans** (body, weight 400–700). Headings use Caveat at larger sizes (h1: 3.2rem, h2: 2.4rem, h3: 1.7rem) to compensate for the font's natural compactness.
+Google Fonts: **Caveat** (handwritten display) + **DM Sans** (body). Tier accent colors appear as a vertical bar beside each tier heading.
 
 ---
 
-## 12. Build & Deploy
+## 12. Scenes
 
-`web/package.json` scripts:
+### 12.1 The three scenes
+
+| Scene | ID | Projects | Vibe |
+|-------|----|----------|------|
+| Harbor at Golden Hour | `harbor` | 18 (6/6/4/2) | Adventurous, atmospheric |
+| Morning Windowsill | `windowsill` | 11 (4/4/2/1) | Cozy, contemplative |
+| Garden Courtyard | `garden` | 11 (4/4/2/1) | Whimsical, alive |
+
+Each project has a `sceneSlot` with pixel position and z-layer in the 1000×1000 scene canvas.
+
+### 12.2 Scene data model
+
+`scenes.json` — id, title, tagline. Each project in `projects.json` carries `sceneId` and `sceneSlot`. No per-scene project sub-directories; all step files sit flat in `public/data/`, namespaced by slug (e.g. `harbor-seagull.json`).
+
+### 12.3 Assembled scene view
+
+`SceneScreen` composites all completed drawings onto a shared canvas by embedding each portfolio entry's SVG at its slot position/scale, rendered in z-order so front objects cover back objects. Incomplete slots show faint placeholders. The assembled scene is the reward for completing projects.
+
+### 12.4 Deferred scene features (in `ideas.md`)
+
+- Hand-drawn background per scene
+- Scene completion ceremony (16/16 moment)
+- AI-composed final scene using user's drawings as source material
+
+---
+
+## 13. Build & Deploy
+
 ```json
-{
-  "scripts": {
-    "dev":       "vite",
-    "build":     "tsc -b && vite build",
-    "preview":   "vite preview",
-    "typecheck": "tsc --noEmit",
-    "publish":   "npm run build && firebase deploy --only hosting"
-  }
-}
+// web/package.json scripts
+"dev":       "vite",
+"build":     "tsc -b && vite build",
+"typecheck": "tsc --noEmit",
+"publish":   "npm run build && firebase deploy --only hosting"
 ```
 
-**`web/firebase.json`:**
-```json
-{
-  "hosting": {
-    "public": "dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [{ "source": "**", "destination": "/index.html" }]
-  }
-}
-```
+**Firebase:** project `sketchcoach-fae4f`, hosting site `sketchcoach`, public at https://sketchcoach.web.app/.
 
-**`web/.firebaserc`:** Firebase project ID is `sketchcoach-fae4f`, hosting site name is `sketchcoach`.
-
-To deploy: `npm run publish` from the `web/` directory. Requires `firebase-tools` globally installed and `firebase login`.
-
-CI/CD is out of scope for v1; manual publish from a clean working tree is fine.
+Deploy: `npm run publish` from `web/`. Requires `firebase-tools` globally installed + `firebase login`.
 
 ---
 
-## 13. Open Questions / Risks
+## 14. Open Questions
 
-Surfaced now so we can decide before/during build, not after.
-
-1. **Claude model choice.** Spec assumes Sonnet 4.x. Haiku would be cheaper and faster but with lower vision fidelity. Worth A/B testing once the rest is wired up.
-2. **Snapshot resolution.** Default is 1024px. Likely overkill for many cases; test stepping down to 768 or 512 once the loop is working. Tracked in `TODO.md`.
-3. **Trigger sensitivity.** 3s idle / 20s rate limit floor are educated guesses. May feel chatty or sleepy in practice — tune from real use.
-4. **Pressure on Mac trackpad.** PointerEvent.pressure support across Safari/Chrome/Firefox on Mac is uneven. Fallback path uses `webkitForce` on Safari and a constant 0.5 elsewhere.
-5. **Track licensing.** "Free uncopyrighted" varies in meaning. Pixabay Music and FMA's CC0 collection are the safest sources. Each track must keep a credit line in `ATTRIBUTION.md` even if not legally required, for hygiene.
-6. **App Check provisioning.** First-time setup with reCAPTCHA v3 takes 10–20 min and a domain. If you're testing on `localhost` initially, debug tokens work but remember to remove them before deploying.
-7. **No accounts means no cross-device portfolio.** Acknowledged in proposal. If users actually want this later, Firebase Auth + Firestore is the natural extension.
-
----
-
-## 14. Implementation Order
-
-A reasonable milestone path (each slice is shippable / playable on its own):
-
-1. **Scaffold:** Vite + React + Router, AppContext, data services, project routing. Static screens with placeholder content.
-2. **Canvas v1:** SketchCanvas with pointer events, perfect-freehand strokes, undo/erase, IndexedDB autosave.
-3. **Local-dev Claude call:** wire `useCoach` against `VITE_ANTHROPIC_API_KEY` (browser-direct), validate the loop end-to-end, tune timing.
-4. **Functions proxy:** move Claude call behind `coachAdvice` function. Rate limits. App Check.
-5. **Submission flow:** `coachFinalSummary` + portfolio save + PortfolioScreen.
-6. **Audio:** ambient loop + SFX.
-7. **Polish:** transitions, empty states, mobile layout.
-8. **Deploy:** Firebase Hosting + Functions.
-
-Each step ends in a working demo; we don't bottleneck on infra before shipping the fun parts.
+1. **Claude model.** Currently `claude-sonnet-4-7`. Haiku would be cheaper/faster — worth A/B testing once usage data exists.
+2. **Snapshot resolution.** Default 1024px. May step down to 768 or 512 if cost/latency is an issue; no data yet.
+3. **Trigger timing.** 3s idle / 20s floor are educated guesses — tune from real use.
+4. **iOS/Apple Pencil.** Drawing code is structured for it; needs real-device testing on iPad Safari.
+5. **Cross-device portfolio.** No accounts = local only. Firebase Auth + Firestore is the obvious extension if users actually want it.

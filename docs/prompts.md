@@ -482,3 +482,18 @@ Contextual learning - the tips are unlocked and shown as they are relevant to th
 Adjustable difficulty - Currently the user has to do a few examples to progress, and we don't really hard grade them, but it's an easy way for the user to choose where they feel comfortable difficulty wise.
 
 No score - AI is providing feedback, but never a grade. I want this to be play not work.
+
+**2026-05-16 15:19**
+OK I'm after my usage limit let's go again!
+
+**2026-05-16 15:20**
+Did we do everything in scene.md?
+
+**2026-05-16 15:23**
+Great, let's remove that doc and update the spec with this and any other features we've added.  And in the future please keep the spec up to date with major features.  Add a rule to our claude.md... huh, no claude.md.  Where did we store the rule to always write to prompts.md?  Tell me, and add this rule in the same place.
+
+**2026-05-16 15:28**
+I really like the "View assembled scene".  Let's add a light sketch behind it that ties the scene together.  Please generate a pencil SVG that gives it an overall sense of scene for each of these.  Then, let's add a button on this page, probably called "render" though I'm not sure that feels accesisble to users.  But this button will send all of the images and the background and the scene information to Claude and ask it to merge it all into one beautiful scene. It should mostly keep the user's drawn objects as they are, but it can recompose the scene and fix any pass through.  We'll try this with Claude SVG first, but we may switch to Nano Banana  image rendering.
+
+**2026-05-16 15:30**
+Let's review our ideas.md and see if anything is already complete or feels irrelevant.  Prune it lightly.  Then, review and tell me what you think are the best 5 ideas from it, and/or some new ideas that improve the enjoyment and immersion of this app.
