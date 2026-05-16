@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a short vertical line for the butterfly's body. Both wings will balance around this center line."
+      "description": "Lightly sketch a short vertical line for the butterfly's body. Both wings will balance around this center line."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Suggest the wing pattern (ink)",
       "description": "On each wing, add a small loop or two and a scatter of dots — a few marks suggest the pattern. Resist drawing every spot; the viewer fills in the rest."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the butterfly."
     }
   ]
 }

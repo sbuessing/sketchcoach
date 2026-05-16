@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch one long, meandering line for the main vine — let it bend and curl rather than running straight. This sets the energy of the whole plant."
+      "description": "Lightly sketch one long, meandering line for the main vine — let it bend and curl rather than running straight. This sets the energy of the whole plant."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Add leaves (ink)",
       "description": "Still in ink, scatter pointed-oval leaves along the vines — two strokes meeting at each tip. Don't draw every leaf; a handful at varied angles is enough to suggest fullness."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the inked rose. A faint construction line through a leaf is fine — leave any that read as nice texture."
     }
   ]
 }

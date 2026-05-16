@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a single curving line for the trunk's gesture — olives lean, twist, and rarely run straight up. Capture that lean before any detail."
+      "description": "Lightly sketch a single curving line for the trunk's gesture — olives lean, twist, and rarely run straight up. Capture that lean before any detail."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Add bark texture (ink)",
       "description": "On the trunk, add two or three short curving marks following its lean. Those marks suggest gnarled olive bark — a few are plenty."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink. A faint gesture line behind the trunk can stay if it feels like nice construction."
     }
   ]
 }

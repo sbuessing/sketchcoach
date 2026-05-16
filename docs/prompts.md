@@ -460,3 +460,25 @@ Taking a break, but jot these notes in ideas.md for me.
 We need more help text, and possibly a "design principles" page.
 The ceremony moment could be letting Claude take all of the pieces you've constructed and use these to create a more fleshed out scene.  
 We should have an option to remove the pencil sketch when finishing.
+
+**2026-05-16 12:10**
+UX feedback:
+The eraser should be able to erase pencil strokes in ink mode and vice versa.
+I like how we're progressing the guided steps.  The AI feedback now feels less necessary on every turn.  You could save it for strong compliments or strong feedbacks and skip some turns.  Aim for more than every 15 seconds, no less than a minute.
+
+**2026-05-16 12:15**
+Let's also do the "Remove pencil construction on finish" option. I'd like that page to load faster, we don't actually need to wait for the AI feedback we can just show it, and we should have a toggle on that page that lets us turn off the pencil lines.
+I like the scene much better than the portfolio.  When you close finish go to scene and add some animation to the new image that's on the page.  Just expand-bounce it a little, it doesn't need to be significant.
+The instructions don't need to tell you to switch to pencil mode, you're already in it.  They also don't need to tell you to erase pencil strokes now that we have a menu option.
+
+**2026-05-16 12:22**
+We're now going to start an about page.  It can just be an info icon on the front page in the top right.  Link to a new page in the same style that talks about Sketch Coach's design goals.  Use content from the docs folder and. this to draft content which I'll polish.
+
+
+Playful and fun - Drawing is intimidating, the book "Drawing on the Right Side of the Brain" lists reasons people stop drawing after grade school, including perfectionism, comparison to others, focusing on realism and details over symbolism. I want this to feel like a safe, non-judged, non-public place to practice. There isn't a streak or a grade, and the chillhop music and vibes are rudimentary, but help reinforce that idea.
+
+Contextual learning - the tips are unlocked and shown as they are relevant to the user and collected. 
+
+Adjustable difficulty - Currently the user has to do a few examples to progress, and we don't really hard grade them, but it's an easy way for the user to choose where they feel comfortable difficulty wise.
+
+No score - AI is providing feedback, but never a grade. I want this to be play not work.

@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a single curving line for the frog's back — a low arch that rises from the front of the head, peaks above the hips, and dips toward the rear. This is the line of action."
+      "description": "Lightly sketch a single curving line for the frog's back — a low arch that rises from the front of the head, peaks above the hips, and dips toward the rear. This is the line of action."
     },
     {
       "number": 2,
@@ -41,11 +41,6 @@
       "number": 8,
       "title": "Suggest texture (ink)",
       "description": "Scatter a few small dots or short marks across the back to hint at frog skin. A handful is enough — keep the belly area quiet so the textured back reads against it."
-    },
-    {
-      "number": 9,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink."
     }
   ]
 }

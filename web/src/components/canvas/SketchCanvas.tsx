@@ -69,13 +69,10 @@ export default function SketchCanvas({
     (e: RPointerEvent<SVGSVGElement>) => {
       const target = e.target as SVGElement;
       const id = target.dataset['strokeId'] ?? null;
-      if (!id) { setHoveredStrokeId(null); return; }
-      // Only highlight strokes matching the current drawMode.
-      const stroke = strokes.find((s) => s.id === id);
-      const modeMatch = (stroke?.drawMode ?? 'pen') === drawMode;
-      setHoveredStrokeId(modeMatch ? id : null);
+      // Eraser is universal — any stroke under the cursor highlights, regardless of mode.
+      setHoveredStrokeId(id);
     },
-    [strokes, drawMode],
+    [],
   );
 
   const handleEraseDown = useCallback(
@@ -84,11 +81,10 @@ export default function SketchCanvas({
       const target = e.target as SVGElement;
       const id = target.dataset['strokeId'];
       if (!id) return;
-      const stroke = strokes.find((s) => s.id === id);
-      const modeMatch = (stroke?.drawMode ?? 'pen') === drawMode;
-      if (modeMatch) onEraseStroke?.(id);
+      // Eraser removes any stroke regardless of mode.
+      onEraseStroke?.(id);
     },
-    [strokes, drawMode, onEraseStroke],
+    [onEraseStroke],
   );
 
   // ── Draw mode handlers ─────────────────────────────────────────────────
@@ -195,22 +191,16 @@ export default function SketchCanvas({
           {strokes.map((s) => {
             const style = getStrokeStyle(s.drawMode);
             const isHovered = s.id === hoveredStrokeId;
-            const erasable = toolMode === 'erase' && (s.drawMode ?? 'pen') === drawMode;
+            const inEraseMode = toolMode === 'erase';
             return (
               <path
                 key={s.id}
                 d={s.pathD}
                 fill={isHovered ? '#c04444' : style.fill}
-                opacity={
-                  isHovered
-                    ? '0.75'
-                    : toolMode === 'erase' && !erasable
-                    ? '0.25'
-                    : style.opacity
-                }
+                opacity={isHovered ? '0.75' : style.opacity}
                 data-stroke-id={s.id}
-                pointerEvents={toolMode === 'erase' ? 'all' : 'none'}
-                style={erasable ? { cursor: 'pointer' } : undefined}
+                pointerEvents={inEraseMode ? 'all' : 'none'}
+                style={inEraseMode ? { cursor: 'pointer' } : undefined}
               />
             );
           })}

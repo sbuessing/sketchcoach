@@ -89,8 +89,31 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.done-screen__toggle {
+  position: absolute;
+  bottom: var(--space-2);
+  left: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+  background: var(--color-paper);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-shadow);
+  cursor: pointer;
+  user-select: none;
+}
+
+.done-screen__toggle input {
+  cursor: pointer;
 }
 
 .done-screen__svg-wrap {
@@ -129,6 +152,12 @@
 .done-screen__summary-text {
   line-height: 1.65;
   color: var(--color-ink);
+}
+
+.done-screen__summary-pending {
+  color: var(--color-ink-faint);
+  font-style: italic;
+  line-height: 1.5;
 }
 
 .done-screen__try-next {

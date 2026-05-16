@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the center (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly mark a small dot for the center of the starfish, then sketch five short guide lines radiating outward from that dot — like the spokes of a wheel. Space them roughly evenly."
+      "description": "Lightly mark a small dot for the center of the starfish, then sketch five short guide lines radiating outward from that dot — like the spokes of a wheel. Space them roughly evenly."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Ink the texture (ink)",
       "description": "Still in ink, add a scatter of small dots or short dashes along each arm to suggest the bumpy skin. Don't cover every inch — a handful on each arm reads as texture, and the eye fills in the rest."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the spokes and any other pencil guides. The starfish should feel a little lopsided — that's what makes it look real."
     }
   ]
 }

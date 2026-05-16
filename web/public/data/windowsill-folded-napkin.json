@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the footprint (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a loose parallelogram for the napkin's overall footprint. Tilt it — a folded napkin lying on a counter is almost never square to the viewer, and that tilt is what gives the drawing energy."
+      "description": "Lightly sketch a loose parallelogram for the napkin's overall footprint. Tilt it — a folded napkin lying on a counter is almost never square to the viewer, and that tilt is what gives the drawing energy."
     },
     {
       "number": 2,
@@ -46,11 +46,6 @@
       "number": 9,
       "title": "Anchor with a shadow line (ink)",
       "description": "Add a short horizontal mark beneath the part of the napkin still resting on the counter to suggest contact. One small stroke is enough to ground it."
-    },
-    {
-      "number": 10,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove pencil guides that distract from the ink. Stop yourself before you over-clean — a couple of faint construction lines can add to the cloth's softness."
     }
   ]
 }

@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the post (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a tall rectangle for the body of the bollard — about twice as tall as it is wide. Don't worry about perfectly straight sides; a slight taper toward the top is natural."
+      "description": "Lightly sketch a tall rectangle for the body of the bollard — about twice as tall as it is wide. Don't worry about perfectly straight sides; a slight taper toward the top is natural."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Ink the cap curve (ink)",
       "description": "Still in ink, add a single curved line across the top of the cap to suggest its rounded shape. One stroke that follows the form is all it needs."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guides that don't help the final drawing. The bollard should feel solid and planted on the dock."
     }
   ]
 }

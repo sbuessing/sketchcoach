@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the form (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a rounded shape — a little wider than tall, gently asymmetric. Real apples are never perfect circles, so let yours lean a touch to one side."
+      "description": "Lightly sketch a rounded shape — a little wider than tall, gently asymmetric. Real apples are never perfect circles, so let yours lean a touch to one side."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Suggest the stem well (ink)",
       "description": "Add a small curved line just inside the top dip to suggest the little well where the stem sits. One short stroke is plenty."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guides that distract from the ink. If a few faint construction lines feel like nice texture, leave them — your choice."
     }
   ]
 }

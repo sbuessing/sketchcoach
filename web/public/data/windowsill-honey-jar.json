@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a short vertical line for the axis of the jar. The jar is short and squat, so the axis line is short too — but it still keeps both sides honest."
+      "description": "Lightly sketch a short vertical line for the axis of the jar. The jar is short and squat, so the axis line is short too — but it still keeps both sides honest."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Suggest the grooves (ink)",
       "description": "Still in ink, add three or four short horizontal ticks across the dipper's bulb to suggest the spiral grooves. Don't draw every groove — a few ticks read clearly."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and lift the axis line and any pencil guides that pull focus. Keep the ink reading as the star — the jar is small and asks for restraint."
     }
   ]
 }

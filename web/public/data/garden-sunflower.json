@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a long diagonal line for the stem — the sunflower is lying on its side, so the axis runs across the canvas, not up and down."
+      "description": "Lightly sketch a long diagonal line for the stem — the sunflower is lying on its side, so the axis runs across the canvas, not up and down."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Ink the stem and a leaf (ink)",
       "description": "Trace the stem as two roughly parallel lines along your axis. Branch off one leaf partway along — two curves meeting at a tapered point, with a short vein down the middle."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink drawing."
     }
   ]
 }

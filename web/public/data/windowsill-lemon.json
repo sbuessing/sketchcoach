@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the oval (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a tilted oval — wider than tall, leaning a touch to one side. Don't aim for perfect; lemons are lumpy little ovals, not eggs."
+      "description": "Lightly sketch a tilted oval — wider than tall, leaning a touch to one side. Don't aim for perfect; lemons are lumpy little ovals, not eggs."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Anchor with a shadow line (ink)",
       "description": "Add a single short horizontal mark just under the lemon where it meets the counter. One small stroke is all it takes to settle it on the surface."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the pencil guides where they distract. The lemon is small — keep the ink reading clearly."
     }
   ]
 }

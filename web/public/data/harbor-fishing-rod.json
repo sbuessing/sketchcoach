@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch one long diagonal line for the spine of the rod — from lower-left up to upper-right, with a very slight bend near the tip. This single line is the whole rod."
+      "description": "Lightly sketch one long diagonal line for the spine of the rod — from lower-left up to upper-right, with a very slight bend near the tip. This single line is the whole rod."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Ink the guide loops (ink)",
       "description": "At each dot you placed, draw a small oval or U-shape around the rod for a line guide. Each one is just two short strokes."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guides that distract. The rod should feel long, springy, and ready to cast."
     }
   ]
 }

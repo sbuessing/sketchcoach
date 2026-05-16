@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a loose spiral or stack of overlapping ovals on the dock — the path the chain takes as it coils. Two or three loops piled loosely on each other is plenty."
+      "description": "Lightly sketch a loose spiral or stack of overlapping ovals on the dock — the path the chain takes as it coils. Two or three loops piled loosely on each other is plenty."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Add weight to the underside (ink)",
       "description": "Thicken the lower edge of each link slightly — a second short stroke just below the existing line. The added weight makes the chain feel heavy and metallic."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the ticks and pencil guides. The coil should read clearly as chain — interlocking, heavy, and a little tangled."
     }
   ]
 }

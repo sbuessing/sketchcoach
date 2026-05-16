@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a single vertical line where the center of the bucket will stand. The bucket will balance around this axis."
+      "description": "Lightly sketch a single vertical line where the center of the bucket will stand. The bucket will balance around this axis."
     },
     {
       "number": 2,
@@ -46,11 +46,6 @@
       "number": 9,
       "title": "Anchor with a cast shadow (ink)",
       "description": "Beneath the bucket, draw a flattened ellipse for the cast shadow — wider than the base and offset slightly to one side, following the angle of the sun. A few short parallel strokes inside the ellipse give it weight."
-    },
-    {
-      "number": 10,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove pencil guides, including the back half of the rim if it no longer helps the drawing. Step back and resist the urge to add more detail — this drawing is doing a lot already."
     }
   ]
 }

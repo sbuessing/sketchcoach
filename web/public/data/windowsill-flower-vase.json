@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a tall vertical line — the axis of the vase. Symmetric vessels live or die by their axis, so take your time getting it straight."
+      "description": "Lightly sketch a tall vertical line — the axis of the vase. Symmetric vessels live or die by their axis, so take your time getting it straight."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Ink the blooms (ink)",
       "description": "Still in ink, draw a bloom at the top of each stem. Vary them — one might be a tight tulip cup, another a looser daisy-like cluster of petals. Add a small leaf or two along the stems."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and lift the axis and any pencil guides that distract. Light traces on the belly of the vase can stay if they feel like soft reflections."
     }
   ]
 }

@@ -68,6 +68,21 @@
     radial-gradient(circle at 80% 70%, rgba(201, 123, 92, 0.03) 0, transparent 50%);
 }
 
+/* Newly-added piece pops in with a small bounce so the user sees it arrive.
+   transform-box: fill-box anchors the transform to the element's own bounding
+   box rather than the SVG root, so the scale grows from the piece's center. */
+@keyframes scene-piece-pop {
+  0%   { transform: scale(0.7); }
+  60%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.scenescreen__piece--new {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: scene-piece-pop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
 /* Clickable placeholder slots: gentle hover hint. */
 .scenescreen__slot {
   cursor: pointer;

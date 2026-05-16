@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the overall pile (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a low mounded shape for the heaped net — wider than tall, with an irregular humped silhouette. Let the top edge bulge unevenly; nets don't pile up symmetrically."
+      "description": "Lightly sketch a low mounded shape for the heaped net — wider than tall, with an irregular humped silhouette. Let the top edge bulge unevenly; nets don't pile up symmetrically."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Add the floats and weights (ink)",
       "description": "Along one trailing edge, add three or four small circles for cork floats. Along another, add a few short oblong shapes for lead weights. These details tell the viewer it's a working net."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil that distracts. Resist adding more mesh — the net reads better with quiet stretches than with every knot drawn."
     }
   ]
 }

@@ -38,7 +38,7 @@ The app has **pencil mode** (light, sketchy, gray, fixed thin width, ~40% opacit
 
 ### Canonical Beginner Lesson Pattern
 
-A beginner project (5–7 steps) follows this shape:
+A beginner project (4–6 steps) follows this shape:
 
 | Phase | Steps | Mode | What the step does |
 |-------|-------|------|---------------------|
@@ -47,21 +47,19 @@ A beginner project (5–7 steps) follows this shape:
 | **Commit** | 1 | switch to ink | Explicit mode switch. The first ink step is always this one. |
 | **Ink the silhouette** | 1 | ink | Trace the main outline as a confident stroke |
 | **Ink the details** | 1–2 | ink | Smaller features, junctions, expressive accents |
-| **Erase guides** | 1 (optional) | — | Remove leftover pencil construction the user wants gone |
+
+The app starts every project in pencil mode, so **step 1 never tells the user "switch to pencil"** — they're already there. Just say "Lightly sketch…", "Block in…", etc., and the mode is implicit.
+
+Pencil-construction cleanup happens via a UI toggle on the Done screen ("Hide pencil construction"), so **the step list never asks the user to erase their pencil guides at the end** — that's the toggle's job. The last step of every project should be a real drawing instruction, not housekeeping.
 
 **Why this pattern matters:** The single biggest skill jump for a novice is learning to *commit* to lines after planning them. Many beginners draw every line tentatively because they never made a decision about which line was the "real" one. The pencil-then-ink workflow forces that decision, and the tool change makes it physical and memorable.
 
 ### Explicit Mode-Switch Language
 
-Always name the mode transition when it happens. The user is switching tools — make sure the step makes them do it.
-
-**At the start of a project (implicit pencil):**
-> "Switch to **pencil** if you aren't already, then lightly sketch a circle for the body…"
-
-(For step 1 you can also just say "lightly sketch…" — the "lightly" is the cue. Either is fine.)
+Pencil mode is the starting state — never tell the user to switch to it in step 1. Just give the drawing instruction with pencil-language cues ("lightly", "loosely", "block in") and the mode follows naturally.
 
 **At the commit moment (always explicit):**
-> "**Switch to ink.** Trace the outline you sketched with a single confident stroke. The pencil guide stays underneath — you can erase it later or leave it as faint construction."
+> "**Switch to ink.** Trace the outline you sketched with a single confident stroke. The pencil guide stays underneath — the Hide Pencil toggle on the Done screen takes care of cleanup."
 
 **At any later "back to pencil" moment** (e.g., to plan a new element):
 > "**Switch back to pencil** and sketch a guide for where the handle will attach."
@@ -98,17 +96,20 @@ The pencil-first principle scales up:
 ### Beginner Step Example (5-step apple, fully mode-aware)
 
 ```
-1. (pencil) Lightly sketch a slightly squashed circle — wider than tall, a touch asymmetric.
-2. (pencil) Add a small inward dip at the top center and a shallow one at the bottom.
-   These are your placement guides for the stem and base.
-3. (switch to ink) Switch to ink and trace the outline as a single confident stroke,
-   following your pencil guide. Don't worry about matching it exactly — your hand will
-   pick the cleanest path.
-4. (ink) Add a short stem rising from the top dip, tilted slightly to one side, and a
-   small leaf beside it.
-5. (optional, erase) Erase any pencil guide lines that distract from the ink drawing.
-   Leave the ones that feel like nice texture.
+1. (pencil)         Lightly sketch a slightly squashed circle — wider than tall, a
+                    touch asymmetric.
+2. (pencil)         Add a small inward dip at the top center and a shallow one at the
+                    bottom. These are your placement guides for the stem and base.
+3. (switch to ink)  Switch to ink and trace the outline as a single confident stroke,
+                    following your pencil guide. Don't worry about matching it exactly
+                    — your hand will pick the cleanest path.
+4. (ink)            Add a short stem rising from the top dip, tilted slightly to one
+                    side, and a small leaf beside it.
+5. (ink)            Add a small curved line just inside the top dip to suggest the
+                    well where the stem sits. One short stroke is plenty.
 ```
+
+No "switch to pencil" step at the start; no eraser cleanup step at the end. The user is already in pencil, and the Done screen's Hide Pencil toggle handles the cleanup.
 
 ---
 

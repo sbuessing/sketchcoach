@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a long, low curving line for the cat's back — a sleeping cat curls into a soft mound, so the line rises gently and dips again. This single curve carries the whole pose."
+      "description": "Lightly sketch a long, low curving line for the cat's back — a sleeping cat curls into a soft mound, so the line rises gently and dips again. This single curve carries the whole pose."
     },
     {
       "number": 2,
@@ -46,11 +46,6 @@
       "number": 9,
       "title": "Anchor with a shadow (ink)",
       "description": "Add a flattened shadow shape on the tiles beneath the cat — a soft elongated wedge that follows the body's curve. This grounds the cat instead of leaving it floating on the floor."
-    },
-    {
-      "number": 10,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink. Leave anything that reads as nice texture — sleeping cats are forgiving subjects."
     }
   ]
 }

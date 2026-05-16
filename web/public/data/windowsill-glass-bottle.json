@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a tall vertical line — this is the axis of the bottle. Everything you draw should mirror evenly around it, so it's worth getting straight."
+      "description": "Lightly sketch a tall vertical line — this is the axis of the bottle. Everything you draw should mirror evenly around it, so it's worth getting straight."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Ink the flower (ink)",
       "description": "Still in ink, draw the stem rising from the bottle's mouth and a small bloom at the top — five or six short curved petals around your circle guide. Add one small leaf partway down the stem."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the axis line and any pencil guides that distract. A few faint traces on the glass body are fine — they can read as reflections."
     }
   ]
 }

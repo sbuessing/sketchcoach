@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the shell (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a wide flattened oval for the shell — clearly wider than tall. This is the body of the crab seen from above."
+      "description": "Lightly sketch a wide flattened oval for the shell — clearly wider than tall. This is the body of the crab seen from above."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Ink the legs (ink)",
       "description": "Draw each leg as two short strokes meeting at a slight bend, like a bent knee. Six legs total — three per side. Let the tips end in a point."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guides that distract. The crab should feel low and wide, scuttling sideways."
     }
   ]
 }

@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a single curving line for the bird's spine — starting low at the tail, rising up through the body, and arching forward into where the head will hang. Pelicans hunch; let yours hunch too."
+      "description": "Lightly sketch a single curving line for the bird's spine — starting low at the tail, rising up through the body, and arching forward into where the head will hang. Pelicans hunch; let yours hunch too."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Suggest the feathers and eye (ink)",
       "description": "Add a tiny dot for the eye near the top of the head, and a small scatter of short marks along the wing edge to suggest feathers. Don't render every feather — a few well-placed strokes carry the texture."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove pencil guides that distract. The pelican should look settled, patient, and a little grumpy."
     }
   ]
 }

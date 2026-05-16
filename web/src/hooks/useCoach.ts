@@ -1,12 +1,15 @@
 // useCoach — drives the "occasionally check in" coach loop.
 //
-// Trigger logic (from spec §6.1):
+// Trigger logic:
 //   every 1s tick:
 //     skip if isFetching
 //     skip if strokes haven't changed since last fetch
 //     skip if (now - lastStrokeAt) < 3s   (user still drawing)
-//     skip if (now - lastFetchAt) < 20s   (rate-limit floor)
+//     skip if (now - lastFetchAt) < 60s   (rate-limit floor)
 //     otherwise: fetch
+//
+// Claude can also choose to stay silent on any given check by returning
+// speak=false; we update lastFetchAt either way so we don't spin-fetch.
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { requestCoachAdvice } from '../services/claudeClient';
@@ -20,7 +23,7 @@ import type {
 
 const TICK_MS = 1000;
 const IDLE_THRESHOLD_MS = 3000;
-const FETCH_FLOOR_MS = 20000;
+const FETCH_FLOOR_MS = 60000;
 const RECENT_HISTORY_SIZE = 3;
 
 export interface UseCoachArgs {
@@ -92,23 +95,28 @@ export function useCoach(args: UseCoachArgs): UseCoachResult {
         imageDataUrl: dataUrl,
       });
 
-      const msg: CoachMessage = {
-        id: makeId(),
-        text: result.message,
-        encouragement: result.encouragement,
-        highlightedGuidelineId: result.highlightedGuidelineId,
-        createdAt: Date.now(),
-      };
+      // Always update timing — even when Claude chose silence, we don't want
+      // to immediately re-fetch on the next tick.
+      stateRef.current.lastFetchAt = Date.now();
+      stateRef.current.strokesAtLastFetch = a.strokeCount;
 
-      // Newest-first; cap at 10 to avoid unbounded growth in long sessions.
-      setMessages((prev) => [msg, ...prev].slice(0, 10));
-
+      // Step-completion detection runs whether or not Claude chose to speak.
       if (result.completedStepNumbers?.length) {
         argsRef.current.onStepsCompleted?.(result.completedStepNumbers);
       }
 
-      stateRef.current.lastFetchAt = Date.now();
-      stateRef.current.strokesAtLastFetch = a.strokeCount;
+      // Only append a message when Claude opted to speak this turn.
+      if (result.speak && result.message && result.encouragement) {
+        const msg: CoachMessage = {
+          id: makeId(),
+          text: result.message,
+          encouragement: result.encouragement,
+          highlightedGuidelineId: result.highlightedGuidelineId,
+          createdAt: Date.now(),
+        };
+        // Newest-first; cap at 10 to avoid unbounded growth in long sessions.
+        setMessages((prev) => [msg, ...prev].slice(0, 10));
+      }
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('[coach] fetch failed', err);

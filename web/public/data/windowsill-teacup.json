@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a short vertical line where the center of the cup will sit. Both the cup and the saucer beneath share this axis."
+      "description": "Lightly sketch a short vertical line where the center of the cup will sit. Both the cup and the saucer beneath share this axis."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Ink the saucer and handle (ink)",
       "description": "Still in ink, trace the front of the saucer ellipse, then add the handle as two parallel curves meeting the cup at top and bottom. Land both ends right on the cup's outline — clean junctions matter here."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the axis and any pencil guides that distract. A faint suggestion of the saucer's back rim can stay if it reads as gentle depth."
     }
   ]
 }

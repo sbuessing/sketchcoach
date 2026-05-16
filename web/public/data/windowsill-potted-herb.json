@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a vertical line down the center of where the pot will sit — this axis keeps both sides of the pot balanced as you build it."
+      "description": "Lightly sketch a vertical line down the center of where the pot will sit — this axis keeps both sides of the pot balanced as you build it."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Add a small detail (ink)",
       "description": "Add a single horizontal line across the pot just under the rim to suggest a band or lip. One mark is enough to make the pot feel ceramic rather than blank."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and lift any pencil guides that distract. Leave faint construction lines if they feel like quiet texture on the pot."
     }
   ]
 }

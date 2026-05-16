@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a single tall vertical line where the center of the lighthouse will stand. This axis keeps the tower from leaning."
+      "description": "Lightly sketch a single tall vertical line where the center of the lighthouse will stand. This axis keeps the tower from leaning."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Ink the details (ink)",
       "description": "Still in ink, add a small horizontal line beneath the lantern room for the gallery walkway, and one or two short horizontal stripes across the tower to suggest painted bands. Keep it sparse — this lighthouse is far away."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the axis line and any pencil guides that distract. The lighthouse should read clearly even though it's small on the horizon."
     }
   ]
 }

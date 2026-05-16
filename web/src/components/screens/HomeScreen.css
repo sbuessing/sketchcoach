@@ -96,6 +96,26 @@
   color: var(--color-ink);
 }
 
+.home__about-link {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: var(--color-ink-faint);
+  transition:
+    color var(--duration-fast) var(--ease-soft),
+    background var(--duration-fast) var(--ease-soft);
+}
+
+.home__about-link:hover {
+  color: var(--color-ink-soft);
+  background: var(--color-paper-warm);
+  text-decoration: none;
+}
+
 /* Scene picker — horizontal row above the tier grids */
 .scene-picker {
   display: grid;

@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a small cross — one vertical line and one horizontal line that meet at the center of where your ring will sit. This axis keeps the ring from drifting lopsided."
+      "description": "Lightly sketch a small cross — one vertical line and one horizontal line that meet at the center of where your ring will sit. This axis keeps the ring from drifting lopsided."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Ink the rope wraps (ink)",
       "description": "Still in ink, add four short straight marks across the ring — at top, bottom, left, and right. These suggest the rope bindings that hold the ring's cover in place."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the axis cross and any pencil construction. Leave faint pencil only where it reads as nice texture."
     }
   ]
 }

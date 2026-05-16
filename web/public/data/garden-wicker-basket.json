@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the basket body (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a wide, slightly tapered shape — like a bucket — narrower at the base than at the rim. Add a shallow ellipse across the top for the opening."
+      "description": "Lightly sketch a wide, slightly tapered shape — like a bucket — narrower at the base than at the rim. Add a shallow ellipse across the top for the opening."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Add handle wrap (ink)",
       "description": "Along the handle arc, add a few short cross-marks to suggest where the handle is wrapped or woven. A handful is plenty."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink."
     }
   ]
 }

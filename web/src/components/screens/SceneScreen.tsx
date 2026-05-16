@@ -1,15 +1,31 @@
-import { useMemo } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import { findScene, projectsInScene } from '../../services/dataService';
 import { VIEWBOX_SIZE } from '../../services/strokeUtils';
 import type { PortfolioEntry, Project, SceneSlot } from '../../shared/types';
 import './SceneScreen.css';
 
+interface SceneNavState {
+  /** Slug of a piece that just landed in this scene — animate it in. */
+  newSlug?: string;
+}
+
 export default function SceneScreen() {
   const { sceneId = '' } = useParams<{ sceneId: string }>();
   const { scenes, projects, portfolio } = useApp();
   const navigate = useNavigate();
+  const { state: navState } = useLocation() as { state: SceneNavState | null };
+
+  // The "just-added" slug from navigation state. We hold onto it locally so
+  // the animation keeps playing if the user re-renders, and we clear it after
+  // the bounce so re-visits don't re-animate.
+  const [newSlug, setNewSlug] = useState<string | undefined>(navState?.newSlug);
+  useEffect(() => {
+    if (!newSlug) return;
+    const t = window.setTimeout(() => setNewSlug(undefined), 700);
+    return () => window.clearTimeout(t);
+  }, [newSlug]);
 
   const scene = findScene(scenes, sceneId);
 
@@ -60,7 +76,12 @@ export default function SceneScreen() {
           {sortedProjects.map((project) => {
             const entry = entriesBySlug.get(project.slug);
             return entry ? (
-              <DrawingAtSlot key={project.slug} entry={entry} slot={project.sceneSlot} />
+              <DrawingAtSlot
+                key={project.slug}
+                entry={entry}
+                slot={project.sceneSlot}
+                isNew={project.slug === newSlug}
+              />
             ) : (
               <Placeholder
                 key={project.slug}
@@ -80,15 +101,29 @@ export default function SceneScreen() {
  * viewBox; we strip the outer <svg> wrapper and embed the inner content inside
  * a <g> with a translate+scale transform so it lands cleanly in the slot box.
  */
-function DrawingAtSlot({ entry, slot }: { entry: PortfolioEntry; slot: SceneSlot }) {
+function DrawingAtSlot({
+  entry,
+  slot,
+  isNew,
+}: {
+  entry: PortfolioEntry;
+  slot: SceneSlot;
+  isNew?: boolean;
+}) {
   const inner = entry.svg
     .replace(/^<svg[^>]*>/i, '')
     .replace(/<\/svg>\s*$/i, '');
-  const sx = slot.width / VIEWBOX_SIZE;
-  const sy = slot.height / VIEWBOX_SIZE;
+  // Nested <svg> handles slot positioning via x/y/width/height + viewBox,
+  // leaving CSS transform free to drive the bounce animation without conflict.
   return (
-    <g
-      transform={`translate(${slot.x},${slot.y}) scale(${sx},${sy})`}
+    <svg
+      x={slot.x}
+      y={slot.y}
+      width={slot.width}
+      height={slot.height}
+      viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
+      className={isNew ? 'scenescreen__piece scenescreen__piece--new' : 'scenescreen__piece'}
+      overflow="visible"
       dangerouslySetInnerHTML={{ __html: inner }}
     />
   );

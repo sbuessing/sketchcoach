@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the body (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a rounded shape like a fat half-moon — flat across the top, curving down and out at the sides and bottom. This is the basket body seen from the front."
+      "description": "Lightly sketch a rounded shape like a fat half-moon — flat across the top, curving down and out at the sides and bottom. This is the basket body seen from the front."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Suggest the weave (ink)",
       "description": "Add a scatter of short crosshatch marks across the body to suggest the wicker weave — three or four small clusters is enough. Resist filling every inch; the eye reads the pattern from a few marks."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove pencil guides that distract. The creel should feel handmade, not machine-perfect."
     }
   ]
 }

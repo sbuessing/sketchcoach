@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the overall shape (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a flattened oval for the outer edge of the coil — wider than it is tall, as if you're looking down at it at an angle."
+      "description": "Lightly sketch a flattened oval for the outer edge of the coil — wider than it is tall, as if you're looking down at it at an angle."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Add the loose end (ink)",
       "description": "Draw a short curved line peeling off the outer edge of the coil, like the end of the rope coming free. A small fray mark at the tip — three or four tiny strokes — finishes it."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guides that distract from the ink. Embrace the unevenness — a too-perfect coil looks like a target, not rope."
     }
   ]
 }

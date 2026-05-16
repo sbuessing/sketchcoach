@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the body (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a rounded rectangle for the can's body — a little taller than wide, with softly curved corners. This is the main reservoir."
+      "description": "Lightly sketch a rounded rectangle for the can's body — a little taller than wide, with softly curved corners. This is the main reservoir."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Add the rose detail (ink)",
       "description": "On the flared end of the spout, add a small ellipse for the front face of the rose and a few dots inside to suggest the sprinkler holes. A few marks suggest more than rendering every hole."
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the inked watering can."
     }
   ]
 }

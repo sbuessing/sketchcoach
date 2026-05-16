@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a single vertical line down the middle of where the pot will sit. This is the pot's symmetry axis — every curve you add will balance around it."
+      "description": "Lightly sketch a single vertical line down the middle of where the pot will sit. This is the pot's symmetry axis — every curve you add will balance around it."
     },
     {
       "number": 2,
@@ -31,11 +31,6 @@
       "number": 6,
       "title": "Suggest the planting (ink)",
       "description": "Add three or four loose stalks rising from the rim, each ending in a small leafy mark. Don't draw every leaf — a handful of stems is enough to say 'something growing in here.'"
-    },
-    {
-      "number": 7,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink. The faint axis line can stay if it reads as nice construction texture."
     }
   ]
 }

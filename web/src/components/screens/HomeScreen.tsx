@@ -55,6 +55,9 @@ export default function HomeScreen() {
           <Link to="/portfolio" className="home__portfolio-link">
             Portfolio · {portfolio.length}
           </Link>
+          <Link to="/about" className="home__about-link" aria-label="About Sketch Coach">
+            ⓘ
+          </Link>
         </div>
       </header>
 

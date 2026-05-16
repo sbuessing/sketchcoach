@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a vertical line down the middle of where the crock will sit. The crock is symmetric, so this axis is your reference for keeping both sides even."
+      "description": "Lightly sketch a vertical line down the middle of where the crock will sit. The crock is symmetric, so this axis is your reference for keeping both sides even."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Add a contents hint (ink)",
       "description": "Add two or three short marks rising just above the rim — handles of wooden utensils, perhaps. A few small ticks is all it takes to suggest the crock is in use."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and lift the axis line and any pencil guides that distract. Faint construction traces on the body read as gentle glaze variation — keep them if you like."
     }
   ]
 }

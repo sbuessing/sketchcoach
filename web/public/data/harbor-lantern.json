@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a single vertical line for the center of the lantern. Everything will balance around this axis."
+      "description": "Lightly sketch a single vertical line for the center of the lantern. Everything will balance around this axis."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Ink the inner details (ink)",
       "description": "Add a small candle or wick shape inside the glass — a short vertical line with a teardrop flame on top. A few short horizontal lines in the cap suggest the vent slots."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove the axis line and pencil guides. The lantern should feel sturdy enough to swing from a hook."
     }
   ]
 }

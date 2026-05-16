@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a long, shallow M — one low arc on the left, a slight dip in the middle, another low arc on the right. This single gesture line is the whole bird. Keep it loose."
+      "description": "Lightly sketch a long, shallow M — one low arc on the left, a slight dip in the middle, another low arc on the right. This single gesture line is the whole bird. Keep it loose."
     },
     {
       "number": 2,
@@ -26,11 +26,6 @@
       "number": 5,
       "title": "Suggest the head (ink)",
       "description": "Add a tiny bump on top of the body in the middle for the head, and a short angled mark for a beak pointing forward. Two small strokes is enough — at this distance the bird is mostly silhouette."
-    },
-    {
-      "number": 6,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil marks that distract from the ink. A few faint construction lines can stay if they feel like sky."
     }
   ]
 }

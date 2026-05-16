@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the axis (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a vertical line from top to bottom of where the birdbath will stand. Every part — basin, pedestal, base — will balance around this axis."
+      "description": "Lightly sketch a vertical line from top to bottom of where the birdbath will stand. Every part — basin, pedestal, base — will balance around this axis."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Anchor with a shadow (ink)",
       "description": "Add a flattened shadow shape on the tiles just to one side of the base. A simple wedge or ellipse grounds the birdbath on the floor instead of leaving it floating."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink."
     }
   ]
 }

@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Block the spread (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a wide, low rectangle for the overall footprint of the open book. Tilt it slightly — books on a counter rarely sit perfectly square to the viewer."
+      "description": "Lightly sketch a wide, low rectangle for the overall footprint of the open book. Tilt it slightly — books on a counter rarely sit perfectly square to the viewer."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Suggest the text (ink)",
       "description": "Still in ink, add three or four short horizontal lines on each page to suggest lines of text. Keep them light and don't fill the page — just enough to hint that it's a book, not a blank pad."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and lift any pencil guides that distract from the ink. Keep the drawing quiet — the book wants to feel restful on the counter, not busy."
     }
   ]
 }

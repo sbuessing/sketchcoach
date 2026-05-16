@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a long shallow curve for the bottom of the hull — viewed at a slight angle so one end tilts toward you. This curve carries the boat's posture in the water."
+      "description": "Lightly sketch a long shallow curve for the bottom of the hull — viewed at a slight angle so one end tilts toward you. This curve carries the boat's posture in the water."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Add oars and oarlocks (ink)",
       "description": "Draw two short oblong shapes on the gunwales for the oarlocks. Add one or two oars laid inside the boat — long thin shafts ending in flattened blade shapes."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove pencil guides that distract. The rowboat should feel like it's resting against the dock, not floating in space."
     }
   ]
 }

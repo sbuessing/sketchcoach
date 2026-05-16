@@ -5,7 +5,7 @@
     {
       "number": 1,
       "title": "Find the gesture (pencil)",
-      "description": "Make sure you're in pencil mode. Lightly sketch a long shallow arc for the bottom of the hull — like a slice of melon. This single curve sets the boat's lean and posture."
+      "description": "Lightly sketch a long shallow arc for the bottom of the hull — like a slice of melon. This single curve sets the boat's lean and posture."
     },
     {
       "number": 2,
@@ -36,11 +36,6 @@
       "number": 7,
       "title": "Suggest the rigging (ink)",
       "description": "Add one or two short lines from the masthead down to the hull for rigging. Keep it sparse — a few suggestive marks read as rope without cluttering the boat."
-    },
-    {
-      "number": 8,
-      "title": "Clean up",
-      "description": "Switch to the eraser and remove any pencil guides that distract. The boat should feel like it's resting on the water, not floating in the sky."
     }
   ]
 }

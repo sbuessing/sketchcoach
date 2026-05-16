@@ -25,9 +25,14 @@ const MODEL = 'claude-sonnet-4-6';
 const MAX_TOKENS = 400;
 
 export interface CoachAdviceResult {
-  message: string;
+  /** True when there's a message to display; false when Claude chose silence. */
+  speak: boolean;
+  /** Present when speak is true. */
+  message?: string;
+  /** Present when speak is true. */
+  encouragement?: CoachEncouragement;
   highlightedGuidelineId?: string;
-  encouragement: CoachEncouragement;
+  /** Always honored, even when speak is false — Claude may notice step completion without commenting. */
   completedStepNumbers?: number[];
 }
 
@@ -64,6 +69,24 @@ For each coaching turn:
 - The drawing may be sparse early — that's totally fine and worth celebrating ("Look at that first line — you're doing it!").
 - Correct gently and BRIEFLY. The ratio should be roughly 80% delight, 20% nudge.
 
+## When to stay silent
+
+You do NOT have to speak every time. The user is mid-drawing and over-commenting becomes noise. Default to **silent unless there's something genuinely worth saying** — a strong specific compliment, a notable improvement, or a gentle correction that will actually help. If the drawing is progressing fine but nothing new stands out, set speak=false and skip the turn.
+
+Rough cadence to aim for: speak roughly half the times you're asked. Save your words for moments that matter.
+
+Reasons to speak (set speak=true):
+- The user just nailed something specific and deserves a real compliment.
+- You see a meaningful improvement over the recent advice history.
+- There's a clear, actionable gentle nudge that would unblock them.
+- The session has been quiet for a while and a small encouragement would help.
+
+Reasons to stay silent (set speak=false):
+- The drawing has progressed but nothing new is remarkable.
+- You'd just be saying a variation of recent advice.
+- Your only comment would be generic ("looking good!" with no specifics).
+- The user is clearly in the zone and adding chatter would interrupt them.
+
 Tone examples:
 - ✅ "Ooh, that curve on the shell is really confident — those are exactly the kind of bold strokes that make line art sing!"
 - ✅ "You've got the basic shape down! When you're ready, try making the head a tiny bit rounder — just one happy little arc."
@@ -93,13 +116,18 @@ You will respond by calling the provide_final_summary tool. Do not produce any t
 
 const COACH_TOOL: Anthropic.Tool = {
   name: 'provide_coaching',
-  description: 'Provide a single short coaching observation for the user. Lead with delight, be specific, keep it brief.',
+  description: 'Decide whether to speak this turn, and if so, give a single short coaching observation. Default to silence unless there is something genuinely worth saying.',
   input_schema: {
     type: 'object',
     properties: {
+      speak: {
+        type: 'boolean',
+        description:
+          'Whether to actually deliver a message to the user this turn. Set to false when there is nothing genuinely worth saying — the user is making fine progress and your comment would be noise. When false, omit message and encouragement.',
+      },
       message: {
         type: 'string',
-        description: '1–3 short sentences. Enthusiastic and specific — name exactly what you see and love (or gently suggest). Think Bob Ross energy.',
+        description: '1–3 short sentences. Required when speak is true. Enthusiastic and specific — name exactly what you see and love (or gently suggest). Think Bob Ross energy.',
       },
       highlightedGuidelineId: {
         type: 'string',
@@ -109,15 +137,15 @@ const COACH_TOOL: Anthropic.Tool = {
       encouragement: {
         type: 'string',
         enum: ['gentle-praise', 'gentle-nudge', 'celebrate'],
-        description: 'The vibe of your message. Default to gentle-praise. Use celebrate when something genuinely clicks. Use gentle-nudge only when a correction is needed, and keep it warm.',
+        description: 'The vibe of your message. Required when speak is true. Default to gentle-praise. Use celebrate when something genuinely clicks. Use gentle-nudge only when a correction is needed, and keep it warm.',
       },
       completedStepNumbers: {
         type: 'array',
         items: { type: 'integer' },
-        description: 'Optional: step numbers that clearly appear finished in the current drawing. Only include a step when you can confidently see it has been done — when in doubt, omit it.',
+        description: 'Optional: step numbers that clearly appear finished in the current drawing. Only include a step when you can confidently see it has been done — when in doubt, omit it. Safe to include even when speak is false.',
       },
     },
-    required: ['message', 'encouragement'],
+    required: ['speak'],
   },
 };
 
@@ -300,19 +328,24 @@ export async function requestCoachAdvice(
     throw new Error('Coach response missing tool_use block');
   }
   const raw = toolUse.input as Record<string, unknown>;
+  const speak = raw.speak !== false; // default to speaking if the field is omitted
   const message = typeof raw.message === 'string' ? raw.message : '';
   const encouragement = typeof raw.encouragement === 'string' ? raw.encouragement : '';
   const highlightedGuidelineId = typeof raw.highlightedGuidelineId === 'string' ? raw.highlightedGuidelineId : undefined;
   const completedStepNumbers = Array.isArray(raw.completedStepNumbers)
     ? raw.completedStepNumbers.filter((n): n is number => typeof n === 'number')
     : undefined;
-  if (!message || !encouragement) {
-    throw new Error('Coach response missing required fields');
+
+  // When speak is true, message + encouragement are required.
+  if (speak && (!message || !encouragement)) {
+    throw new Error('Coach response missing required fields when speak=true');
   }
+
   return {
-    message,
-    encouragement: encouragement as CoachAdviceResult['encouragement'],
-    highlightedGuidelineId,
+    speak,
+    message: speak ? message : undefined,
+    encouragement: speak ? (encouragement as CoachEncouragement) : undefined,
+    highlightedGuidelineId: speak ? highlightedGuidelineId : undefined,
     completedStepNumbers,
   };
 }
