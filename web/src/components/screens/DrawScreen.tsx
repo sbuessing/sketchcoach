@@ -52,6 +52,7 @@ export default function DrawScreen() {
     strokes,
     addStroke,
     undo,
+    redo,
     eraseStroke,
     resumeStatus,
     resume,
@@ -63,7 +64,7 @@ export default function DrawScreen() {
     flushSave,
   } = useDrawing(slug);
 
-  const [drawMode, setDrawMode] = useState<DrawMode>('pen');
+  const [drawMode, setDrawMode] = useState<DrawMode>('pencil');
   const [toolMode, setToolMode] = useState<ToolMode>('draw');
 
   const handleToolChange = useCallback((dm: DrawMode, tm: ToolMode) => {
@@ -71,6 +72,26 @@ export default function DrawScreen() {
     setToolMode(tm);
     sfx.play('button', sfxEnabled, audioVolume);
   }, [sfxEnabled]);
+
+  // Keyboard shortcuts: Cmd/Ctrl+Z undo, Cmd/Ctrl+Shift+Z redo.
+  // Ignore when focus is in an input/textarea so native form undo still works.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable) return;
+      if (!(e.metaKey || e.ctrlKey)) return;
+      if (e.key !== 'z' && e.key !== 'Z') return;
+      e.preventDefault();
+      if (e.shiftKey) {
+        redo();
+      } else {
+        undo();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [undo, redo]);
 
   // Load step list for this project
   useEffect(() => {

@@ -77,6 +77,12 @@ export default function HomeScreen() {
         completedSlugs={completedSlugs}
       />
 
+      <div className="home__scene-link-row">
+        <Link to={`/scene/${activeSceneId}`} className="home__scene-link">
+          View assembled scene →
+        </Link>
+      </div>
+
       {TIER_ORDER.map((tier) => {
         const tierProjects = sceneProjects.filter((p) => p.tier === tier);
         if (tierProjects.length === 0) return null;

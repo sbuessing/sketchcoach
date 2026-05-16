@@ -152,6 +152,26 @@
   margin-top: 4px;
 }
 
+.home__scene-link-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-4);
+}
+
+.home__scene-link {
+  color: var(--color-accent-strong);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-soft);
+}
+
+.home__scene-link:hover {
+  background: var(--color-accent-soft);
+  text-decoration: none;
+}
+
 .tier {
   margin-bottom: var(--space-5);
 }

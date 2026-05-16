@@ -21,6 +21,9 @@ export interface UseDrawingResult {
   strokes: Stroke[];
   addStroke: (stroke: Stroke) => void;
   undo: () => void;
+  redo: () => void;
+  /** True when there's at least one undone stroke that can be replayed. */
+  canRedo: boolean;
   eraseAll: () => void;
   eraseStroke: (id: string) => void;
   resumeStatus: ResumeStatus;
@@ -48,11 +51,18 @@ export function useDrawing(slug: string): UseDrawingResult {
   // so we don't redundantly write the empty initial state.
   const hasUserChangedRef = useRef(false);
 
+  // Undo/redo: undone strokes live in a side stack so they can be replayed.
+  // Any destructive action (new stroke, erase, resume, fresh-start) clears it
+  // — once history diverges, the old future is gone.
+  const [undoneStack, setUndoneStack] = useState<Stroke[]>([]);
+
   // Refs shadow state so flushSave can read current values synchronously.
   const strokesRef = useRef(strokes);
   strokesRef.current = strokes;
   const startedAtRef = useRef(startedAt);
   startedAtRef.current = startedAt;
+  const undoneStackRef = useRef(undoneStack);
+  undoneStackRef.current = undoneStack;
 
   // On mount, see if there's a saved drawing for this slug.
   useEffect(() => {
@@ -84,6 +94,7 @@ export function useDrawing(slug: string): UseDrawingResult {
         setStartedAt(0);
       }
     }
+    setUndoneStack([]);
     setResumeStatus('no-resume');
     hasUserChangedRef.current = false;
   }, [slug]);
@@ -92,6 +103,7 @@ export function useDrawing(slug: string): UseDrawingResult {
     await clearInProgress(slug);
     setStrokes([]);
     setStartedAt(0);
+    setUndoneStack([]);
     setResumeStatus('no-resume');
     hasUserChangedRef.current = false;
   }, [slug]);
@@ -101,21 +113,35 @@ export function useDrawing(slug: string): UseDrawingResult {
     setStrokes((prev) => [...prev, stroke]);
     setLastStrokeAt(now);
     setStartedAt((prev) => (prev === 0 ? now : prev));
+    setUndoneStack([]);
     hasUserChangedRef.current = true;
   }, []);
 
   const undo = useCallback(() => {
+    if (strokesRef.current.length === 0) return;
+    const last = strokesRef.current[strokesRef.current.length - 1];
     setStrokes((prev) => prev.slice(0, -1));
+    setUndoneStack((u) => [...u, last]);
+    hasUserChangedRef.current = true;
+  }, []);
+
+  const redo = useCallback(() => {
+    if (undoneStackRef.current.length === 0) return;
+    const last = undoneStackRef.current[undoneStackRef.current.length - 1];
+    setUndoneStack((u) => u.slice(0, -1));
+    setStrokes((prev) => [...prev, last]);
     hasUserChangedRef.current = true;
   }, []);
 
   const eraseAll = useCallback(() => {
     setStrokes([]);
+    setUndoneStack([]);
     hasUserChangedRef.current = true;
   }, []);
 
   const eraseStroke = useCallback((id: string) => {
     setStrokes((prev) => prev.filter((s) => s.id !== id));
+    setUndoneStack([]);
     hasUserChangedRef.current = true;
   }, []);
 
@@ -156,6 +182,8 @@ export function useDrawing(slug: string): UseDrawingResult {
     strokes,
     addStroke,
     undo,
+    redo,
+    canRedo: undoneStack.length > 0,
     eraseAll,
     eraseStroke,
     resumeStatus,

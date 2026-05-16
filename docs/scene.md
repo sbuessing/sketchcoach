@@ -557,9 +557,11 @@ Suggested order of work, dependency-first:
    - Per-scene project grid filter, no tier locking
    - Per-scene progress shown in each card (N / M complete)
 
-5. **Assembled scene view** (next)
-   - New screen rendering completed drawings composited at their slots over the paper color
-   - Empty-slot pencil placeholders
-   - Linked from each scene card
+5. **Assembled scene view** ✅
+   - `SceneScreen` at route `/scene/:sceneId` renders the active scene's projects composited on a 1000×1000 canvas
+   - Projects sorted by z-layer then by y so back-to-front render order is stable
+   - Completed drawings embedded via `<g transform=translate+scale>` with the saved SVG's inner content (strips outer `<svg>` wrapper)
+   - Unfinished slots show a faint dashed rectangle and the project title; clicking jumps straight to that project's draw screen
+   - "View assembled scene →" link below the scene picker on the home screen
 
 Items deferred to `ideas.md`: hand-drawn backgrounds, completion ceremony, scaling-fidelity polish.

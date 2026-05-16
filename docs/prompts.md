@@ -447,3 +447,9 @@ Usability fixes:
 Default to pencil mode.
 Add ctrl-z and if it's easy shift-ctrl-z
 Auto-scroll the current instruction to the top of the instruction box (not just on screen)
+
+**2026-05-16 10:45**
+Let's continue with phase 3
+
+**2026-05-16 10:49**
+Oh I checked the new content, it's great.

@@ -32,6 +32,16 @@
   opacity: 0.55;
 }
 
+.steplist__item--current .steplist__check {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent-strong);
+}
+
+.steplist__item--current .steplist__step-title {
+  color: var(--color-ink);
+}
+
 .steplist__item--done .steplist__step-title {
   text-decoration: line-through;
 }
