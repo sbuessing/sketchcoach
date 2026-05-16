@@ -28,6 +28,12 @@ export interface CoachAdviceResult {
   message: string;
   highlightedGuidelineId?: string;
   encouragement: CoachEncouragement;
+  completedStepNumbers?: number[];
+}
+
+export interface StrokeHintResult {
+  paths: string[];
+  label: string;
 }
 
 export interface FinalSummaryResult {
@@ -104,6 +110,11 @@ const COACH_TOOL: Anthropic.Tool = {
         type: 'string',
         enum: ['gentle-praise', 'gentle-nudge', 'celebrate'],
         description: 'The vibe of your message. Default to gentle-praise. Use celebrate when something genuinely clicks. Use gentle-nudge only when a correction is needed, and keep it warm.',
+      },
+      completedStepNumbers: {
+        type: 'array',
+        items: { type: 'integer' },
+        description: 'Optional: step numbers that clearly appear finished in the current drawing. Only include a step when you can confidently see it has been done — when in doubt, omit it.',
       },
     },
     required: ['message', 'encouragement'],
@@ -292,6 +303,9 @@ export async function requestCoachAdvice(
   const message = typeof raw.message === 'string' ? raw.message : '';
   const encouragement = typeof raw.encouragement === 'string' ? raw.encouragement : '';
   const highlightedGuidelineId = typeof raw.highlightedGuidelineId === 'string' ? raw.highlightedGuidelineId : undefined;
+  const completedStepNumbers = Array.isArray(raw.completedStepNumbers)
+    ? raw.completedStepNumbers.filter((n): n is number => typeof n === 'number')
+    : undefined;
   if (!message || !encouragement) {
     throw new Error('Coach response missing required fields');
   }
@@ -299,7 +313,107 @@ export async function requestCoachAdvice(
     message,
     encouragement: encouragement as CoachAdviceResult['encouragement'],
     highlightedGuidelineId,
+    completedStepNumbers,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Stroke hint
+// ---------------------------------------------------------------------------
+
+const HINT_SYSTEM_PROMPT = `You are a drawing instructor giving a live "show me" demonstration inside a digital sketchbook.
+
+The user has asked to see what their next marks should look like. Look at their current drawing and the step they are working on, then produce 1–3 SVG path strings showing loose guide strokes for what to draw next.
+
+Canvas coordinate rules:
+- The canvas is 1000 × 1000 units (top-left is 0,0; bottom-right is 1000,1000).
+- Use only M, L, Q, and C path commands.
+- Paths should feel like hand-drawn guide strokes — suggest shape and placement, not photographic precision.
+- Limit to 1–3 paths total; keep each path simple.
+- Paths must stay within the 0–1000 boundary.
+
+Respond by calling the provide_stroke_hint tool only. No other text.`;
+
+const HINT_TOOL: Anthropic.Tool = {
+  name: 'provide_stroke_hint',
+  description: 'Return 1–3 SVG path strings showing the suggested next strokes.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      paths: {
+        type: 'array',
+        items: { type: 'string' },
+        description: 'SVG path d-attribute strings using M, L, Q, C commands in 0–1000 coordinate space. 1–3 paths.',
+      },
+      label: {
+        type: 'string',
+        description: 'Very short description of what these strokes show (under 10 words). e.g. "try this curve for the body".',
+      },
+    },
+    required: ['paths', 'label'],
+  },
+};
+
+export interface StrokeHintArgs {
+  project: Project;
+  steps: ProjectStep[];
+  nextStep: ProjectStep | null;
+  primaryFocus: Guideline;
+  imageDataUrl: string;
+}
+
+export async function requestStrokeHint(args: StrokeHintArgs): Promise<StrokeHintResult> {
+  const client = getClient();
+  const imageBase64 = stripDataUrl(args.imageDataUrl);
+
+  const stepContext = args.nextStep
+    ? `The user is currently working on step ${args.nextStep.number}: "${args.nextStep.title}" — ${args.nextStep.description}`
+    : `The user is working on: ${args.project.title}`;
+
+  const allSteps = args.steps
+    .map((s) => `${s.number}. ${s.title} — ${s.description}`)
+    .join('\n');
+
+  const response = await client.messages.create({
+    model: MODEL,
+    max_tokens: 300,
+    system: [{ type: 'text', text: HINT_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
+    tools: [HINT_TOOL],
+    tool_choice: { type: 'tool', name: 'provide_stroke_hint' },
+    messages: [
+      {
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: `Project: ${args.project.title}\n\nAll steps:\n${allSteps}\n\n${stepContext}\n\nFocus: ${args.primaryFocus.title} — ${args.primaryFocus.description}`,
+            cache_control: { type: 'ephemeral' },
+          },
+          {
+            type: 'image',
+            source: { type: 'base64', media_type: 'image/png', data: imageBase64 },
+          },
+          { type: 'text', text: 'Show the user what to draw next. Call provide_stroke_hint.' },
+        ],
+      },
+    ],
+  });
+
+  if (response.usage) logUsage('hint', response.usage);
+
+  const toolUse = response.content.find(
+    (b): b is Anthropic.ToolUseBlock => b.type === 'tool_use',
+  );
+  if (!toolUse) throw new Error('Hint response missing tool_use block');
+
+  const raw = toolUse.input as Record<string, unknown>;
+  const paths = Array.isArray(raw.paths)
+    ? raw.paths.filter((p): p is string => typeof p === 'string')
+    : [];
+  const label = typeof raw.label === 'string' ? raw.label : '';
+  if (!paths.length) throw new Error('Hint response returned no paths');
+
+  return { paths, label };
 }
 
 // ---------------------------------------------------------------------------

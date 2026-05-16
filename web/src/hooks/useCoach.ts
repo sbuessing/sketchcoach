@@ -37,6 +37,8 @@ export interface UseCoachArgs {
   lastStrokeAt: number;
   /** Returns a PNG data URL of the current canvas. */
   getSnapshot: () => Promise<string>;
+  /** Called whenever the coach identifies steps that look complete in the drawing. */
+  onStepsCompleted?: (stepNumbers: number[]) => void;
 }
 
 export interface UseCoachResult {
@@ -100,6 +102,11 @@ export function useCoach(args: UseCoachArgs): UseCoachResult {
 
       // Newest-first; cap at 10 to avoid unbounded growth in long sessions.
       setMessages((prev) => [msg, ...prev].slice(0, 10));
+
+      if (result.completedStepNumbers?.length) {
+        argsRef.current.onStepsCompleted?.(result.completedStepNumbers);
+      }
+
       stateRef.current.lastFetchAt = Date.now();
       stateRef.current.strokesAtLastFetch = a.strokeCount;
     } catch (err) {

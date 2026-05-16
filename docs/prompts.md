@@ -229,3 +229,40 @@ The music is overpowering.  I didn't adjust the tracks, so let's automatically d
 
 **2026-05-16 09:33**
 It's not working.  I bounced the server and hard refreshed Safari.  Help me troubleshoot this.  Also, turn off adaptive width on pencil sketch it should always be fixed width.
+
+**2026-05-16 09:38**
+It's always showing wk:0 and p:0.5.  Do we need to set something up in the page metadata to indicate to Safari we're using this?
+
+**2026-05-16 09:42**
+I'm not seeing any changes in the numbers at all.  Do you know of any websites that use this features so I can test that my machine and browser are set up correctly?
+
+**2026-05-16 09:45**
+Now I want to make the experience feel more responsive and coaching to the user.  There are two features I want to explore - detecting that the user has completed a step and auto-advancing the instructions. Then, offering visual advice on demand.  I want to be able to show the LLM-suggested next strokes by animating them over the drawing in a light blue color for a few seconds, then dismissing them.
+
+**2026-05-16 09:47**
+Interesting, that site doesn't have adaptive drawing for my Macbook either.  Maybe it's mobile only or I don't have something set up correctly on my laptop?  Let's disable the current implementation and add this idea to ideas.md and drop for now.
+
+**2026-05-16 09:52**
+I want to add another feature, this one will take some planning so we're just going to write it up as a spec first.  I want the drawings you make to be things that assemble into a scene.  It could be fruit on a table, or a street scene. We want to continue to aim for 16 drawings, let's think about the scene idea, the objects that will populate it, what light background we might want in place so even the first addition brings delight, and the z-index positioning of these so they make an interesting scene.  
+
+We probably want to mostly avoid overlapping objects initially so that we don't have to deal with determining transparency.
+
+**2026-05-16 09:56**
+Data problem.  This instruction for the apple is advising me to push it down.  I can't do that when drawing.  Let's adjust our content creation strategy to avoid instructions like this:
+
+Carve the top and bottom
+
+Push the top center down slightly to make a small dimple where the stem will sit. Suggest a matching dimple at the bottom. 
+
+Start a new doc content-guidelines.md with this and other advice for how we teach new users.  You might need to reverse engineer it from our prompt history (helpfully in prompts.md) and the content we've created.
+
+**2026-05-16 09:59**
+Add another idea to ideas.md, let the user choose from multiple scenes (all of which contain ~16 projects from simple to advanced), AND let the user propose a new scene and generate new projects on the fly.
+
+**2026-05-16 10:02**
+Let's do all 3! And add a scene selector on the front page. 
+I just started a new file named content-guidelines.md which we should use and improve to create good teaching advice.  
+One additional thing, we have pencil and pen in our UI and the instructions don't always clearly explain how to sketch with pencil, then ink more final lines.  Let's add that and use it more heavily in intro lessons.
+
+**2026-05-16 10:03**
+Add to ideas.md, the ability to tap erase a full line, or drag erase a portion of a line.

@@ -86,6 +86,16 @@
   cursor: not-allowed;
 }
 
+/* Hint button loading pulse */
+.draw-screen__hint-btn--loading {
+  animation: hint-btn-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes hint-btn-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
 /* ── Far-right header group (audio + finish) ── */
 
 .draw-screen__header-right {

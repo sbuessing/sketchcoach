@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState, type PointerEvent as RPointerEvent } from 'react';
 import type { DrawMode, Stroke, StrokePoint, StrokePointerType, ToolMode } from '../../shared/types';
-import { VIEWBOX_SIZE, getStrokeStyle, hasSafariPressure, makeId, pointsToPath } from '../../services/strokeUtils';
+import { VIEWBOX_SIZE, getStrokeStyle, makeId, pointsToPath } from '../../services/strokeUtils';
 import './SketchCanvas.css';
 
 function normalizePointerType(t: string): StrokePointerType {
@@ -16,6 +16,8 @@ interface SketchCanvasProps {
   onEraseStroke?: (id: string) => void;
   drawMode?: DrawMode;
   toolMode?: ToolMode;
+  /** SVG path `d` strings rendered as animated light-blue guide strokes. Parent clears after timeout. */
+  hintPaths?: string[];
 }
 
 const CURSOR: Record<ToolMode, Record<DrawMode, string>> = {
@@ -23,13 +25,10 @@ const CURSOR: Record<ToolMode, Record<DrawMode, string>> = {
   erase: { pen: 'cell',      pencil: 'cell'       },
 };
 
-// On Safari+Mac, pointer events from a Force Touch trackpad carry real pressure
-// data even though pointerType is 'mouse'. We pass it through raw so the stroke
-// engine can use it (simulatePressure will be false for that path).
-// On every other browser/device, 0 pressure means the button isn't held — coerce
-// to 0.5 so the simulated path has something sensible to work with.
+// For stylus/pen input (pointerType === 'pen'), e.pressure is real hardware pressure.
+// For mouse/trackpad, e.pressure is always 0.5 — coerce 0 → 0.5 as a safety net.
 function capturePressure(e: RPointerEvent<SVGSVGElement>): number {
-  return hasSafariPressure ? e.pressure : (e.pressure || 0.5);
+  return e.pressure || 0.5;
 }
 
 export default function SketchCanvas({
@@ -39,6 +38,7 @@ export default function SketchCanvas({
   onEraseStroke,
   drawMode = 'pen',
   toolMode = 'draw',
+  hintPaths,
 }: SketchCanvasProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -205,7 +205,7 @@ export default function SketchCanvas({
                   isHovered
                     ? '0.75'
                     : toolMode === 'erase' && !erasable
-                    ? '0.25'       // dim strokes the eraser can't touch
+                    ? '0.25'
                     : style.opacity
                 }
                 data-stroke-id={s.id}
@@ -223,6 +223,21 @@ export default function SketchCanvas({
             pointerEvents="none"
           />
         )}
+        {hintPaths?.map((d, i) => (
+          <path
+            key={i}
+            className="sketch-canvas__hint-path"
+            d={d}
+            fill="none"
+            stroke="#29b6f6"
+            strokeWidth="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            pathLength="100"
+            pointerEvents="none"
+            style={{ animationDelay: `${i * 0.35}s` }}
+          />
+        ))}
       </svg>
     </div>
   );

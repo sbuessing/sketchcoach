@@ -8,7 +8,7 @@ import {
   loadProjectSteps,
   resolveGuidelines,
 } from '../../services/dataService';
-import { isCoachConfigured } from '../../services/claudeClient';
+import { isCoachConfigured, requestStrokeHint } from '../../services/claudeClient';
 import { svgToPngDataUrl } from '../../services/snapshot';
 import { useDrawing } from '../../hooks/useDrawing';
 import { useCoach } from '../../hooks/useCoach';
@@ -42,6 +42,11 @@ export default function DrawScreen() {
 
   const [stepsData, setStepsData] = useState<ProjectSteps | null>(null);
   const [doneStepNumbers, setDoneStepNumbers] = useState<Set<number>>(new Set());
+
+  // ── Stroke hints ─────────────────────────────────────────────────────────
+  const [hintPaths, setHintPaths] = useState<string[]>([]);
+  const [hintLoading, setHintLoading] = useState(false);
+  const hintTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const {
     strokes,
@@ -98,6 +103,14 @@ export default function DrawScreen() {
     !!focusGuideline &&
     resumeStatus === 'no-resume';
 
+  const handleStepsCompleted = useCallback((stepNumbers: number[]) => {
+    setDoneStepNumbers((prev) => {
+      const next = new Set(prev);
+      stepNumbers.forEach((n) => next.add(n));
+      return next;
+    });
+  }, []);
+
   const {
     messages: coachMessages,
     isFetching: coachFetching,
@@ -111,6 +124,7 @@ export default function DrawScreen() {
     strokeCount: strokes.length,
     lastStrokeAt,
     getSnapshot,
+    onStepsCompleted: handleStepsCompleted,
   });
 
   // ── Audio ────────────────────────────────────────────────────────────────
@@ -143,6 +157,35 @@ export default function DrawScreen() {
     sfx.play('stroke-end', sfxEnabled, audioVolume);
   }, [sfxEnabled]);
 
+  const handleHint = useCallback(async () => {
+    if (hintLoading || !project || !focusGuideline) return;
+    // Clear any previous hint and its timer.
+    if (hintTimerRef.current) clearTimeout(hintTimerRef.current);
+    setHintPaths([]);
+    setHintLoading(true);
+
+    const steps = stepsData?.steps ?? [];
+    const nextStep = steps.find((s) => !doneStepNumbers.has(s.number)) ?? steps[0] ?? null;
+
+    try {
+      const snapshot = await getSnapshot();
+      const result = await requestStrokeHint({
+        project,
+        steps,
+        nextStep,
+        primaryFocus: focusGuideline,
+        imageDataUrl: snapshot,
+      });
+      setHintPaths(result.paths);
+      // Auto-dismiss after 5 s (matches animation duration).
+      hintTimerRef.current = setTimeout(() => setHintPaths([]), 5000);
+    } catch (err) {
+      console.error('[hint] failed', err);
+    } finally {
+      setHintLoading(false);
+    }
+  }, [hintLoading, project, focusGuideline, stepsData, doneStepNumbers, getSnapshot]);
+
   if (!project) {
     return (
       <div className="draw-screen draw-screen--missing">
@@ -162,7 +205,7 @@ export default function DrawScreen() {
   };
 
   const handleFinish = async () => {
-    sfx.play('complete', sfxEnabled);
+    sfx.play('complete', sfxEnabled, audioVolume);
     ambientRef.current.pause();
     await flushSave();
     const recentAdviceText = coachMessages
@@ -205,6 +248,18 @@ export default function DrawScreen() {
           >
             ↩
           </button>
+          {isCoachConfigured() && (
+            <button
+              className={`draw-screen__icon-btn draw-screen__hint-btn${hintLoading ? ' draw-screen__hint-btn--loading' : ''}`}
+              type="button"
+              onClick={handleHint}
+              disabled={hintLoading || strokes.length === 0}
+              aria-label="Show stroke hint"
+              title="Show me what to draw next"
+            >
+              💡
+            </button>
+          )}
           <SaveIndicator savedAt={savedAt} />
         </div>
 
@@ -250,6 +305,7 @@ export default function DrawScreen() {
               onEraseStroke={eraseStroke}
               drawMode={drawMode}
               toolMode={toolMode}
+              hintPaths={hintPaths}
             />
           </div>
           <CoachPanel
