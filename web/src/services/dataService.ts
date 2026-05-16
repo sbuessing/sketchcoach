@@ -43,3 +43,7 @@ export function findProject(projects: Project[], slug: string): Project | undefi
 export function findGuideline(guidelines: Guideline[], id: string): Guideline | undefined {
   return guidelines.find((g) => g.id === id);
 }
+
+export function resolveGuidelines(ids: string[], guidelines: Guideline[]): Guideline[] {
+  return ids.map((id) => findGuideline(guidelines, id)).filter((g): g is Guideline => !!g);
+}

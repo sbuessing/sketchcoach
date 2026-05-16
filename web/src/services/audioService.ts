@@ -32,7 +32,7 @@ class AudioService {
     return ctx.state === 'running';
   }
 
-  play(name: SfxName, enabled = true, _volume = 1): void {
+  play(name: SfxName, enabled = true): void {
     if (!enabled) return;
     const ctx = this.getCtx();
     if (!ctx) return;

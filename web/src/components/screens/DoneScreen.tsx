@@ -11,6 +11,7 @@ import {
   findGuideline,
   findProject,
   loadProjectSteps,
+  resolveGuidelines,
 } from '../../services/dataService';
 import {
   clearInProgress,
@@ -23,6 +24,7 @@ import {
 } from '../../services/claudeClient';
 import { svgToPngDataUrl, svgToThumbnail } from '../../services/snapshot';
 import { makeId } from '../../services/strokeUtils';
+import { formatDuration } from '../../shared/utils';
 import type { PortfolioEntry } from '../../shared/types';
 import './DoneScreen.css';
 
@@ -52,15 +54,18 @@ export default function DoneScreen() {
   const { projects, guidelines, refreshPortfolio } = useApp();
 
   const [screen, setScreen] = useState<ScreenState>({ phase: 'loading' });
-  const summaryRef = useRef<{ summary: string; tryNext: string[] } | null>(null);
+  const hasRunRef = useRef(false);
 
   const project = findProject(projects, slug);
   const focusGuideline = project
     ? findGuideline(guidelines, project.focusGuidelines[0])
     : undefined;
 
-  // Run once on mount — load drawing, optionally request summary.
+  // Run once per slug — load drawing, optionally request summary.
   useEffect(() => {
+    if (hasRunRef.current) return;
+    hasRunRef.current = true;
+
     let cancelled = false;
 
     async function run() {
@@ -97,9 +102,7 @@ export default function DoneScreen() {
         ]);
         if (cancelled) return;
 
-        const resolvedFocusGuidelines = project.focusGuidelines
-          .map((id) => findGuideline(guidelines, id))
-          .filter((g) => !!g);
+        const resolvedFocusGuidelines = resolveGuidelines(project.focusGuidelines, guidelines);
 
         const result = await requestFinalSummary({
           project,
@@ -112,7 +115,6 @@ export default function DoneScreen() {
         });
 
         if (!cancelled) {
-          summaryRef.current = result;
           setScreen({
             phase: 'ready',
             svg: drawing.svg,
@@ -141,9 +143,9 @@ export default function DoneScreen() {
 
     return () => {
       cancelled = true;
+      hasRunRef.current = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+  }, [slug, navState, project, focusGuideline, guidelines]);
 
   const handleSave = useCallback(async () => {
     if (screen.phase !== 'ready') return;
@@ -234,12 +236,7 @@ export default function DoneScreen() {
 
   // phase === 'ready'
   const { svg, durationSeconds, summary, tryNext } = screen;
-  const minutes = Math.floor(durationSeconds / 60);
-  const seconds = durationSeconds % 60;
-  const durationLabel =
-    minutes > 0
-      ? `${minutes}m ${seconds}s`
-      : `${seconds}s`;
+  const durationLabel = formatDuration(durationSeconds);
 
   return (
     <div className="done-screen">

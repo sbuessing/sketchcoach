@@ -4,6 +4,7 @@ import './Toolbar.css';
 interface ToolbarProps {
   canUndo: boolean;
   canErase: boolean;
+  canFinish: boolean;
   onUndo: () => void;
   onErase: () => void;
   onFinish: () => void | Promise<void>;
@@ -16,6 +17,7 @@ interface ToolbarProps {
 export default function Toolbar({
   canUndo,
   canErase,
+  canFinish,
   onUndo,
   onErase,
   onFinish,
@@ -55,7 +57,7 @@ export default function Toolbar({
           className="toolbar__btn toolbar__btn--primary"
           type="button"
           onClick={onFinish}
-          disabled={!canErase}
+          disabled={!canFinish}
         >
           Finish
         </button>

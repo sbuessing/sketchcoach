@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import ApiKeyModal from '../settings/ApiKeyModal';
@@ -35,7 +35,10 @@ export default function HomeScreen() {
   const { projects, portfolio } = useApp();
   const [showKeyModal, setShowKeyModal] = useState(false);
 
-  const completedSlugs = new Set(portfolio.map((e) => e.projectSlug));
+  const completedSlugs = useMemo(
+    () => new Set(portfolio.map((e) => e.projectSlug)),
+    [portfolio],
+  );
   const configured = isCoachConfigured();
   const byok = isByokMode();
 

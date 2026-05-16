@@ -197,3 +197,21 @@ Add that the public location is https://sketchcoach.web.app/ in the readme.md
 
 **2026-05-10 16:47**
 I want this to usually fit on screen.  Make the two sidebars scrollable and make the canvas be square and take up no more than screen height.
+
+**2026-05-16 09:10**
+I'm back! I've been away from this project for a week but I'd like to add a number of "v2" features.  Before I get started, I'd like to do an architecture pass on the codebase and make sure we have a good clean foundation.  I'm going to scan the code, while I'm doing that, please analyze the whole project and look for anything unused, out of date, poorly named, or poorly architected.  Report back, preferrably with a top 10+ list of things we should improve.
+
+**2026-05-16 09:16**
+Let's do 1 through 14.
+
+**2026-05-16 09:23**
+I want to make this easier for first time sketchers, and avoid feeling like an overcomplicated art application.  Let's start by:
+
+* Move the bottom bar with controls to the top of the screen in the title area to the right, but don't put a background box behind it, we don't want it to have a lot of attention.  
+* Remove "Erase all", a user could just exit and re-enter if they need to
+* Make the erase icon an actual eraser if we have an emoji for that.  
+* Make undo an icon
+* The music and finish buttons should go to the far right.
+
+
+Next, I don't think we need the advice to be  a scrollable window.  You probably just need the most recent advice.  Let's try making it a toast but floating over the bottom of the screen, preferrably below the drawing if the layout allows for that.

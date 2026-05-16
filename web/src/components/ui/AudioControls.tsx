@@ -8,6 +8,7 @@ interface AudioControlsProps {
   isPlaying: boolean;
   trackName: string;
   onSkipTrack: () => void;
+  onPlayPause: () => void;
 }
 
 export default function AudioControls({
@@ -18,6 +19,7 @@ export default function AudioControls({
   isPlaying,
   trackName,
   onSkipTrack,
+  onPlayPause,
 }: AudioControlsProps) {
   return (
     <div className="audio-controls" aria-label="Audio controls">
@@ -40,6 +42,17 @@ export default function AudioControls({
         aria-label="Music volume"
         title={`Volume: ${Math.round(volume * 100)}%`}
       />
+
+      {/* Play / pause */}
+      <button
+        type="button"
+        className="audio-controls__icon-btn"
+        onClick={onPlayPause}
+        aria-label={isPlaying ? 'Pause music' : 'Play music'}
+        title={isPlaying ? 'Pause' : 'Play'}
+      >
+        {isPlaying ? '⏸' : '▶'}
+      </button>
 
       {/* Skip to next track */}
       <button

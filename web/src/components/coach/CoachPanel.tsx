@@ -8,6 +8,8 @@ interface CoachPanelProps {
   error?: string | null;
   /** True if the coach can't run (no API key configured). */
   disabled?: boolean;
+  /** Message to show when disabled. Defaults to a generic fallback. */
+  disabledReason?: string;
 }
 
 export default function CoachPanel({
@@ -16,6 +18,7 @@ export default function CoachPanel({
   focusGuideline,
   error,
   disabled,
+  disabledReason,
 }: CoachPanelProps) {
   return (
     <div className="coach-panel">
@@ -29,7 +32,7 @@ export default function CoachPanel({
       <div className="coach-panel__messages">
         {disabled && (
           <p className="coach-panel__empty">
-            Coach is offline. Add <code>VITE_ANTHROPIC_API_KEY</code> to <code>web/.env</code> to enable it.
+            {disabledReason ?? 'The coach needs an API key to give feedback.'}
           </p>
         )}
 

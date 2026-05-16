@@ -8,11 +8,17 @@
 // No track list → silently no-ops so the app works without audio files.
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { prefs } from '../services/prefsStore';
 
 const TRACKS_URL = '/audio/tracks.json';
 const FADE_DURATION_MS = 500;
 const FADE_STEPS = 20;
+
+export interface UseAmbientAudioOptions {
+  /** The track filename to start from (avoids repeating the last-played track). */
+  initialTrack?: string;
+  /** Called whenever a new track is loaded so the caller can persist it. */
+  onTrackChange?: (trackName: string) => void;
+}
 
 export interface UseAmbientAudioResult {
   /** Start (or resume) the backing track. Safe to call multiple times. */
@@ -29,7 +35,7 @@ export interface UseAmbientAudioResult {
   trackName: string;
 }
 
-export function useAmbientAudio(volume: number): UseAmbientAudioResult {
+export function useAmbientAudio(volume: number, options?: UseAmbientAudioOptions): UseAmbientAudioResult {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const tracksRef = useRef<string[]>([]);
   const currentIndexRef = useRef<number>(0);
@@ -38,6 +44,11 @@ export function useAmbientAudio(volume: number): UseAmbientAudioResult {
   const loadedRef = useRef(false);
   const targetVolumeRef = useRef(volume);
   targetVolumeRef.current = volume;
+
+  const onTrackChangeRef = useRef(options?.onTrackChange);
+  onTrackChangeRef.current = options?.onTrackChange;
+
+  const initialTrackRef = useRef(options?.initialTrack);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackName, setTrackName] = useState('');
@@ -95,7 +106,7 @@ export function useAmbientAudio(volume: number): UseAmbientAudioResult {
     const name = filename.replace(/\.[^.]+$/, '');
     audioRef.current = el;
     currentIndexRef.current = index % tracks.length;
-    prefs.setLastTrack(filename);
+    onTrackChangeRef.current?.(filename);
     setTrackName(name);
     return el;
   }, []);
@@ -116,7 +127,7 @@ export function useAmbientAudio(volume: number): UseAmbientAudioResult {
     tracksRef.current = tracks;
 
     // Pick a starting track, avoiding the last-played one.
-    const last = prefs.getLastTrack();
+    const last = initialTrackRef.current;
     const candidates = tracks.length > 1 ? tracks.filter((t) => t !== last) : tracks;
     const chosen = candidates[Math.floor(Math.random() * candidates.length)];
     const startIndex = tracks.indexOf(chosen);

@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
-import type { Guideline } from '../../shared/types';
+import type { Guideline, GuidelineCategory } from '../../shared/types';
 import './TipsScreen.css';
 
-const CATEGORY_LABEL: Record<string, string> = {
+const CATEGORY_LABEL: Record<GuidelineCategory, string> = {
   foundational:  'Foundational',
   construction:  'Construction',
   proportion:    'Proportion',
@@ -79,7 +79,7 @@ function GuidelineCard({ guideline: g, encountered }: { guideline: Guideline; en
   return (
     <div className={`tip-card ${encountered ? 'tip-card--encountered' : 'tip-card--future'}`}>
       <div className="tip-card__meta">
-        <span className="tip-card__category">{CATEGORY_LABEL[g.category] ?? g.category}</span>
+        <span className="tip-card__category">{CATEGORY_LABEL[g.category]}</span>
         <span className="tip-card__level">{g.level}</span>
       </div>
       <h3 className="tip-card__title">{g.title}</h3>

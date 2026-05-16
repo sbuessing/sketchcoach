@@ -6,6 +6,7 @@ import {
   findGuideline,
   findProject,
   loadProjectSteps,
+  resolveGuidelines,
 } from '../../services/dataService';
 import { isCoachConfigured } from '../../services/claudeClient';
 import { svgToPngDataUrl } from '../../services/snapshot';
@@ -13,6 +14,7 @@ import { useDrawing } from '../../hooks/useDrawing';
 import { useCoach } from '../../hooks/useCoach';
 import { useAmbientAudio } from '../../hooks/useAmbientAudio';
 import { sfx } from '../../services/audioService';
+import { prefs } from '../../services/prefsStore';
 import SketchCanvas from '../canvas/SketchCanvas';
 import Toolbar from '../canvas/Toolbar';
 import StepList from '../steps/StepList';
@@ -36,9 +38,7 @@ export default function DrawScreen() {
   // Resolve all focus guidelines (project.focusGuidelines is an array of ids)
   const resolvedFocusGuidelines = useMemo<Guideline[]>(() => {
     if (!project) return [];
-    return project.focusGuidelines
-      .map((id) => findGuideline(guidelines, id))
-      .filter((g): g is Guideline => !!g);
+    return resolveGuidelines(project.focusGuidelines, guidelines);
   }, [project, guidelines]);
 
   const [stepsData, setStepsData] = useState<ProjectSteps | null>(null);
@@ -117,7 +117,10 @@ export default function DrawScreen() {
 
   // ── Audio ────────────────────────────────────────────────────────────────
 
-  const ambient = useAmbientAudio(audioVolume);
+  const ambient = useAmbientAudio(audioVolume, {
+    initialTrack: prefs.getLastTrack() ?? undefined,
+    onTrackChange: (filename) => prefs.setLastTrack(filename),
+  });
   // Stable ref so the callbacks below don't re-create on every render.
   const ambientRef = useRef(ambient);
   ambientRef.current = ambient;
@@ -214,6 +217,7 @@ export default function DrawScreen() {
           <Toolbar
             canUndo={strokes.length > 0}
             canErase={strokes.length > 0}
+            canFinish={strokes.length > 0}
             onUndo={() => { sfx.play('button', sfxEnabled); undo(); }}
             onErase={() => { sfx.play('button', sfxEnabled); eraseAll(); }}
             onFinish={handleFinish}
@@ -226,6 +230,7 @@ export default function DrawScreen() {
                 isPlaying={ambient.isPlaying}
                 trackName={ambient.trackName}
                 onSkipTrack={ambient.skipTrack}
+                onPlayPause={() => ambient.isPlaying ? ambient.pause() : ambient.play()}
               />
             }
             centerSlot={
@@ -248,6 +253,7 @@ export default function DrawScreen() {
             focusGuideline={focusGuideline}
             error={coachError}
             disabled={!isCoachConfigured()}
+            disabledReason="Add your Anthropic API key via the home screen settings to enable coaching."
           />
         </aside>
       </div>

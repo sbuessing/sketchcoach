@@ -288,14 +288,17 @@ export async function requestCoachAdvice(
   if (!toolUse) {
     throw new Error('Coach response missing tool_use block');
   }
-  const input = toolUse.input as Partial<CoachAdviceResult>;
-  if (!input.message || !input.encouragement) {
+  const raw = toolUse.input as Record<string, unknown>;
+  const message = typeof raw.message === 'string' ? raw.message : '';
+  const encouragement = typeof raw.encouragement === 'string' ? raw.encouragement : '';
+  const highlightedGuidelineId = typeof raw.highlightedGuidelineId === 'string' ? raw.highlightedGuidelineId : undefined;
+  if (!message || !encouragement) {
     throw new Error('Coach response missing required fields');
   }
   return {
-    message: input.message,
-    encouragement: input.encouragement,
-    highlightedGuidelineId: input.highlightedGuidelineId,
+    message,
+    encouragement: encouragement as CoachAdviceResult['encouragement'],
+    highlightedGuidelineId,
   };
 }
 
@@ -366,12 +369,16 @@ export async function requestFinalSummary(
   if (!toolUse) {
     throw new Error('Final summary response missing tool_use block');
   }
-  const input = toolUse.input as Partial<FinalSummaryResult>;
-  if (!input.summary || !Array.isArray(input.tryNext)) {
+  const raw = toolUse.input as Record<string, unknown>;
+  const summary = typeof raw.summary === 'string' ? raw.summary : '';
+  const tryNext = Array.isArray(raw.tryNext)
+    ? raw.tryNext.filter((item): item is string => typeof item === 'string')
+    : [];
+  if (!summary || !tryNext) {
     throw new Error('Final summary response missing required fields');
   }
   return {
-    summary: input.summary,
-    tryNext: input.tryNext,
+    summary,
+    tryNext,
   };
 }

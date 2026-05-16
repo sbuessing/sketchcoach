@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
 import { findProject } from '../../services/dataService';
 import { clearPortfolio, deletePortfolioEntry } from '../../services/portfolioStore';
+import { formatDate, formatDuration } from '../../shared/utils';
 import type { PortfolioEntry } from '../../shared/types';
 import './PortfolioScreen.css';
 
@@ -115,9 +116,7 @@ interface DetailModalProps {
 }
 
 function DetailModal({ entry, projectTitle, onClose, onDelete }: DetailModalProps) {
-  const minutes = Math.floor(entry.durationSeconds / 60);
-  const seconds = entry.durationSeconds % 60;
-  const durationLabel = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+  const durationLabel = formatDuration(entry.durationSeconds);
 
   return (
     <div
@@ -193,12 +192,3 @@ function DetailModal({ entry, projectTitle, onClose, onDelete }: DetailModalProp
   );
 }
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-function formatDate(ms: number): string {
-  return new Intl.DateTimeFormat(undefined, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(ms));
-}

@@ -2,7 +2,7 @@
 // Mirrors the schemas of the JSON files in /public/data.
 
 export type Tier = 'beginner' | 'developing' | 'intermediate' | 'advanced';
-export type Level = 'novice' | 'developing' | 'intermediate' | 'advanced';
+export type GuidelineLevel = 'novice' | 'developing' | 'intermediate' | 'advanced';
 
 export type GuidelineCategory =
   | 'foundational'
@@ -25,7 +25,7 @@ export interface Project {
 export interface Guideline {
   id: string;
   title: string;
-  level: Level;
+  level: GuidelineLevel;
   category: GuidelineCategory;
   description: string;
   coachCues: string[];
