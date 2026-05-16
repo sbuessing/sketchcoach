@@ -453,3 +453,10 @@ Let's continue with phase 3
 
 **2026-05-16 10:49**
 Oh I checked the new content, it's great.
+
+**2026-05-16 10:52**
+Taking a break, but jot these notes in ideas.md for me.
+
+We need more help text, and possibly a "design principles" page.
+The ceremony moment could be letting Claude take all of the pieces you've constructed and use these to create a more fleshed out scene.  
+We should have an option to remove the pencil sketch when finishing.

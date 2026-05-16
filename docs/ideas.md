@@ -6,6 +6,8 @@ Things we could add but aren't in the initial build. Kept here for reference as 
 
 ## UI & Flow
 
+- **More inline help text + a Design Principles page** — the app teaches a specific workflow (pencil first, then ink; sketch lightly, commit confidently; the canonical pattern in `content-guidelines.md`) but right now this only surfaces through the step instructions themselves. Add (1) lightweight inline hints on the draw screen — first-time tooltips on the pencil/pen toggle, the eraser, the undo shortcut; and (2) a dedicated "Design Principles" or "How Sketch Coach Works" page accessible from the home header. The page would explain the pencil → ink workflow, the role of construction lines, why the coach checks in periodically, what each tier of project teaches, and the broader sketching philosophy the app is built around. Goal: a curious user can understand *why* the app is shaped the way it is without needing to draw a single project.
+
 - **Confirm before leaving** — if the user has unsaved strokes and tries to navigate away (back button, closing the tab), prompt "Leave this sketch?" so nothing is accidentally lost. Use the `beforeunload` event for tab closes and a React Router blocker for in-app navigation.
 
 - **Offline graceful degradation** — the app should still load and let you sketch when offline (canvas, steps, and portfolio all live locally). Coach calls should fail quietly with a small "coach unavailable — no internet" note rather than spinning forever.
@@ -29,6 +31,8 @@ Implementation sketch:
 
 - **Scene completion ceremony** — when all of a scene's projects are done, trigger something memorable: a full-screen reveal of the assembled scene, a downloadable poster export, a coach message acknowledging the scene's name ("you finished the harbor"), maybe even a subtle animation that re-traces a few signature lines. The N/N moment should feel like an arrival, not just the disappearance of a "1 left" counter.
 
+- **AI-fleshed-out final scene** — a richer take on the completion ceremony: hand Claude every piece the user has drawn for a scene, along with the scene's identity, and ask it to compose a more elaborated final image that uses those pieces as the foundation. Could mean filling in supporting detail between the user's objects (the dock planks behind their bollard, the rigging connecting their sailboat), or returning a stylized "finished poster" version of the scene with the user's drawings preserved as the hero elements. The user's hands stay on the centerpiece work; the AI handles the connective tissue and atmosphere.
+
 - **Hand-drawn scene backgrounds** — v1 scenes ship with just the canvas color behind the user's drawings. Once scenes prove themselves, add a light pencil-sketch background per scene that drawings sit on top of. Style match: pencil weight (`#808080` at ~30% opacity), same stroke aesthetic as the user's own pencil. Harbor would get a hint of dock perspective and horizon; Windowsill a window frame and garden suggestion; Garden Courtyard tile lines and a wall silhouette. Faint enough to never compete with the actual drawings — scaffolding the user's work is mounted onto, not a rendered illustration.
 
 ---
@@ -38,6 +42,8 @@ Implementation sketch:
 - **iOS / Apple Pencil support** — verify `pointerType === 'pen'` and `PointerEvent.pressure` come through correctly on iPad Safari. The drawing code is already structured for this; it just needs real-device testing and any Safari-specific event fixes.
 
 - **Backing track auto-pause** — pause the ambient music when the browser tab loses focus (visibilitychange event), resume when it returns. Polite for users with headphones who switch tabs.
+
+- **"Remove pencil construction on finish" toggle** — when finalizing a project, offer a one-click option to strip out all pencil-mode strokes, leaving only the inked lines. The canonical workflow encourages light pencil construction that gets ink committed on top; many users will want a clean final piece without leftover guides. Implementation is straightforward: filter `strokes` by `drawMode !== 'pencil'` and save that as the finalized version. Original including pencil could be kept in the portfolio entry too for reference. Could be a checkbox on the Done screen ("✓ Hide pencil guides in the final") or even the default behavior with a "Keep pencil layer" opt-out.
 
 - **Smarter eraser modes** — two additional erase gestures beyond the current stroke-level tap-to-erase: (1) **tap erase** already works (removes the whole stroke); (2) **drag erase** — dragging across strokes removes only the segments the eraser path crosses, splitting strokes at the intersection. This mirrors how a physical eraser works and is especially useful for cleaning up a single crossing line without removing the whole stroke.
 
