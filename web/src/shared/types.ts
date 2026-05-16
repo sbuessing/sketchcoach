@@ -13,13 +13,34 @@ export type GuidelineCategory =
   | 'composition'
   | 'style';
 
+export interface SceneSlot {
+  /** Top-left x in the 1000×1000 scene canvas. */
+  x: number;
+  /** Top-left y in the 1000×1000 scene canvas. */
+  y: number;
+  width: number;
+  height: number;
+  /** Draw order: lower = farther back. */
+  z: number;
+}
+
+export interface Scene {
+  id: string;
+  title: string;
+  tagline: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
+  /** Which scene this project belongs to. */
+  sceneId: string;
   tier: Tier;
   estimatedMinutes: number;
   description: string;
   focusGuidelines: string[];
+  /** Where in the assembled scene this drawing lives. */
+  sceneSlot: SceneSlot;
 }
 
 export interface Guideline {

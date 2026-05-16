@@ -1,0 +1,36 @@
+{
+  "slug": "harbor-seagull",
+  "title": "Seagull in Flight",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the gesture (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a long, shallow M — one low arc on the left, a slight dip in the middle, another low arc on the right. This single gesture line is the whole bird. Keep it loose."
+    },
+    {
+      "number": 2,
+      "title": "Mark the wing tips and body (pencil)",
+      "description": "Still in pencil, place a small dot at each end of your M for the wing tips, and a tiny oval where the dip meets the middle for the body. These dots tell you where your ink line will start, bend, and end."
+    },
+    {
+      "number": 3,
+      "title": "Switch to ink and lay down the front edge",
+      "description": "Switch to ink. Starting from the left wing tip, draw one confident M-shaped stroke across the top of the wings, through the body, and out to the right wing tip. One pass — don't redraw."
+    },
+    {
+      "number": 4,
+      "title": "Ink the back edge of the wings",
+      "description": "Still in ink, draw a second curve underneath the first, mostly parallel but a touch flatter, closing the wing shapes. The body in the middle should bulge slightly between the two curves."
+    },
+    {
+      "number": 5,
+      "title": "Suggest the head (ink)",
+      "description": "Add a tiny bump on top of the body in the middle for the head, and a short angled mark for a beak pointing forward. Two small strokes is enough — at this distance the bird is mostly silhouette."
+    },
+    {
+      "number": 6,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove any pencil marks that distract from the ink. A few faint construction lines can stay if they feel like sky."
+    }
+  ]
+}

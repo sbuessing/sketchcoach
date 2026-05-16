@@ -1,0 +1,46 @@
+{
+  "slug": "harbor-rowboat",
+  "title": "Rowboat Alongside Dock",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the gesture (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a long shallow curve for the bottom of the hull — viewed at a slight angle so one end tilts toward you. This curve carries the boat's posture in the water."
+    },
+    {
+      "number": 2,
+      "title": "Block the top edge (pencil)",
+      "description": "Still in pencil, sketch a second curve above the first, meeting it in soft points at the bow and stern. The top edge is shallower than the bottom — it's the gunwale, the rim of the boat."
+    },
+    {
+      "number": 3,
+      "title": "Notice the angle of the far side (pencil)",
+      "description": "Because the boat is at an angle, the far gunwale isn't parallel to the near one — it tilts up slightly. Sketch a short curve inside the top edge to show the far side of the rim. Compare the two angles before committing."
+    },
+    {
+      "number": 4,
+      "title": "Block the seat planks (pencil)",
+      "description": "Sketch two short horizontal bars spanning the inside of the boat for the seat planks — one near the middle, one toward the bow. Each is a thin rectangle running side to side."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the hull",
+      "description": "Switch to ink. Trace the bottom and top edges of the hull in confident passes. Where the boat meets the dock edge, stop your back gunwale line cleanly where the dock would cover it — don't draw through."
+    },
+    {
+      "number": 6,
+      "title": "Ink the inside of the boat (ink)",
+      "description": "Still in ink, trace the far gunwale and the seat planks. Where the planks meet the inside walls, land the lines cleanly at the junctions."
+    },
+    {
+      "number": 7,
+      "title": "Add oars and oarlocks (ink)",
+      "description": "Draw two short oblong shapes on the gunwales for the oarlocks. Add one or two oars laid inside the boat — long thin shafts ending in flattened blade shapes."
+    },
+    {
+      "number": 8,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove pencil guides that distract. The rowboat should feel like it's resting against the dock, not floating in space."
+    }
+  ]
+}

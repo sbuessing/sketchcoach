@@ -1,0 +1,46 @@
+{
+  "slug": "garden-gate",
+  "title": "Garden Gate",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the gate frame (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a tall rectangle for the overall gate shape — taller than wide, with a curved or arched top if you like. This is the outer frame."
+    },
+    {
+      "number": 2,
+      "title": "Find the angles (pencil)",
+      "description": "Notice the angle of the top edge — is it perfectly horizontal, or slightly tilted because the gate is set into a wall that recedes? Sketch the tilt as you actually see it. Same check for the sides."
+    },
+    {
+      "number": 3,
+      "title": "Add the vertical slats (pencil)",
+      "description": "Still in pencil, mark four or five evenly spaced vertical lines inside the frame for the gate's slats. Then add two short horizontal bars — one near the top, one near the bottom — that the slats attach to."
+    },
+    {
+      "number": 4,
+      "title": "Refine and add the handle (pencil)",
+      "description": "Look across your slats — are they all roughly parallel? If any drifted, erase and redraw. Then sketch a small ring or lever shape near the middle of one side for the gate's handle."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the frame",
+      "description": "Switch to ink mode. Trace the outer gate frame in confident strokes from your shoulder, not your wrist — long straight runs come out cleaner when you move from the elbow. Land each corner where the lines actually meet."
+    },
+    {
+      "number": 6,
+      "title": "Ink the slats and crossbars (ink)",
+      "description": "Still in ink, trace each vertical slat in a single committed pass, then the two horizontal crossbars over them. Where the bars cross the slats, the bar passes in front — stop the slat lines at the bar's edges."
+    },
+    {
+      "number": 7,
+      "title": "Ink the handle and hinges (ink)",
+      "description": "Trace the handle as a small ring or curve, then add two small rectangles where the gate meets the wall — those are the hinges. A few marks is enough; don't render every screw."
+    },
+    {
+      "number": 8,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink gate."
+    }
+  ]
+}

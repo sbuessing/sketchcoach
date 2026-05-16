@@ -1,0 +1,46 @@
+{
+  "slug": "harbor-chain-coil",
+  "title": "Coiled Chain",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the gesture (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a loose spiral or stack of overlapping ovals on the dock — the path the chain takes as it coils. Two or three loops piled loosely on each other is plenty."
+    },
+    {
+      "number": 2,
+      "title": "Mark the link spacing (pencil)",
+      "description": "Still in pencil, place small tick marks along your spiral path at regular intervals. Each tick is where a link will sit. Don't aim for perfect spacing — slight variation reads as real chain."
+    },
+    {
+      "number": 3,
+      "title": "Block one link as your reference (pencil)",
+      "description": "At one tick, sketch a single chain link as a small oblong oval. This is your unit — every other link will be the same size. Comparing as you go keeps the chain from growing or shrinking."
+    },
+    {
+      "number": 4,
+      "title": "Plan the alternating orientation (pencil)",
+      "description": "Lightly mark each remaining tick with a tiny line showing whether that link will sit flat (a horizontal oval) or on edge (a vertical sliver). Real chain alternates orientation — flat, on-edge, flat, on-edge."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the first link",
+      "description": "Switch to ink. Trace your reference link as a clean oblong oval, then draw a second smaller oval inside it for the hole. One link is done — every other link copies this."
+    },
+    {
+      "number": 6,
+      "title": "Ink the rest of the chain (ink)",
+      "description": "Working along the spiral, ink each link in turn. Where two links interlock, stop the back link's line cleanly where the front link crosses it — don't draw through the loop in front."
+    },
+    {
+      "number": 7,
+      "title": "Add weight to the underside (ink)",
+      "description": "Thicken the lower edge of each link slightly — a second short stroke just below the existing line. The added weight makes the chain feel heavy and metallic."
+    },
+    {
+      "number": 8,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove the ticks and pencil guides. The coil should read clearly as chain — interlocking, heavy, and a little tangled."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "harbor-bollard",
+  "title": "Mooring Bollard",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the post (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a tall rectangle for the body of the bollard — about twice as tall as it is wide. Don't worry about perfectly straight sides; a slight taper toward the top is natural."
+    },
+    {
+      "number": 2,
+      "title": "Add the cap (pencil)",
+      "description": "Still in pencil, sketch a flattened oval sitting on top of the rectangle for the rounded cap. The oval should be slightly wider than the post so it overhangs a little on each side."
+    },
+    {
+      "number": 3,
+      "title": "Mark the base (pencil)",
+      "description": "Add a short horizontal line at the bottom where the bollard meets the dock. A thin flange — two parallel lines just above the base — gives it weight."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and trace the silhouette",
+      "description": "Switch to ink. Trace the outline of the post, cap, and flange in one confident pass. Where the cap meets the post, let the line follow the curve cleanly instead of stopping and starting."
+    },
+    {
+      "number": 5,
+      "title": "Ink the cap curve (ink)",
+      "description": "Still in ink, add a single curved line across the top of the cap to suggest its rounded shape. One stroke that follows the form is all it needs."
+    },
+    {
+      "number": 6,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove any pencil guides that don't help the final drawing. The bollard should feel solid and planted on the dock."
+    }
+  ]
+}

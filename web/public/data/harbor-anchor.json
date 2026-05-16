@@ -1,0 +1,41 @@
+{
+  "slug": "harbor-anchor",
+  "title": "Anchor",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the axis (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a tall vertical line for the shank — the central shaft of the anchor. This axis is the spine of the whole drawing."
+    },
+    {
+      "number": 2,
+      "title": "Mark the ring and crown (pencil)",
+      "description": "Still in pencil, sketch a small circle at the top of the shank for the ring, and a short horizontal line near the top for the stock — the crossbar. Mark a dot at the bottom of the shank where the arms will branch."
+    },
+    {
+      "number": 3,
+      "title": "Block the arms and flukes (pencil)",
+      "description": "From the bottom dot, sketch two curved lines arcing outward and upward, one to each side, like a wide smile. At the end of each arm, sketch a small triangular fluke — the pointed paddle shape that bites the seabed."
+    },
+    {
+      "number": 4,
+      "title": "Draw through the back (pencil)",
+      "description": "Lightly sketch the back edge of the curved arms even where they'll sit behind the shank. Drawing the full form now keeps the anchor feeling solid in three dimensions."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the shank and ring",
+      "description": "Switch to ink. Trace the shank as one confident vertical stroke, the ring as a single circle, and the stock as a clean horizontal bar. Where the stock crosses the shank, let the lines meet at the junction cleanly."
+    },
+    {
+      "number": 6,
+      "title": "Ink the arms and flukes (ink)",
+      "description": "Still in ink, trace each arm in one curving pass from the bottom of the shank out to its fluke. Outline each fluke as a small triangle. Stop the back arm's line where the shank crosses in front — don't draw through."
+    },
+    {
+      "number": 7,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove the construction lines, including the back edges you drew through. The anchor should read as one connected piece of iron."
+    }
+  ]
+}

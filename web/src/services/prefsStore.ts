@@ -38,4 +38,13 @@ export const prefs = {
   clearApiKey: () => {
     try { localStorage.removeItem(NS + 'api_key'); } catch { /* noop */ }
   },
+
+  // Active scene on the home screen. Defaults to harbor.
+  getActiveSceneId: () => read<string>('active_scene', 'harbor'),
+  setActiveSceneId: (id: string) => write('active_scene', id),
+
+  // Local data-schema marker. Bump when project slugs change and the portfolio
+  // needs a clean wipe (old slugs no longer correspond to known projects).
+  getDataVersion: () => read<number>('data_version', 0),
+  setDataVersion: (v: number) => write('data_version', v),
 };

@@ -1,0 +1,46 @@
+{
+  "slug": "harbor-lantern",
+  "title": "Fisherman's Lantern",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the axis (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a single vertical line for the center of the lantern. Everything will balance around this axis."
+    },
+    {
+      "number": 2,
+      "title": "Block the glass body (pencil)",
+      "description": "Still in pencil, sketch a tall rounded rectangle centered on the axis for the glass chamber — taller than it is wide, with softly rounded corners."
+    },
+    {
+      "number": 3,
+      "title": "Block the cap and base (pencil)",
+      "description": "Sketch a wider trapezoid above the body for the vented cap — narrower at the top. Add a matching trapezoid below, narrower at the bottom, for the base. Two short horizontal lines mark where they meet the body."
+    },
+    {
+      "number": 4,
+      "title": "Plan the handle (pencil)",
+      "description": "Sketch a curved arc rising from the top of the cap and looping back down. A simple semicircle works. Keep it light — it'll meet the cap at two clean points."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the body and cap",
+      "description": "Switch to ink. Trace the outline of the cap, body, and base in one mostly continuous pass. Where the cap meets the body, land your lines right at the junction — no overshoot."
+    },
+    {
+      "number": 6,
+      "title": "Ink the handle (ink)",
+      "description": "Still in ink, trace the curved handle in one confident stroke. Where it meets the cap, the two lines should touch cleanly without crossing."
+    },
+    {
+      "number": 7,
+      "title": "Ink the inner details (ink)",
+      "description": "Add a small candle or wick shape inside the glass — a short vertical line with a teardrop flame on top. A few short horizontal lines in the cap suggest the vent slots."
+    },
+    {
+      "number": 8,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove the axis line and pencil guides. The lantern should feel sturdy enough to swing from a hook."
+    }
+  ]
+}

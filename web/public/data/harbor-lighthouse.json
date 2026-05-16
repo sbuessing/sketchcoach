@@ -1,0 +1,41 @@
+{
+  "slug": "harbor-lighthouse",
+  "title": "Distant Lighthouse",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the axis (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a single tall vertical line where the center of the lighthouse will stand. This axis keeps the tower from leaning."
+    },
+    {
+      "number": 2,
+      "title": "Block the tower (pencil)",
+      "description": "Still in pencil, sketch two lines on either side of the axis, slightly closer together at the top than the bottom. The taper is gentle — the tower should still feel sturdy, not pointy."
+    },
+    {
+      "number": 3,
+      "title": "Block the lantern room and cap (pencil)",
+      "description": "At the top of the tower, sketch a small rectangle for the glass lantern room, then a low triangle or shallow dome above it for the cap. Add a tiny vertical line on top for the spire."
+    },
+    {
+      "number": 4,
+      "title": "Mark the base (pencil)",
+      "description": "Sketch a slightly wider band at the bottom of the tower for the base, and a short horizontal line where it meets the headland or rocks."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the silhouette",
+      "description": "Switch to ink. Trace the outline of the whole structure — base, tower, lantern room, cap, spire — in one mostly continuous pass. Where shapes meet, land your lines cleanly at the junction."
+    },
+    {
+      "number": 6,
+      "title": "Ink the details (ink)",
+      "description": "Still in ink, add a small horizontal line beneath the lantern room for the gallery walkway, and one or two short horizontal stripes across the tower to suggest painted bands. Keep it sparse — this lighthouse is far away."
+    },
+    {
+      "number": 7,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove the axis line and any pencil guides that distract. The lighthouse should read clearly even though it's small on the horizon."
+    }
+  ]
+}

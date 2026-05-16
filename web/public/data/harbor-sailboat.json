@@ -1,0 +1,46 @@
+{
+  "slug": "harbor-sailboat",
+  "title": "Moored Sailboat",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the gesture (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a long shallow arc for the bottom of the hull — like a slice of melon. This single curve sets the boat's lean and posture."
+    },
+    {
+      "number": 2,
+      "title": "Block the hull (pencil)",
+      "description": "Still in pencil, close the top of the hull with a gentler curve, meeting your first arc at each end in a soft point. The bow (front) can rise a touch higher than the stern."
+    },
+    {
+      "number": 3,
+      "title": "Mark the mast (pencil)",
+      "description": "Sketch a tall vertical line rising from the middle of the hull. It should be roughly twice the length of the hull — masts are taller than you think."
+    },
+    {
+      "number": 4,
+      "title": "Block the sail (pencil)",
+      "description": "Sketch a tall triangle behind the mast — its long edge running along the mast, its top at the masthead, and its bottom corner extending out behind the boat. A gentle outward curve on the trailing edge suggests the sail catching air."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the hull and mast",
+      "description": "Switch to ink. Lay down the hull outline in one confident pass, then the mast in a single long stroke. Drawing from the shoulder helps the mast come out straight."
+    },
+    {
+      "number": 6,
+      "title": "Ink the sail (ink)",
+      "description": "Still in ink, trace the two free edges of the sail in confident strokes. Where the sail meets the mast, let the lines land cleanly at the same point."
+    },
+    {
+      "number": 7,
+      "title": "Suggest the rigging (ink)",
+      "description": "Add one or two short lines from the masthead down to the hull for rigging. Keep it sparse — a few suggestive marks read as rope without cluttering the boat."
+    },
+    {
+      "number": 8,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove any pencil guides that distract. The boat should feel like it's resting on the water, not floating in the sky."
+    }
+  ]
+}

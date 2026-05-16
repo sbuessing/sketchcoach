@@ -1,132 +1,789 @@
 {
   "projects": [
     {
-      "slug": "beach-ball",
-      "title": "Beach Ball",
+      "slug": "harbor-seagull",
+      "title": "Seagull in Flight",
+      "sceneId": "harbor",
       "tier": "beginner",
-      "estimatedMinutes": 5,
-      "description": "A classic round beach ball. Practice committing to a clean circle and using curves to suggest a sphere instead of a flat disc.",
-      "focusGuidelines": ["simple-shapes-first", "confident-lines", "line-follows-form"]
+      "estimatedMinutes": 8,
+      "description": "A distant gull crossing the sky as a single confident M-shape. Practice committing to one expressive gesture line.",
+      "focusGuidelines": [
+        "confident-lines",
+        "find-the-gesture"
+      ],
+      "sceneSlot": {
+        "x": 60,
+        "y": 70,
+        "width": 160,
+        "height": 80,
+        "z": 1
+      }
     },
     {
-      "slug": "apple",
+      "slug": "harbor-bollard",
+      "title": "Mooring Bollard",
+      "sceneId": "harbor",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A sturdy iron post used to tie up boats. Practice clean vertical construction with a rounded cap on top.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "mind-the-curves"
+      ],
+      "sceneSlot": {
+        "x": 70,
+        "y": 450,
+        "width": 100,
+        "height": 200,
+        "z": 2
+      }
+    },
+    {
+      "slug": "harbor-life-preserver",
+      "title": "Life Preserver Ring",
+      "sceneId": "harbor",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A classic ring buoy with rope wraps. Practice finding the center axis and committing to two clean concentric circles.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "confident-lines"
+      ],
+      "sceneSlot": {
+        "x": 160,
+        "y": 410,
+        "width": 160,
+        "height": 160,
+        "z": 2
+      }
+    },
+    {
+      "slug": "harbor-rope-coil",
+      "title": "Rope Coil",
+      "sceneId": "harbor",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A loose coil of rope on the dock. Practice letting lines wobble and follow the curve of a winding form.",
+      "focusGuidelines": [
+        "embrace-imperfection",
+        "line-follows-form"
+      ],
+      "sceneSlot": {
+        "x": 10,
+        "y": 655,
+        "width": 180,
+        "height": 130,
+        "z": 3
+      }
+    },
+    {
+      "slug": "harbor-crab",
+      "title": "Crab",
+      "sceneId": "harbor",
+      "tier": "beginner",
+      "estimatedMinutes": 10,
+      "description": "A small crab seen from above. Practice building a creature from a wide shell and a handful of small legs.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "block-big-then-small"
+      ],
+      "sceneSlot": {
+        "x": 0,
+        "y": 835,
+        "width": 160,
+        "height": 110,
+        "z": 4
+      }
+    },
+    {
+      "slug": "harbor-starfish",
+      "title": "Starfish",
+      "sceneId": "harbor",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A five-armed starfish at the water's edge. Practice radial construction around a central point with friendly asymmetry.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "embrace-imperfection"
+      ],
+      "sceneSlot": {
+        "x": 230,
+        "y": 810,
+        "width": 140,
+        "height": 140,
+        "z": 4
+      }
+    },
+    {
+      "slug": "harbor-lighthouse",
+      "title": "Distant Lighthouse",
+      "sceneId": "harbor",
+      "tier": "developing",
+      "estimatedMinutes": 12,
+      "description": "A small lighthouse on the far headland. Practice stacking simple shapes around a central axis to build a structure.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "find-the-axis"
+      ],
+      "sceneSlot": {
+        "x": 780,
+        "y": 30,
+        "width": 100,
+        "height": 260,
+        "z": 1
+      }
+    },
+    {
+      "slug": "harbor-sailboat",
+      "title": "Moored Sailboat",
+      "sceneId": "harbor",
+      "tier": "developing",
+      "estimatedMinutes": 15,
+      "description": "A small sailboat at rest on calm water. Practice finding the hull's gesture and fitting a tall sail to its mast.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "compare-as-you-go",
+        "block-big-then-small"
+      ],
+      "sceneSlot": {
+        "x": 360,
+        "y": 240,
+        "width": 240,
+        "height": 200,
+        "z": 1
+      }
+    },
+    {
+      "slug": "harbor-lantern",
+      "title": "Fisherman's Lantern",
+      "sceneId": "harbor",
+      "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "An old-fashioned glass lantern with a curved handle. Practice keeping junctions clean where the cap, body, and handle all meet.",
+      "focusGuidelines": [
+        "clean-junctions",
+        "block-big-then-small"
+      ],
+      "sceneSlot": {
+        "x": 360,
+        "y": 420,
+        "width": 120,
+        "height": 200,
+        "z": 2
+      }
+    },
+    {
+      "slug": "harbor-creel",
+      "title": "Wicker Creel",
+      "sceneId": "harbor",
+      "tier": "developing",
+      "estimatedMinutes": 13,
+      "description": "A woven fishing basket with a shoulder strap. Practice suggesting wicker texture with a few well-placed marks rather than every weave.",
+      "focusGuidelines": [
+        "suggest-dont-render",
+        "mind-the-curves"
+      ],
+      "sceneSlot": {
+        "x": 700,
+        "y": 450,
+        "width": 180,
+        "height": 160,
+        "z": 2
+      }
+    },
+    {
+      "slug": "harbor-anchor",
+      "title": "Anchor",
+      "sceneId": "harbor",
+      "tier": "developing",
+      "estimatedMinutes": 15,
+      "description": "A classic anchor with shank, stock, and curved arms. Practice drawing through the form so it feels solid in three dimensions.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "clean-junctions",
+        "draw-through"
+      ],
+      "sceneSlot": {
+        "x": 220,
+        "y": 580,
+        "width": 160,
+        "height": 240,
+        "z": 3
+      }
+    },
+    {
+      "slug": "harbor-fishing-rod",
+      "title": "Fishing Rod",
+      "sceneId": "harbor",
+      "tier": "developing",
+      "estimatedMinutes": 12,
+      "description": "A long fishing rod leaning across the dock. Practice drawing a single long confident line from the shoulder.",
+      "focusGuidelines": [
+        "confident-lines",
+        "draw-from-the-shoulder"
+      ],
+      "sceneSlot": {
+        "x": 650,
+        "y": 490,
+        "width": 60,
+        "height": 320,
+        "z": 3
+      }
+    },
+    {
+      "slug": "harbor-pelican",
+      "title": "Perched Pelican",
+      "sceneId": "harbor",
+      "tier": "intermediate",
+      "estimatedMinutes": 20,
+      "description": "A hunched pelican settled on the dock. Practice capturing a strong gesture and suggesting feathers without rendering every one.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "block-big-then-small",
+        "suggest-dont-render"
+      ],
+      "sceneSlot": {
+        "x": 550,
+        "y": 380,
+        "width": 180,
+        "height": 220,
+        "z": 2
+      }
+    },
+    {
+      "slug": "harbor-fishing-net",
+      "title": "Fishing Net",
+      "sceneId": "harbor",
+      "tier": "intermediate",
+      "estimatedMinutes": 20,
+      "description": "A heaped fishing net with floats and weights. Practice restraint — a few suggested mesh patches read better than every knot drawn.",
+      "focusGuidelines": [
+        "suggest-dont-render",
+        "balance-detail",
+        "edit-with-restraint"
+      ],
+      "sceneSlot": {
+        "x": 370,
+        "y": 640,
+        "width": 240,
+        "height": 180,
+        "z": 3
+      }
+    },
+    {
+      "slug": "harbor-rowboat",
+      "title": "Rowboat",
+      "sceneId": "harbor",
+      "tier": "intermediate",
+      "estimatedMinutes": 22,
+      "description": "A wooden rowboat resting against the dock. Practice reading angles carefully and stopping back lines where the dock crosses in front.",
+      "focusGuidelines": [
+        "show-overlap",
+        "compare-as-you-go",
+        "notice-the-angles"
+      ],
+      "sceneSlot": {
+        "x": 740,
+        "y": 600,
+        "width": 220,
+        "height": 200,
+        "z": 3
+      }
+    },
+    {
+      "slug": "harbor-chain-coil",
+      "title": "Coiled Chain",
+      "sceneId": "harbor",
+      "tier": "intermediate",
+      "estimatedMinutes": 22,
+      "description": "A heavy iron chain piled on the dock. Practice interlocking forms — stopping the back link cleanly where the front link crosses it.",
+      "focusGuidelines": [
+        "show-overlap",
+        "compare-as-you-go",
+        "line-follows-form"
+      ],
+      "sceneSlot": {
+        "x": 110,
+        "y": 770,
+        "width": 140,
+        "height": 100,
+        "z": 3
+      }
+    },
+    {
+      "slug": "harbor-bucket",
+      "title": "Bucket with Catch",
+      "sceneId": "harbor",
+      "tier": "advanced",
+      "estimatedMinutes": 28,
+      "description": "A bucket of freshly caught fish sitting on the dock. Practice anchoring an object with a cast shadow and varying line weight to add depth.",
+      "focusGuidelines": [
+        "cast-shadow",
+        "show-overlap",
+        "balance-detail",
+        "vary-line-weight"
+      ],
+      "sceneSlot": {
+        "x": 490,
+        "y": 760,
+        "width": 160,
+        "height": 200,
+        "z": 4
+      }
+    },
+    {
+      "slug": "harbor-heron",
+      "title": "Heron Wading",
+      "sceneId": "harbor",
+      "tier": "advanced",
+      "estimatedMinutes": 26,
+      "description": "A tall heron standing motionless in the shallows. Practice carrying a long elegant S-curve through head, neck, and body, with multiple mode switches for water and feathers.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "confident-lines",
+        "suggest-dont-render",
+        "vary-line-weight"
+      ],
+      "sceneSlot": {
+        "x": 120,
+        "y": 230,
+        "width": 120,
+        "height": 260,
+        "z": 1
+      }
+    },
+    {
+      "slug": "windowsill-apple",
       "title": "Apple",
+      "sceneId": "windowsill",
       "tier": "beginner",
       "estimatedMinutes": 8,
       "description": "An apple with a stem and a single leaf. A friendly intro to organic, slightly asymmetric shapes.",
-      "focusGuidelines": ["start-light", "find-the-axis", "embrace-imperfection"]
+      "focusGuidelines": [
+        "start-light",
+        "find-the-axis",
+        "embrace-imperfection"
+      ],
+      "sceneSlot": {
+        "x": 160,
+        "y": 720,
+        "width": 140,
+        "height": 140,
+        "z": 3
+      }
     },
     {
-      "slug": "mug",
-      "title": "Mug",
-      "tier": "beginner",
-      "estimatedMinutes": 10,
-      "description": "A simple ceramic mug. Introduces straight verticals, ellipses, and the handle as a partial circle.",
-      "focusGuidelines": ["simple-shapes-first", "draw-from-the-shoulder", "clean-junctions"]
-    },
-    {
-      "slug": "leaf",
-      "title": "Leaf",
+      "slug": "windowsill-pear",
+      "title": "Pear",
+      "sceneId": "windowsill",
       "tier": "beginner",
       "estimatedMinutes": 8,
-      "description": "A single leaf with a central vein and a few branching side veins. Practice symmetry around an axis.",
-      "focusGuidelines": ["find-the-axis", "mind-the-curves", "embrace-imperfection"]
+      "description": "A pear with a gentle S-curve through its body. Practice finding a subject's gesture and reading how its curves change along the way.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "mind-the-curves",
+        "embrace-imperfection"
+      ],
+      "sceneSlot": {
+        "x": 305,
+        "y": 715,
+        "width": 130,
+        "height": 150,
+        "z": 3
+      }
     },
     {
-      "slug": "bird",
-      "title": "Perched Bird",
-      "tier": "developing",
-      "estimatedMinutes": 15,
-      "description": "A small songbird sitting on a branch. Practice combining a head and body and finding the right proportion between them.",
-      "focusGuidelines": ["block-big-then-small", "compare-as-you-go", "find-the-gesture"]
+      "slug": "windowsill-lemon",
+      "title": "Lemon",
+      "sceneId": "windowsill",
+      "tier": "beginner",
+      "estimatedMinutes": 6,
+      "description": "A small lemon with two soft nubs at the ends. A quick study in tilted ovals and suggesting texture with just a few marks.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "embrace-imperfection",
+        "suggest-dont-render"
+      ],
+      "sceneSlot": {
+        "x": 35,
+        "y": 750,
+        "width": 130,
+        "height": 100,
+        "z": 3
+      }
     },
     {
-      "slug": "turtle",
-      "title": "Turtle",
-      "tier": "developing",
-      "estimatedMinutes": 15,
-      "description": "A turtle in profile with shell, limbs, and head extended. Practice blocking the shell first and fitting the body to it.",
-      "focusGuidelines": ["block-big-then-small", "show-overlap", "use-a-unit"]
+      "slug": "windowsill-potted-herb",
+      "title": "Potted Herb",
+      "sceneId": "windowsill",
+      "tier": "beginner",
+      "estimatedMinutes": 10,
+      "description": "A small herb plant in a clay pot. Practice finding the central axis of a symmetric pot and suggesting bushy leaves without drawing every one.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "find-the-axis",
+        "suggest-dont-render"
+      ],
+      "sceneSlot": {
+        "x": 45,
+        "y": 450,
+        "width": 170,
+        "height": 220,
+        "z": 2
+      }
     },
     {
-      "slug": "cat",
-      "title": "Sitting Cat",
+      "slug": "windowsill-glass-bottle",
+      "title": "Glass Bottle with Flower",
+      "sceneId": "windowsill",
       "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "A slender glass bottle holding a single flower. Practice finding the axis of a tall symmetric form and keeping clean junctions where stem meets rim.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "clean-junctions",
+        "confident-lines"
+      ],
+      "sceneSlot": {
+        "x": 255,
+        "y": 340,
+        "width": 130,
+        "height": 280,
+        "z": 2
+      }
+    },
+    {
+      "slug": "windowsill-ceramic-crock",
+      "title": "Ceramic Crock",
+      "sceneId": "windowsill",
+      "tier": "developing",
+      "estimatedMinutes": 12,
+      "description": "A round ceramic crock holding kitchen utensils. Practice symmetric curves around a central axis and reading where a curve tightens versus loosens.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "mind-the-curves",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 400,
+        "y": 430,
+        "width": 160,
+        "height": 220,
+        "z": 2
+      }
+    },
+    {
+      "slug": "windowsill-teacup",
+      "title": "Teacup with Saucer",
+      "sceneId": "windowsill",
+      "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "A small teacup resting on its saucer. Practice nested ellipses and landing a delicate handle cleanly against the cup's body.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "clean-junctions",
+        "mind-the-curves"
+      ],
+      "sceneSlot": {
+        "x": 600,
+        "y": 775,
+        "width": 160,
+        "height": 110,
+        "z": 3
+      }
+    },
+    {
+      "slug": "windowsill-open-book",
+      "title": "Open Book",
+      "sceneId": "windowsill",
+      "tier": "developing",
+      "estimatedMinutes": 13,
+      "description": "An open book lying flat on the counter. Practice noticing real angles versus assumed ones and curving the page edges to suggest a soft bow.",
+      "focusGuidelines": [
+        "notice-the-angles",
+        "clean-junctions",
+        "balance-detail"
+      ],
+      "sceneSlot": {
+        "x": 760,
+        "y": 795,
+        "width": 180,
+        "height": 110,
+        "z": 3
+      }
+    },
+    {
+      "slug": "windowsill-flower-vase",
+      "title": "Flower Vase",
+      "sceneId": "windowsill",
+      "tier": "intermediate",
       "estimatedMinutes": 18,
-      "description": "A cat sitting upright facing forward. Practice gesture and silhouette before any details.",
-      "focusGuidelines": ["find-the-gesture", "compare-as-you-go", "suggest-dont-render"]
+      "description": "A tall vase with two or three flowers leaning out at gentle angles. Practice symmetric curves, clean stem junctions, and using overlap where stems cross.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "mind-the-curves",
+        "show-overlap"
+      ],
+      "sceneSlot": {
+        "x": 715,
+        "y": 325,
+        "width": 170,
+        "height": 290,
+        "z": 2
+      }
     },
     {
-      "slug": "mushrooms",
-      "title": "Mushroom Cluster",
+      "slug": "windowsill-honey-jar",
+      "title": "Honey Jar with Dipper",
+      "sceneId": "windowsill",
       "tier": "intermediate",
-      "estimatedMinutes": 20,
-      "description": "Three mushrooms of different sizes, overlapping. Practice composition and using overlap to create depth.",
-      "focusGuidelines": ["place-on-the-page", "show-overlap", "balance-detail"]
+      "estimatedMinutes": 17,
+      "description": "A squat honey jar with a wooden dipper resting in the rim. Practice the overlap where the dipper crosses in front of the jar's mouth.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "show-overlap",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 295,
+        "y": 825,
+        "width": 130,
+        "height": 170,
+        "z": 4
+      }
     },
     {
-      "slug": "house",
-      "title": "Cottage Front",
-      "tier": "intermediate",
-      "estimatedMinutes": 20,
-      "description": "A small cottage seen from the front. Practice clean straight lines and balancing structural geometry with cozy detail.",
-      "focusGuidelines": ["draw-from-the-shoulder", "clean-junctions", "balance-detail"]
-    },
-    {
-      "slug": "tree",
-      "title": "Full Tree",
-      "tier": "intermediate",
+      "slug": "windowsill-folded-napkin",
+      "title": "Folded Napkin",
+      "sceneId": "windowsill",
+      "tier": "advanced",
       "estimatedMinutes": 25,
-      "description": "A full tree with trunk, branches, and a foliage silhouette. Practice organic branching and varying line weight.",
-      "focusGuidelines": ["find-the-gesture", "vary-line-weight", "suggest-dont-render"]
+      "description": "A folded cloth napkin lying near the counter's edge with one corner drooping forward. Practice reading subtle angles and using line weight and restraint to suggest soft fabric.",
+      "focusGuidelines": [
+        "notice-the-angles",
+        "vary-line-weight",
+        "edit-with-restraint"
+      ],
+      "sceneSlot": {
+        "x": 480,
+        "y": 855,
+        "width": 200,
+        "height": 130,
+        "z": 4
+      }
     },
     {
-      "slug": "teapot",
-      "title": "Teapot",
+      "slug": "garden-terracotta-pot",
+      "title": "Terracotta Pot",
+      "sceneId": "garden",
+      "tier": "beginner",
+      "estimatedMinutes": 9,
+      "description": "A large planted pot anchoring the courtyard — a friendly first lesson in finding an axis and drawing a symmetrical form.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "find-the-axis"
+      ],
+      "sceneSlot": {
+        "x": 30,
+        "y": 400,
+        "width": 200,
+        "height": 280,
+        "z": 2
+      }
+    },
+    {
+      "slug": "garden-watering-can",
+      "title": "Watering Can",
+      "sceneId": "garden",
+      "tier": "beginner",
+      "estimatedMinutes": 9,
+      "description": "A classic galvanized watering can with a long spout — practice clean junctions where spout and handle meet the body.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 780,
+        "y": 480,
+        "width": 180,
+        "height": 200,
+        "z": 2
+      }
+    },
+    {
+      "slug": "garden-sunflower",
+      "title": "Cut Sunflower",
+      "sceneId": "garden",
+      "tier": "beginner",
+      "estimatedMinutes": 9,
+      "description": "A sunflower lying across the tiles — a chance to find a horizontal axis and let petals fall a little unevenly.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "embrace-imperfection"
+      ],
+      "sceneSlot": {
+        "x": 0,
+        "y": 725,
+        "width": 200,
+        "height": 150,
+        "z": 3
+      }
+    },
+    {
+      "slug": "garden-butterfly",
+      "title": "Butterfly",
+      "sceneId": "garden",
+      "tier": "beginner",
+      "estimatedMinutes": 7,
+      "description": "A small butterfly at rest near the tiles — a quick study in symmetry around a vertical axis.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "confident-lines"
+      ],
+      "sceneSlot": {
+        "x": 340,
+        "y": 865,
+        "width": 140,
+        "height": 110,
+        "z": 4
+      }
+    },
+    {
+      "slug": "garden-climbing-rose",
+      "title": "Climbing Rose",
+      "sceneId": "garden",
       "tier": "developing",
-      "estimatedMinutes": 15,
-      "description": "A classic round teapot with lid, spout, and handle. Practice finding the symmetry axis and keeping clean junctions where curves meet.",
-      "focusGuidelines": ["find-the-axis", "clean-junctions", "mind-the-curves"]
+      "estimatedMinutes": 13,
+      "description": "Roses draping over the back wall — practice finding the gesture of a meandering vine and letting blossoms cluster naturally.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "embrace-imperfection"
+      ],
+      "sceneSlot": {
+        "x": 390,
+        "y": 100,
+        "width": 180,
+        "height": 200,
+        "z": 1
+      }
     },
     {
-      "slug": "bicycle",
-      "title": "Bicycle",
+      "slug": "garden-birdbath",
+      "title": "Stone Birdbath",
+      "sceneId": "garden",
+      "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "A weathered stone birdbath with three distinct sections — a careful study in axis, curves, and clean junctions.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "mind-the-curves",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 280,
+        "y": 340,
+        "width": 200,
+        "height": 280,
+        "z": 2
+      }
+    },
+    {
+      "slug": "garden-olive-tree",
+      "title": "Olive Tree in a Pot",
+      "sceneId": "garden",
+      "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "A leaning olive tree in a small pot — practice capturing a twisting gesture and suggesting feathery foliage with restraint.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "suggest-dont-render"
+      ],
+      "sceneSlot": {
+        "x": 570,
+        "y": 340,
+        "width": 180,
+        "height": 320,
+        "z": 2
+      }
+    },
+    {
+      "slug": "garden-wicker-basket",
+      "title": "Wicker Basket with Produce",
+      "sceneId": "garden",
+      "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "A handled basket spilling over with fruit — a lesson in curves, overlap, and suggesting weave texture with a few marks.",
+      "focusGuidelines": [
+        "mind-the-curves",
+        "show-overlap"
+      ],
+      "sceneSlot": {
+        "x": 370,
+        "y": 685,
+        "width": 220,
+        "height": 190,
+        "z": 3
+      }
+    },
+    {
+      "slug": "garden-gate",
+      "title": "Garden Gate",
+      "sceneId": "garden",
       "tier": "intermediate",
-      "estimatedMinutes": 25,
-      "description": "A bicycle in profile — frame, wheels, handlebars, and seat. Long straight lines meet round wheels, with plenty of junctions to keep clean.",
-      "focusGuidelines": ["draw-from-the-shoulder", "clean-junctions", "use-a-unit"]
+      "estimatedMinutes": 18,
+      "description": "An iron gate set into the back wall — practice noticing real angles and drawing long straight runs from the shoulder.",
+      "focusGuidelines": [
+        "notice-the-angles",
+        "clean-junctions",
+        "draw-from-the-shoulder"
+      ],
+      "sceneSlot": {
+        "x": 80,
+        "y": 100,
+        "width": 200,
+        "height": 240,
+        "z": 1
+      }
     },
     {
-      "slug": "fox",
-      "title": "Sitting Fox",
-      "tier": "advanced",
-      "estimatedMinutes": 25,
-      "description": "A fox sitting in three-quarter view with a full bushy tail. Practice finding the axis through head and spine, suggesting fur without rendering every hair.",
-      "focusGuidelines": ["find-the-axis", "suggest-dont-render", "balance-detail"]
+      "slug": "garden-frog",
+      "title": "Frog",
+      "sceneId": "garden",
+      "tier": "intermediate",
+      "estimatedMinutes": 18,
+      "description": "A small frog perched on the tiles — practice finding the gesture, blocking the big shapes, and balancing texture against quiet areas.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "block-big-then-small",
+        "balance-detail"
+      ],
+      "sceneSlot": {
+        "x": 680,
+        "y": 865,
+        "width": 180,
+        "height": 130,
+        "z": 4
+      }
     },
     {
-      "slug": "still-life",
-      "title": "Still Life",
+      "slug": "garden-cat-sleeping",
+      "title": "Sleeping Cat",
+      "sceneId": "garden",
       "tier": "advanced",
-      "estimatedMinutes": 30,
-      "description": "A small tabletop arrangement — bottle, bowl, and draped cloth. Practice intentional placement and using cast shadows to anchor objects to the surface.",
-      "focusGuidelines": ["place-on-the-page", "show-overlap", "cast-shadow"]
-    },
-    {
-      "slug": "hands",
-      "title": "Hands",
-      "tier": "advanced",
-      "estimatedMinutes": 25,
-      "description": "Two hands — one open, one loosely curled. Practice measuring finger lengths against each other and reading the negative space between fingers.",
-      "focusGuidelines": ["compare-as-you-go", "draw-the-negative-space", "draw-through"]
-    },
-    {
-      "slug": "doorway",
-      "title": "Doorway",
-      "tier": "advanced",
-      "estimatedMinutes": 30,
-      "description": "An arched doorway with simple stone surround and a hint of interior shadow. Practice restraint — describe the scene with line economy, not decoration.",
-      "focusGuidelines": ["clean-junctions", "balance-detail", "edit-with-restraint"]
+      "estimatedMinutes": 26,
+      "description": "A cat curled asleep in the foreground — the showpiece of the scene, asking for a strong gesture, careful overlap, and a confident hand that knows when to stop.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "suggest-dont-render",
+        "balance-detail"
+      ],
+      "sceneSlot": {
+        "x": 20,
+        "y": 855,
+        "width": 220,
+        "height": 130,
+        "z": 4
+      }
     }
   ]
 }

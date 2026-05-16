@@ -1,0 +1,41 @@
+{
+  "slug": "windowsill-teacup",
+  "title": "Teacup with Saucer",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the axis (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a short vertical line where the center of the cup will sit. Both the cup and the saucer beneath share this axis."
+    },
+    {
+      "number": 2,
+      "title": "Block the cup (pencil)",
+      "description": "Still in pencil, sketch the cup as a gentle bowl shape around the axis — wider at the rim, narrower at the foot. Add a shallow ellipse along the top to show the opening."
+    },
+    {
+      "number": 3,
+      "title": "Block the saucer (pencil)",
+      "description": "Still in pencil, sketch a flatter, wider ellipse below the cup for the saucer. The cup sits inside its own small ring on the saucer, so the saucer should extend out past the cup's base on both sides."
+    },
+    {
+      "number": 4,
+      "title": "Plan the handle (pencil)",
+      "description": "Still in pencil, sketch a small curved C-shape on one side of the cup for the handle. Keep it close to the body — teacup handles are dainty, not big mug loops."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the cup",
+      "description": "Switch to ink. Trace the cup's silhouette and the front of the rim ellipse with confident strokes. Stop your lines cleanly where the handle will join — no overshoot."
+    },
+    {
+      "number": 6,
+      "title": "Ink the saucer and handle (ink)",
+      "description": "Still in ink, trace the front of the saucer ellipse, then add the handle as two parallel curves meeting the cup at top and bottom. Land both ends right on the cup's outline — clean junctions matter here."
+    },
+    {
+      "number": 7,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove the axis and any pencil guides that distract. A faint suggestion of the saucer's back rim can stay if it reads as gentle depth."
+    }
+  ]
+}

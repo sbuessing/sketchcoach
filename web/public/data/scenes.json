@@ -1,0 +1,19 @@
+{
+  "scenes": [
+    {
+      "id": "harbor",
+      "title": "Harbor at Golden Hour",
+      "tagline": "Adventurous, atmospheric."
+    },
+    {
+      "id": "windowsill",
+      "title": "Morning Windowsill",
+      "tagline": "Cozy, contemplative."
+    },
+    {
+      "id": "garden",
+      "title": "Garden Courtyard",
+      "tagline": "Whimsical, alive."
+    }
+  ]
+}

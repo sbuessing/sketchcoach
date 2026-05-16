@@ -1,0 +1,41 @@
+{
+  "slug": "garden-terracotta-pot",
+  "title": "Terracotta Pot",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Find the axis (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a single vertical line down the middle of where the pot will sit. This is the pot's symmetry axis — every curve you add will balance around it."
+    },
+    {
+      "number": 2,
+      "title": "Block the pot body (pencil)",
+      "description": "Still in pencil, sketch a tapered trapezoid around the axis — wider at the top than the bottom. Keep both sides roughly equal distances from the center line."
+    },
+    {
+      "number": 3,
+      "title": "Add the rim ellipse (pencil)",
+      "description": "Sketch a shallow ellipse across the top of the trapezoid. The pot opening is round, but seen from above it reads as an oval. A second flatter ellipse for the base helps the pot sit on the tiles."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and trace the silhouette",
+      "description": "Switch to ink mode. Trace the two tapered sides and the front of the rim in one confident pass. Stop your back-rim line where it disappears behind the front edge — don't draw all the way through."
+    },
+    {
+      "number": 5,
+      "title": "Ink the rim band (ink)",
+      "description": "Still in ink, add a second curve just below the top rim ellipse, parallel to it. That short band gives the pot a thickened lip — the most recognisable terracotta detail."
+    },
+    {
+      "number": 6,
+      "title": "Suggest the planting (ink)",
+      "description": "Add three or four loose stalks rising from the rim, each ending in a small leafy mark. Don't draw every leaf — a handful of stems is enough to say 'something growing in here.'"
+    },
+    {
+      "number": 7,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove any pencil guide lines that distract from the ink. The faint axis line can stay if it reads as nice construction texture."
+    }
+  ]
+}

@@ -98,3 +98,7 @@ export async function saveInProgress(drawing: InProgressDrawing): Promise<void> 
 export async function clearInProgress(slug: string): Promise<void> {
   await tx(STORE_IN_PROGRESS, 'readwrite', (store) => store.delete(slug));
 }
+
+export async function clearAllInProgress(): Promise<void> {
+  await tx(STORE_IN_PROGRESS, 'readwrite', (store) => store.clear());
+}

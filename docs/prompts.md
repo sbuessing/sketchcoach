@@ -287,3 +287,163 @@ Download chillhop royalty-free audio tracks and instrumentals for your next proj
 
 **2026-05-16 10:20**
 Please iterate through and do it for me
+
+**2026-05-16 10:24**
+<task-notification>
+<task-id>a56545697f8b47048</task-id>
+<tool-use-id>toolu_01CU4Gsj4hScHoQwW1FzSMaJ</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-shawn-Documents-GitHub-sketchcoach/02670389-a7cb-472a-9bda-8dd9c9ea71a8/tasks/a56545697f8b47048.output</output-file>
+<status>completed</status>
+<summary>Agent "Author Windowsill scene step files" completed</summary>
+<result>All 12 files written. Here's the report:
+
+## Files created (12 total)
+
+Step files at `/Users/shawn/Documents/GitHub/sketchcoach/sketchcoach/web/public/data/`:
+- `windowsill-apple.json` (beginner, 6 steps)
+- `windowsill-pear.json` (beginner, 6 steps)
+- `windowsill-lemon.json` (beginner, 6 steps)
+- `windowsill-potted-herb.json` (beginner, 7 steps)
+- `windowsill-glass-bottle.json` (developing, 7 steps)
+- `windowsill-ceramic-crock.json` (developing, 8 steps)
+- `windowsill-teacup.json` (developing, 7 steps)
+- `windowsill-open-book.json` (developing, 8 steps)
+- `windowsill-flower-vase.json` (intermediate, 8 steps)
+- `windowsill-honey-jar.json` (intermediate, 8 steps)
+- `windowsill-folded-napkin.json` (advanced, 10 steps)
+
+Metadata file:
+- `windowsill-projects.json`
+
+## Tier shape: 4 / 4 / 2 / 1
+
+**Beginner (4):** Apple, Pear, Lemon, Potted Herb
+**Developing (4):** Glass Bottle with Flower, Ceramic Crock, Teacup with Saucer, Open Book
+**Intermediate (2):** Flower Vase, Honey Jar with Dipper
+**Advanced (1):** Folded Napkin
+
+## Selection notes — dropped 5 of 16 candidates
+
+- **Framed picture** (B) — wall art, weakest still-life fit
+- **Hanging herb bundle** (B in original spec / I in tier table — inconsistent) — redundant with potted herb, awkward shape at small size
+- **Small succulent in pot** (B) — redundant third potted-plant subject after herb and the vase's bouquet
+- **Bird outside window** (D) — pulls attention outside the room, breaks the contemplative interior identity
+- **Bunch of grapes** (D) — the show-overlap lesson lives more memorably in the honey-jar dipper
+
+## Key decisions
+
+- Every project has an explicit `Switch to ink` step with no mode tag, matching apple.json / beach-ball.json exactly. Each step title tags `(pencil)` or `(ink)` otherwise.
+- Beginner step counts: 6 / 6 / 6 / 7 (potted herb gets 7 because of the foliage-mass step). Developing 7–8. Intermediate 8. Advanced 10.
+- Voice leans contemplative and cozy: "ripe and organic," "soft," "quiet," "restful on the counter," "honest," "still life."
+- Scene-slot coordinates converted from scene.md centers to top-left corners as specified. Z-layers preserved (z:2 for the back-of-sill items, z:3 for the counter laydown, z:4 for honey jar and napkin at the near edge).
+- No sculpting verbs used anywhere — re-scanned for "push/carve/mold/blend/fill in/shade tonally" and found none. "Adjust" is always paired with "erase and redraw" or "lay down a fresh stroke."</result>
+<usage><total_tokens>58768</total_tokens><tool_uses>19</tool_uses><duration_ms>188393</duration_ms></usage>
+</task-notification>
+
+**2026-05-16 10:25**
+<task-notification>
+<task-id>a4db6d9fff18618b4</task-id>
+<tool-use-id>toolu_01J4Ak57bLH8SMh4HJdvhToD</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-shawn-Documents-GitHub-sketchcoach/02670389-a7cb-472a-9bda-8dd9c9ea71a8/tasks/a4db6d9fff18618b4.output</output-file>
+<status>completed</status>
+<summary>Agent "Author Garden Courtyard step files" completed</summary>
+<result>All 12 files written.
+
+## Summary
+
+### Files created (12 total)
+
+All in `/Users/shawn/Documents/GitHub/sketchcoach/sketchcoach/web/public/data/`:
+
+**Beginner (4):**
+- `garden-terracotta-pot.json` (7 steps)
+- `garden-watering-can.json` (7 steps)
+- `garden-sunflower.json` (7 steps)
+- `garden-butterfly.json` (6 steps)
+
+**Developing (4):**
+- `garden-climbing-rose.json` (7 steps)
+- `garden-birdbath.json` (8 steps)
+- `garden-olive-tree.json` (8 steps)
+- `garden-wicker-basket.json` (8 steps)
+
+**Intermediate (2):**
+- `garden-gate.json` (8 steps)
+- `garden-frog.json` (9 steps)
+
+**Advanced (1):**
+- `garden-cat-sleeping.json` (10 steps)
+
+**Metadata:**
+- `garden-projects.json`
+
+### Selection (11 of 16)
+
+**Kept:** terracotta pot, watering can, sunflower, butterfly, climbing rose, birdbath, olive tree (kept as developing — replaces the more elaborate "tree canopy" which would have duplicated foliage practice), wicker basket, garden gate, frog, cat sleeping.
+
+**Dropped:** tree canopy (redundant with olive tree as a foliage subject), garden gloves, daisy cluster, garden trowel, snail. These five smaller subjects were the weakest candidates for distinct lessons — gloves and trowel are angular but thin, daisy duplicates sunflower's axis lesson, snail is too small/simple, and a separate tree canopy would compete with olive tree.
+
+### Promotion to advanced
+
+**Sleeping cat** was promoted from intermediate to advanced rather than the scene.md's suggestion of frog. Reasoning: the sleeping cat is the foreground hero, demands the most flowing single-gesture line, has multiple overlap moments (tail crossing body, paws under chin), and benefits most from a 10-step pencil → ink → texture → shadow flow. Frog stays at intermediate where it fits naturally.
+
+### Decisions of note
+
+- All projects follow the canonical pencil → ink pattern with one explicit "Switch to ink" step. Beginners have a final "Clean up" step; developing and up integrate it the same way.
+- Mode tags `(pencil)`, `(ink)`, untagged switch step — applied consistently per the rubric.
+- Slot coordinates converted from scene.md centers to top-left corners; `z` taken from the layer numbers in scene.md.
+- Voice leans slightly playful where the subjects invite it (cat, frog, butterfly, climbing rose) while staying within the established apple/beach-ball register.
+- Focus guidelines drawn from scene.md's suggestions; cat-sleeping's promotion swapped in `suggest-dont-render` and `balance-detail` to fit an advanced study.
+- No sculpting language, no off-canvas instructions, "adjust" always expanded to "erase and redraw" where used.</result>
+<usage><total_tokens>55696</total_tokens><tool_uses>17</tool_uses><duration_ms>184391</duration_ms></usage>
+</task-notification>
+
+**2026-05-16 10:26**
+<task-notification>
+<task-id>a2080345b91578cbc</task-id>
+<tool-use-id>toolu_01PcGZMM47JTVb1d5iutGxEk</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-shawn-Documents-GitHub-sketchcoach/02670389-a7cb-472a-9bda-8dd9c9ea71a8/tasks/a2080345b91578cbc.output</output-file>
+<status>completed</status>
+<summary>Agent "Author Harbor scene step files" completed</summary>
+<result>All 19 files in place (18 step files + 1 metadata file).
+
+## Summary
+
+**Files created (19 total):**
+
+Step files (18) — all at `/Users/shawn/Documents/GitHub/sketchcoach/sketchcoach/web/public/data/`:
+- Beginner (6 steps each): `harbor-seagull`, `harbor-bollard`, `harbor-life-preserver`, `harbor-rope-coil`, `harbor-crab` (7 steps — crab has more parts), `harbor-starfish`
+- Developing (7–8 steps): `harbor-lighthouse`, `harbor-sailboat`, `harbor-lantern`, `harbor-creel`, `harbor-anchor`, `harbor-fishing-rod`
+- Intermediate (8 steps): `harbor-pelican`, `harbor-fishing-net`, `harbor-rowboat`, `harbor-chain-coil` *(new)*
+- Advanced (10 steps): `harbor-bucket`, `harbor-heron` *(new)*
+
+Metadata: `harbor-projects.json` with 18 entries, tier shape 6/6/4/2.
+
+**Two additions:**
+1. **Coiled Chain** (intermediate, z:3) — slot top-left (110, 770), 140×100. Sits on the dock surface in the gap between the rope coil and the anchor/starfish cluster. Teaches `show-overlap` (interlocking links), `compare-as-you-go` (consistent link size), and `line-follows-form`.
+2. **Heron Wading** (advanced, z:1) — slot top-left (120, 230), 120×260. Stands in the shallow water to the left of the moored sailboat, clear of the seagull above and bollard below. Teaches a long elegant S-gesture with multiple back-and-forth mode switches (ink silhouette → pencil water ripples → ink feather suggestion), which is exactly the advanced-tier behavior called out in content-guidelines.md.
+
+**Guideline assignment notes:**
+- Bucket: kept the four scene.md-suggested guidelines (cast-shadow, show-overlap, balance-detail, vary-line-weight) — all four are reinforced in the steps.
+- Crab: scene.md suggested `simple-shapes-first` + `block-big-then-small`; kept both.
+- All other projects use the scene.md suggestions verbatim, with the new heron and chain assigned guidelines that match what their step content actually teaches.
+
+**Voice / pattern conformance:**
+- Every project starts in pencil and contains exactly one explicit "Switch to ink" step (heron has additional back-and-forth switches as appropriate for advanced).
+- Step titles tag mode with `(pencil)` or `(ink)`; switch steps are untagged ("Switch to ink and trace…").
+- Every project ends with a "Clean up" step (eraser pass).
+- No sculpting verbs; "adjust" never used without an explicit erase-and-redraw context; nothing off-canvas.
+- Estimated minutes within spec: beginner 8–10, developing 12–15, intermediate 20–22, advanced 26–28.
+
+**One spec note worth flagging:** the lighthouse slot per scene.md (center 830, 100; size 100×260) places the slot's top edge at y=-30, slightly above the 1000×1000 canvas. I preserved the spec values in the metadata; if that's unintended, the y center may want to shift down to ~130 so the slot fits at y=0..260.</result>
+<usage><total_tokens>69107</total_tokens><tool_uses>27</tool_uses><duration_ms>308875</duration_ms></usage>
+</task-notification>
+
+**2026-05-16 10:29**
+Proceed!
+
+**2026-05-16 10:37**
+Usability fixes:
+Default to pencil mode.
+Add ctrl-z and if it's easy shift-ctrl-z
+Auto-scroll the current instruction to the top of the instruction box (not just on screen)

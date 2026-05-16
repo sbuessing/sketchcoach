@@ -1,0 +1,41 @@
+{
+  "slug": "garden-watering-can",
+  "title": "Watering Can",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the body (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a rounded rectangle for the can's body — a little taller than wide, with softly curved corners. This is the main reservoir."
+    },
+    {
+      "number": 2,
+      "title": "Plan the spout and handle (pencil)",
+      "description": "Still in pencil, sketch a long diagonal line angling up and out from the upper-left side — that's the spout's centerline. On the right, sketch a loose arc loop for the handle that rises up and curves back down to the body."
+    },
+    {
+      "number": 3,
+      "title": "Add the spout shape (pencil)",
+      "description": "Around your spout centerline, sketch two roughly parallel lines tapering slightly toward the tip. At the far end, add a small flared oval — the rose where the water sprinkles out."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and trace the body and spout",
+      "description": "Switch to ink mode. Lay down a confident line around the body silhouette, continuing out along the spout to the rose. Where the spout meets the body, land the lines right at the junction — don't let them float past or stop short."
+    },
+    {
+      "number": 5,
+      "title": "Ink the handle (ink)",
+      "description": "Still in ink, trace the handle as two parallel arcs from the top of the body, over, and back down to the side. A heavier press where the handle joins the can helps anchor those junctions."
+    },
+    {
+      "number": 6,
+      "title": "Add the rose detail (ink)",
+      "description": "On the flared end of the spout, add a small ellipse for the front face of the rose and a few dots inside to suggest the sprinkler holes. A few marks suggest more than rendering every hole."
+    },
+    {
+      "number": 7,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove any pencil guide lines that distract from the inked watering can."
+    }
+  ]
+}

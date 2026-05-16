@@ -139,7 +139,7 @@ All positions are approximate centers in the 1000×1000 scene canvas. Each slot 
 | # | Object | Tier | Slot center (x, y) | Slot size | Key guidelines |
 |---|--------|------|--------------------|-----------|----------------|
 | 1 | Seagull in flight | Beginner | 140, 110 | 160 × 80 | `confident-lines`, `find-the-gesture` |
-| 2 | Distant lighthouse | Developing | 830, 100 | 100 × 260 | `simple-shapes-first`, `find-the-axis` |
+| 2 | Distant lighthouse | Developing | 830, 160 | 100 × 260 | `simple-shapes-first`, `find-the-axis` |
 | 3 | Moored sailboat | Developing | 480, 340 | 240 × 200 | `find-the-gesture`, `compare-as-you-go`, `block-big-then-small` |
 
 #### Z-Layer 2 — Mid-dock (standing distance)
@@ -537,29 +537,29 @@ A dedicated screen accessible from each scene card on the home screen. Shows the
 
 Suggested order of work, dependency-first:
 
-1. **Content foundation** ✅ (in progress)
-   - `content-guidelines.md` with canonical pencil→ink pattern ✅
-   - `scene.md` with all three scenes detailed ✅
-   - Retrofit beginner-tier existing step files as model examples ✅ (apple, beach-ball done)
+1. **Content foundation** ✅
+   - `content-guidelines.md` with canonical pencil→ink pattern
+   - `scene.md` with all three scenes detailed
 
-2. **Bulk content authoring** (next)
-   - Write all scene step files following `content-guidelines.md`
-   - One agent per scene, batched
-   - Counts per scene: flexible 10–20 with bias to early tiers (e.g. 6/6/4/2 = 18 for Harbor, 4/4/2/1 = 11 for the smaller two)
+2. **Bulk content authoring** ✅
+   - 40 step files (Harbor 18, Windowsill 11, Garden 11) — all follow the canonical pencil→ink pattern with explicit "Switch to ink" steps and mode-tagged titles
+   - Two new objects added to Harbor (Coiled Chain, Heron Wading) to hit 6/6/4/2
+   - Sleeping Cat promoted to advanced in Garden
 
-3. **Data model + scene loading**
-   - Add `scenes.json`, restructure `projects.json` with scene IDs
-   - Update `dataService` to load scene-aware data
-   - Retire old portfolio entries (clean break with v1)
+3. **Data model + scene loading** ✅
+   - `scenes.json` (3 scenes), unified `projects.json` (40 projects with `sceneId` + `sceneSlot`), retired 16 old step files
+   - `dataService` exposes `loadScenes`, `findScene`, `projectsInScene`
+   - `Project` type extended with `sceneId` + `sceneSlot`; new `Scene` and `SceneSlot` types
+   - One-time `data_version` bump wipes old portfolio + in-progress entries on first load
 
-4. **Scene selector UI**
-   - Horizontal scene picker on home screen with active scene in `localStorage`
-   - Per-scene project grid filter (no tier locking — every project always accessible)
-   - Per-scene progress indicator (N/M complete)
+4. **Scene selector UI** ✅
+   - Horizontal scene picker on home screen; active scene in `localStorage`
+   - Per-scene project grid filter, no tier locking
+   - Per-scene progress shown in each card (N / M complete)
 
-5. **Assembled scene view**
+5. **Assembled scene view** (next)
    - New screen rendering completed drawings composited at their slots over the paper color
-   - Empty-slot pencil placeholders ("⌗ rope coil")
+   - Empty-slot pencil placeholders
    - Linked from each scene card
 
 Items deferred to `ideas.md`: hand-drawn backgrounds, completion ceremony, scaling-fidelity polish.

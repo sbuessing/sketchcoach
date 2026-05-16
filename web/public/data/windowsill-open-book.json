@@ -1,0 +1,46 @@
+{
+  "slug": "windowsill-open-book",
+  "title": "Open Book",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the spread (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a wide, low rectangle for the overall footprint of the open book. Tilt it slightly — books on a counter rarely sit perfectly square to the viewer."
+    },
+    {
+      "number": 2,
+      "title": "Mark the spine (pencil)",
+      "description": "Still in pencil, draw a short vertical line at the middle of the rectangle — this is the valley where the two pages meet. Notice the angle of your rectangle; the spine line should tilt to match."
+    },
+    {
+      "number": 3,
+      "title": "Curve the pages (pencil)",
+      "description": "Still in pencil, redraw the top and bottom edges of the rectangle as shallow curves that dip down toward the spine in the middle. Open pages aren't flat — they bow up at the outer edges."
+    },
+    {
+      "number": 4,
+      "title": "Add the page thickness (pencil)",
+      "description": "Still in pencil, draw a second line just below each outer edge to suggest the stack of pages. A small thickness is all you need."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and trace the silhouette",
+      "description": "Switch to ink. Trace the outer outline of the book in confident passes — the curved top and bottom, the two outer edges, and the page thickness lines. Land each line cleanly where it meets the next."
+    },
+    {
+      "number": 6,
+      "title": "Ink the spine valley (ink)",
+      "description": "Still in ink, draw the spine line down the middle as a slightly curved stroke, deeper in the center where the book is opened most. This single line makes the spread read as two pages, not one flat surface."
+    },
+    {
+      "number": 7,
+      "title": "Suggest the text (ink)",
+      "description": "Still in ink, add three or four short horizontal lines on each page to suggest lines of text. Keep them light and don't fill the page — just enough to hint that it's a book, not a blank pad."
+    },
+    {
+      "number": 8,
+      "title": "Clean up",
+      "description": "Switch to the eraser and lift any pencil guides that distract from the ink. Keep the drawing quiet — the book wants to feel restful on the counter, not busy."
+    }
+  ]
+}

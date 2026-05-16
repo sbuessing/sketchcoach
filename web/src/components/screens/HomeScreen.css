@@ -96,6 +96,62 @@
   color: var(--color-ink);
 }
 
+/* Scene picker — horizontal row above the tier grids */
+.scene-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.scene-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-paper-warm);
+  border: 1.5px solid var(--color-shadow);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition:
+    background var(--duration-fast) var(--ease-soft),
+    border-color var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
+}
+
+.scene-card:hover {
+  background: var(--color-accent-soft);
+  transform: translateY(-1px);
+}
+
+.scene-card--active {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.scene-card__title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.scene-card__tagline {
+  font-size: 0.88rem;
+  color: var(--color-ink-soft);
+}
+
+.scene-card__progress {
+  font-size: 0.78rem;
+  color: var(--color-ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
 .tier {
   margin-bottom: var(--space-5);
 }

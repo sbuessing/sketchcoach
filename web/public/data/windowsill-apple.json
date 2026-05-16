@@ -1,0 +1,36 @@
+{
+  "slug": "windowsill-apple",
+  "title": "Apple",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Block the form (pencil)",
+      "description": "Make sure you're in pencil mode. Lightly sketch a rounded shape — a little wider than tall, gently asymmetric. Real apples are never perfect circles, so let yours lean a touch to one side."
+    },
+    {
+      "number": 2,
+      "title": "Mark the top and bottom (pencil)",
+      "description": "Still in pencil, add a small inward dip at the top of the outline where the stem will sit, and a shallower matching curve at the bottom. These are placement guides, not final lines."
+    },
+    {
+      "number": 3,
+      "title": "Switch to ink and trace the outline",
+      "description": "Switch to ink. Trace the apple's silhouette in one confident pass, following your pencil guide. Don't try to match it exactly — let your hand pick the cleanest path. A slight wobble reads as ripe and organic."
+    },
+    {
+      "number": 4,
+      "title": "Ink the stem and leaf (ink)",
+      "description": "Still in ink, add a short stem rising from the top dip, tilted slightly to one side. Then sketch a small leaf next to it with two strokes meeting at a point, and a single central vein down its middle."
+    },
+    {
+      "number": 5,
+      "title": "Suggest the stem well (ink)",
+      "description": "Add a small curved line just inside the top dip to suggest the little well where the stem sits. One short stroke is plenty."
+    },
+    {
+      "number": 6,
+      "title": "Clean up",
+      "description": "Switch to the eraser and remove any pencil guides that distract from the ink. If a few faint construction lines feel like nice texture, leave them — your choice."
+    }
+  ]
+}
