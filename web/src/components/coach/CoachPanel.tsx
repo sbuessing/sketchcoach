@@ -85,7 +85,6 @@ export default function CoachPanel({
 function CoachToast({
   messages,
   isFetching,
-  focusGuideline,
   error,
   disabled,
 }: Omit<CoachPanelProps, 'variant'>) {
