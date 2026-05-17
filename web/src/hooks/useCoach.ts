@@ -5,7 +5,7 @@
 //     skip if isFetching
 //     skip if strokes haven't changed since last fetch
 //     skip if (now - lastStrokeAt) < 3s   (user still drawing)
-//     skip if (now - lastFetchAt) < 60s   (rate-limit floor)
+//     skip if (now - lastFetchAt) < 10s   (rate-limit floor)
 //     otherwise: fetch
 //
 // Claude can also choose to stay silent on any given check by returning
@@ -23,7 +23,7 @@ import type {
 
 const TICK_MS = 1000;
 const IDLE_THRESHOLD_MS = 3000;
-const FETCH_FLOOR_MS = 60000;
+const FETCH_FLOOR_MS = 10000;
 const RECENT_HISTORY_SIZE = 3;
 
 export interface UseCoachArgs {

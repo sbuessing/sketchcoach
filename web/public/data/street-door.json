@@ -1,0 +1,31 @@
+{
+  "slug": "street-door",
+  "title": "Classic Storefront Door",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the door rectangle (pencil)",
+      "description": "Lightly sketch a tall rectangle for the door — roughly twice as tall as it is wide. This outer boundary is everything; get the proportions before adding any detail."
+    },
+    {
+      "number": 2,
+      "title": "Add the door frame and step (pencil)",
+      "description": "Sketch equal-width strips along the sides and top of the rectangle for the door frame. Add a flat step at the bottom — a low horizontal rectangle sitting on the ground under the door."
+    },
+    {
+      "number": 3,
+      "title": "Divide the door into panels (pencil)",
+      "description": "Draw two horizontal lines dividing the door into thirds, and one vertical line down the center. This creates a classic four-panel grid. The panels don't need to be exactly equal — a slightly taller top section feels more traditional."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and trace the frame",
+      "description": "Switch to ink. Draw the outer door frame with confident straight lines — one stroke per side, not a series of short segments. Slow, steady strokes are straighter than fast nervous ones."
+    },
+    {
+      "number": 5,
+      "title": "Ink the panels, step, and hardware (ink)",
+      "description": "Ink the four-panel grid inside the door, then the step. Add a small circle for the door knob placed to the right of center at roughly hand height, and a small keyhole shape below it. Two small details are all the door needs."
+    }
+  ]
+}

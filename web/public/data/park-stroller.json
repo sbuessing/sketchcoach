@@ -1,0 +1,41 @@
+{
+  "slug": "park-stroller",
+  "title": "Figure Pushing a Stroller",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the stroller frame (pencil)",
+      "description": "Lightly sketch the stroller's basic triangle: a handlebar across the top, two legs angling forward and down to the front wheel axle, and a shorter rear leg dropping straight down beneath the handle. Think of a sideways letter A."
+    },
+    {
+      "number": 2,
+      "title": "Add the seat and canopy (pencil)",
+      "description": "Sketch a rectangle within the frame for the seat/body of the pram. Above it, draw the canopy as a curved arc — like a rounded shade hood — attached to the upper frame."
+    },
+    {
+      "number": 3,
+      "title": "Add the wheels (pencil)",
+      "description": "Place a circle or slightly flattened oval at the front axle and at the base of the rear leg. The front wheel is below the seat; the rear wheel sits directly below the handle."
+    },
+    {
+      "number": 4,
+      "title": "Sketch the figure behind (pencil)",
+      "description": "Stand the person behind the stroller with hands on the handlebar. Their upper body and head are visible above the handle; the lower body is partially hidden behind the frame. Rough in their torso, arms, and head only."
+    },
+    {
+      "number": 5,
+      "title": "Check the overlap (pencil)",
+      "description": "Trace where the figure's legs and lower body are hidden by the stroller frame. If a line from the person would pass behind the frame, don't draw it — the hidden parts are genuinely hidden."
+    },
+    {
+      "number": 6,
+      "title": "Switch to ink and trace the stroller frame",
+      "description": "Switch to ink. Ink the stroller: handlebar, the two main legs, the seat rectangle. Use clean straight lines where the frame is rigid metal — wobbles here will look like a bent frame, not artistic style."
+    },
+    {
+      "number": 7,
+      "title": "Ink the canopy, wheels, and figure (ink)",
+      "description": "Ink the canopy with a smooth arc, then the wheels as clean circles. Finally, ink the figure — head, torso, and arms. Where the figure is behind the stroller frame, stop the figure's outline at the frame edge and restart it on the other side. The figure peeks out; the stroller is in front."
+    }
+  ]
+}

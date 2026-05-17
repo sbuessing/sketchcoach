@@ -1,0 +1,41 @@
+{
+  "slug": "street-cafe-chair",
+  "title": "Folding Café Chair",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the seat (pencil)",
+      "description": "Lightly sketch the seat as a slightly tapered quadrilateral — a little wider at the front than at the back. Place it in space at the height where you want the chair to float before the legs attach."
+    },
+    {
+      "number": 2,
+      "title": "Add the four legs (pencil)",
+      "description": "Drop four lines from the corners of the seat toward the ground. Legs splay very slightly outward for stability — each leg angles just a little away from the center. Mark where each leg touches the floor."
+    },
+    {
+      "number": 3,
+      "title": "Sketch the back (pencil)",
+      "description": "Add two back uprights rising from the rear leg tops, and two or three horizontal rungs connecting them. The back is a simple open rectangle — don't overcomplicate it."
+    },
+    {
+      "number": 4,
+      "title": "Add the stretchers (pencil)",
+      "description": "Sketch the front stretcher — a horizontal bar connecting the two front legs near the base. If the chair is viewed at an angle, add side stretchers connecting the front and back legs on each side."
+    },
+    {
+      "number": 5,
+      "title": "Check the proportions (pencil)",
+      "description": "Notice whether the seat looks square and the legs feel grounded. If a leg veers at a wrong angle, erase it and redraw — one stroke per leg, not a correction on top of the original."
+    },
+    {
+      "number": 6,
+      "title": "Switch to ink and trace the seat",
+      "description": "Switch to ink. Ink the seat as a clean quadrilateral — four firm strokes, one per side. Where the back legs rise from the rear seat corners, the joint should be a sharp T-junction, not a blurred crossing."
+    },
+    {
+      "number": 7,
+      "title": "Ink the legs, back, and stretchers (ink)",
+      "description": "Ink the legs, starting from the seat corners and ending at the floor. Where legs cross in space (if the chair is at an angle), stop the back leg's line where the front leg passes in front of it, and restart it below. Clean junctions make a wire-frame chair legible."
+    }
+  ]
+}

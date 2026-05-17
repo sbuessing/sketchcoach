@@ -784,6 +784,457 @@
         "height": 130,
         "z": 4
       }
+    },
+    {
+      "slug": "park-bench",
+      "title": "Park Bench",
+      "sceneId": "park",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A classic slatted park bench — practice building a simple structure from horizontal and vertical lines, and commit to clean junctions where the legs meet the seat.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "confident-lines",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 300,
+        "y": 500,
+        "width": 220,
+        "height": 110,
+        "z": 3
+      }
+    },
+    {
+      "slug": "park-distant-figure",
+      "title": "Distant Figure",
+      "sceneId": "park",
+      "tier": "beginner",
+      "estimatedMinutes": 7,
+      "description": "A single person seen from across the park — just a small silhouette. Practice committing to a minimal gesture and resisting the urge to over-detail a tiny form.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "suggest-dont-render",
+        "confident-lines"
+      ],
+      "sceneSlot": {
+        "x": 160,
+        "y": 310,
+        "width": 55,
+        "height": 120,
+        "z": 2
+      }
+    },
+    {
+      "slug": "park-seated-figure",
+      "title": "Seated Figure",
+      "sceneId": "park",
+      "tier": "beginner",
+      "estimatedMinutes": 9,
+      "description": "A figure resting on the park bench. Practice the L-shaped gesture of a seated body and the way the head tips slightly forward in repose.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "find-the-axis",
+        "simple-shapes-first"
+      ],
+      "sceneSlot": {
+        "x": 330,
+        "y": 470,
+        "width": 90,
+        "height": 150,
+        "z": 4
+      }
+    },
+    {
+      "slug": "park-balloon",
+      "title": "Balloon on a String",
+      "sceneId": "park",
+      "tier": "beginner",
+      "estimatedMinutes": 7,
+      "description": "A round balloon drifting on a long string held by a figure below. Practice a confident curved outline and a flowing line that suggests tension without going rigid.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "mind-the-curves",
+        "confident-lines"
+      ],
+      "sceneSlot": {
+        "x": 610,
+        "y": 290,
+        "width": 100,
+        "height": 310,
+        "z": 4
+      }
+    },
+    {
+      "slug": "park-walking-figure",
+      "title": "Figure in Mid-Stride",
+      "sceneId": "park",
+      "tier": "developing",
+      "estimatedMinutes": 13,
+      "description": "A person caught mid-step on the path. Learn to capture the counterbalancing sway of walking — shoulders opposing hips, arms swinging opposite the lead foot.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "find-the-axis",
+        "vary-line-weight"
+      ],
+      "sceneSlot": {
+        "x": 550,
+        "y": 420,
+        "width": 100,
+        "height": 190,
+        "z": 5
+      }
+    },
+    {
+      "slug": "park-child-running",
+      "title": "Running Child",
+      "sceneId": "park",
+      "tier": "developing",
+      "estimatedMinutes": 12,
+      "description": "A child sprinting across the grass, all limbs and momentum. Practice a strong diagonal action line and the wide leg split of a running figure.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "find-the-axis",
+        "vary-line-weight"
+      ],
+      "sceneSlot": {
+        "x": 430,
+        "y": 390,
+        "width": 85,
+        "height": 150,
+        "z": 4
+      }
+    },
+    {
+      "slug": "park-dog-walker",
+      "title": "Dog Walker",
+      "sceneId": "park",
+      "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "A person and their dog connected by a taut leash. Practice drawing two gestures that relate to each other, and use overlap to show which subject is in front.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "show-overlap",
+        "confident-lines"
+      ],
+      "sceneSlot": {
+        "x": 685,
+        "y": 460,
+        "width": 195,
+        "height": 195,
+        "z": 5
+      }
+    },
+    {
+      "slug": "park-stroller",
+      "title": "Figure Pushing a Stroller",
+      "sceneId": "park",
+      "tier": "developing",
+      "estimatedMinutes": 13,
+      "description": "A caregiver behind a pram, lower body partially hidden by the frame. Practice using overlap to imply depth, and draw a mechanical object that relates in scale to the human beside it.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "find-the-axis",
+        "show-overlap"
+      ],
+      "sceneSlot": {
+        "x": 190,
+        "y": 520,
+        "width": 180,
+        "height": 190,
+        "z": 5
+      }
+    },
+    {
+      "slug": "park-couple-bench",
+      "title": "Couple on a Bench",
+      "sceneId": "park",
+      "tier": "intermediate",
+      "estimatedMinutes": 19,
+      "description": "Two figures sharing the bench, their proximity telling a quiet story. Practice managing two gestures in the same space, comparing scale and proportion as you go.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "show-overlap",
+        "compare-as-you-go",
+        "balance-detail"
+      ],
+      "sceneSlot": {
+        "x": 285,
+        "y": 460,
+        "width": 280,
+        "height": 200,
+        "z": 4
+      }
+    },
+    {
+      "slug": "park-figure-tree",
+      "title": "Figure Under a Tree",
+      "sceneId": "park",
+      "tier": "intermediate",
+      "estimatedMinutes": 20,
+      "description": "A person standing or leaning against a tree trunk, partially wrapped in its shadow. Practice placing a figure within a larger organic form and using overlap to anchor them in the scene.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "draw-through-form",
+        "show-overlap",
+        "balance-detail"
+      ],
+      "sceneSlot": {
+        "x": 80,
+        "y": 250,
+        "width": 190,
+        "height": 420,
+        "z": 3
+      }
+    },
+    {
+      "slug": "park-picnic",
+      "title": "Picnic Group",
+      "sceneId": "park",
+      "tier": "advanced",
+      "estimatedMinutes": 27,
+      "description": "Three or four figures arranged around a blanket in the foreground — the scene's centrepiece. Plan composition first, work background to foreground, and edit ruthlessly before the last ink pass.",
+      "focusGuidelines": [
+        "find-the-gesture",
+        "show-overlap",
+        "place-on-page",
+        "balance-detail",
+        "edit-with-restraint"
+      ],
+      "sceneSlot": {
+        "x": 410,
+        "y": 570,
+        "width": 380,
+        "height": 290,
+        "z": 6
+      }
+    },
+    {
+      "slug": "street-door",
+      "title": "Classic Storefront Door",
+      "sceneId": "streetfront",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A four-panel wooden door set in a simple frame with a single step. Practice keeping vertical lines truly vertical and building a grid of rectangles within a rectangle.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "confident-lines",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 380,
+        "y": 360,
+        "width": 110,
+        "height": 340,
+        "z": 4
+      }
+    },
+    {
+      "slug": "street-window-display",
+      "title": "Shop Window",
+      "sceneId": "streetfront",
+      "tier": "beginner",
+      "estimatedMinutes": 8,
+      "description": "A large plate-glass display window with a low platform and a few suggested items inside. Practice framing a rectangle precisely and implying contents with minimal marks.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "confident-lines",
+        "suggest-dont-render"
+      ],
+      "sceneSlot": {
+        "x": 170,
+        "y": 290,
+        "width": 205,
+        "height": 250,
+        "z": 3
+      }
+    },
+    {
+      "slug": "street-lamppost",
+      "title": "Street Lamp",
+      "sceneId": "streetfront",
+      "tier": "beginner",
+      "estimatedMinutes": 7,
+      "description": "A classic cast-iron street lamp with a curving arm and a lantern head. Practice drawing a long true vertical and a graceful shepherd's-crook curve branching from it.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "confident-lines",
+        "mind-the-curves"
+      ],
+      "sceneSlot": {
+        "x": 750,
+        "y": 120,
+        "width": 65,
+        "height": 580,
+        "z": 5
+      }
+    },
+    {
+      "slug": "street-fire-hydrant",
+      "title": "Fire Hydrant",
+      "sceneId": "streetfront",
+      "tier": "beginner",
+      "estimatedMinutes": 7,
+      "description": "A squat hydrant with a domed cap, side bolt stubs, and a wide base. Practice building a simple symmetrical form and stopping each part's outline cleanly where another part sits over it.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "draw-through-form",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 680,
+        "y": 640,
+        "width": 70,
+        "height": 115,
+        "z": 6
+      }
+    },
+    {
+      "slug": "street-awning",
+      "title": "Striped Awning",
+      "sceneId": "streetfront",
+      "tier": "developing",
+      "estimatedMinutes": 12,
+      "description": "A fabric awning sloping out from the building in gentle perspective, with evenly-spaced stripes that narrow toward the far end. Practice parallel lines in perspective and a decorative scalloped valance.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "confident-lines",
+        "notice-angles",
+        "avoid-hairy-edges"
+      ],
+      "sceneSlot": {
+        "x": 130,
+        "y": 240,
+        "width": 340,
+        "height": 110,
+        "z": 5
+      }
+    },
+    {
+      "slug": "street-cafe-chair",
+      "title": "Folding Café Chair",
+      "sceneId": "streetfront",
+      "tier": "developing",
+      "estimatedMinutes": 13,
+      "description": "A bistro chair viewed at a slight angle — all wire-frame geometry. Practice a clean seat quadrilateral, splayed legs that feel grounded, and T-junctions where the back uprights rise from the rear legs.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "find-the-axis",
+        "clean-junctions",
+        "show-overlap"
+      ],
+      "sceneSlot": {
+        "x": 55,
+        "y": 600,
+        "width": 175,
+        "height": 240,
+        "z": 7
+      }
+    },
+    {
+      "slug": "street-mailbox",
+      "title": "Corner Mailbox",
+      "sceneId": "streetfront",
+      "tier": "developing",
+      "estimatedMinutes": 12,
+      "description": "A freestanding postal collection box — rounded dome on a rectangular body on a narrow pedestal. Practice drawing through a form to get a symmetrical arch, then inking part by part.",
+      "focusGuidelines": [
+        "simple-shapes-first",
+        "draw-through-form",
+        "find-the-axis"
+      ],
+      "sceneSlot": {
+        "x": 825,
+        "y": 510,
+        "width": 88,
+        "height": 185,
+        "z": 5
+      }
+    },
+    {
+      "slug": "street-building-facade",
+      "title": "Two-Story Facade",
+      "sceneId": "streetfront",
+      "tier": "developing",
+      "estimatedMinutes": 14,
+      "description": "A full building face — storefront zone below, window grid above, cornice at the top. Practice dividing a large rectangle into smaller ones while keeping one-point perspective consistent.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "simple-shapes-first",
+        "compare-as-you-go",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 100,
+        "y": 100,
+        "width": 470,
+        "height": 600,
+        "z": 2
+      }
+    },
+    {
+      "slug": "street-corner-building",
+      "title": "Corner Building",
+      "sceneId": "streetfront",
+      "tier": "intermediate",
+      "estimatedMinutes": 20,
+      "description": "A building seen at its corner, two facade planes angling away to separate vanishing points. Set the corner edge first, then let everything else angle from it.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "notice-angles",
+        "compare-as-you-go",
+        "clean-junctions"
+      ],
+      "sceneSlot": {
+        "x": 545,
+        "y": 90,
+        "width": 430,
+        "height": 610,
+        "z": 2
+      }
+    },
+    {
+      "slug": "street-fire-escape",
+      "title": "Fire Escape",
+      "sceneId": "streetfront",
+      "tier": "intermediate",
+      "estimatedMinutes": 18,
+      "description": "A multi-level iron fire escape clinging to a brick wall — horizontal platforms, vertical posts, diagonal stair runs. Practice keeping a geometric structure legible in perspective.",
+      "focusGuidelines": [
+        "find-the-axis",
+        "clean-junctions",
+        "draw-through-form",
+        "vary-line-weight"
+      ],
+      "sceneSlot": {
+        "x": 565,
+        "y": 140,
+        "width": 170,
+        "height": 490,
+        "z": 3
+      }
+    },
+    {
+      "slug": "street-full-block",
+      "title": "Full Streetfront Block",
+      "sceneId": "streetfront",
+      "tier": "advanced",
+      "estimatedMinutes": 28,
+      "description": "Four or five storefronts receding in one-point perspective — the scene's centrepiece. Plan with a horizon line and vanishing point, vary each building's character, and edit to one strong detail per storefront.",
+      "focusGuidelines": [
+        "place-on-page",
+        "find-the-axis",
+        "compare-as-you-go",
+        "balance-detail",
+        "edit-with-restraint"
+      ],
+      "sceneSlot": {
+        "x": 0,
+        "y": 50,
+        "width": 1000,
+        "height": 800,
+        "z": 1
+      }
     }
   ]
 }

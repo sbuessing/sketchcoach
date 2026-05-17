@@ -1,0 +1,41 @@
+{
+  "slug": "street-building-facade",
+  "title": "Two-Story Facade",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the outer boundary and floor line (pencil)",
+      "description": "Lightly sketch the overall facade rectangle — the full face of the building. Then add a horizontal line about a third of the way up dividing the ground-floor storefront zone from the upper floor. This ratio feels right for a commercial building."
+    },
+    {
+      "number": 2,
+      "title": "Establish the perspective (pencil)",
+      "description": "Mark a vanishing point somewhere outside the canvas to the right. Lightly sketch two or three horizontal guide lines from the left edge of the facade angling toward that point — the top of the ground floor, the windowsill line, the roofline. These will govern all your horizontal lines."
+    },
+    {
+      "number": 3,
+      "title": "Sketch the upper window grid (pencil)",
+      "description": "Divide the upper floor into an evenly-spaced grid of window openings — two rows of windows if the floor is tall enough. Use your vanishing point guides to angle the horizontal window edges correctly. Windows on the far side of the facade appear slightly smaller."
+    },
+    {
+      "number": 4,
+      "title": "Sketch the ground-floor storefront openings (pencil)",
+      "description": "In the lower zone, sketch a wide opening for the shop window and a narrower space for the door. These openings are tall relative to the zone height — most of the ground floor is glass."
+    },
+    {
+      "number": 5,
+      "title": "Add the cornice and sign band (pencil)",
+      "description": "Sketch a thick horizontal band at the top of the facade for the cornice, and a wide band between the ground-floor top and the first upper window for the sign band. These horizontal bands are what give the building its classical commercial character."
+    },
+    {
+      "number": 6,
+      "title": "Switch to ink and trace the outer boundary",
+      "description": "Switch to ink. Ink the outer facade rectangle and the ground-floor dividing line. These are the load-bearing lines of the drawing — get them clean and straight before anything else."
+    },
+    {
+      "number": 7,
+      "title": "Ink the windows, openings, cornice, and sign band (ink)",
+      "description": "Ink the upper window grid, then the ground-floor window and door openings, then the cornice and sign band. Inside the sign band, add a few horizontal lines to suggest lettering without writing anything. The building is done when it reads as a building — don't chase detail."
+    }
+  ]
+}

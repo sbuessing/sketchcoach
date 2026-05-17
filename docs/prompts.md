@@ -563,3 +563,25 @@ Move the info/about icon right after the title Sketch Coach, it's breaking up th
 
 **2026-05-16 16:14**
 Confirmed fixed, thank you
+
+**2026-05-17 07:14**
+I'd like to add two more scenes to my project that focus on different drawing styles.  Let's do one course that includes human figures, maybe a scene at a park.  And another course that focuses on geometric building drawings, maybe a streetfront.
+
+**2026-05-17 07:17**
+Add a dismiss on the AI toast that comes up over the drawing.  just an X to the  right of the text. Keep this toast low profile.
+
+**2026-05-17 07:23**
+I think I dialed back the coach too much, I think I set a 15 to 60 second expectation and to only fire occasionally?
+Let's drop the minimum to 10 seconds and allow it to fire 50% more often.
+
+**2026-05-17 07:27**
+Coach is firing a lot on the first turn with a positive, even cloying first message that's too long.  In generaly lets aim for brevity, if you need to explain something complicated you can use more text but aim for 1-2 sentences.
+
+**2026-05-17 07:28**
+Let's try moving the toast to the bottom left corner so it overlaps the instructions instead of the canvas. It's ok if it's the same width and a little wider than the instructions and covers a corner of the canvas, that might draw our attention.
+
+**2026-05-17 07:29**
+We don't need the initial coach tip, in most cases it seems to duplicate the drawing instructions
+
+**2026-05-17 07:48**
+If you do an AI review and progress instructions, dismiss the old tip

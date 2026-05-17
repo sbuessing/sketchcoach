@@ -1,0 +1,41 @@
+{
+  "slug": "street-awning",
+  "title": "Striped Awning",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the top attachment edge (pencil)",
+      "description": "Lightly sketch the top edge of the awning where it meets the building wall — a horizontal line that runs parallel to the facade. In perspective, this line converges very slightly toward the vanishing point."
+    },
+    {
+      "number": 2,
+      "title": "Sketch the front skirt edge (pencil)",
+      "description": "Sketch the front bottom edge of the awning: it slopes outward and downward from the building. The awning angles away like a ramp — the front edge is lower than the attachment point and juts out in front of the building face."
+    },
+    {
+      "number": 3,
+      "title": "Add the side returns (pencil)",
+      "description": "Sketch the two sides of the awning — short angled lines connecting the front edge back to the building wall at each end. These define the awning's width."
+    },
+    {
+      "number": 4,
+      "title": "Mark the stripes (pencil)",
+      "description": "Draw evenly-spaced parallel lines running from the top attachment edge down to the front skirt edge. In perspective, the spacing between stripes narrows as you approach the far end of the awning. Use light pencil marks — you'll ink only the strongest ones."
+    },
+    {
+      "number": 5,
+      "title": "Sketch the valance (pencil)",
+      "description": "Add the valance — a decorative strip hanging from the front edge. Sketch it as a simple rectangle first, then decide whether to give it a scalloped bottom (curved dips between small points) or leave it straight."
+    },
+    {
+      "number": 6,
+      "title": "Switch to ink and trace the main edges",
+      "description": "Switch to ink. Ink the top attachment edge, the front skirt edge, and the two side returns. These four lines define the awning's volume."
+    },
+    {
+      "number": 7,
+      "title": "Ink the stripes and valance (ink)",
+      "description": "Ink the stripes with steady, parallel strokes — stop each one cleanly at the top and front edges. Then ink the valance, adding a scalloped bottom edge if you sketched one. One more pass will make it look fussy; stop here."
+    }
+  ]
+}

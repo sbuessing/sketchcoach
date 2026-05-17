@@ -1,0 +1,51 @@
+{
+  "slug": "park-picnic",
+  "title": "Picnic Group",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Plan the composition (pencil)",
+      "description": "Lightly sketch a rough map — dots for where each figure will sit, a rectangle for the blanket, a suggestion of the foreground grass edge. Three or four figures around a blanket is the right scale. Planning before drawing is the whole skill at this level."
+    },
+    {
+      "number": 2,
+      "title": "Draw the blanket in perspective (pencil)",
+      "description": "Sketch the blanket as a foreshortened parallelogram on the ground — wider at the bottom (nearer edge) and narrower at the top (far edge). The degree of foreshortening tells the viewer how steeply they're looking down at it."
+    },
+    {
+      "number": 3,
+      "title": "Block in each figure's gesture (pencil)",
+      "description": "Sketch a simple gesture axis for each figure around the blanket: L-shapes for seated figures, a leaning diagonal for someone reclining. Each pose should be distinct — vary them intentionally so the group doesn't look like copies."
+    },
+    {
+      "number": 4,
+      "title": "Add heads and torsos (pencil)",
+      "description": "Place a small oval head on each gesture and rough in the torso. Check that each head sits at a plausible height given that figure's seated pose — a cross-legged figure's head is lower than a kneeling one's."
+    },
+    {
+      "number": 5,
+      "title": "Rough in arms and hands (pencil)",
+      "description": "Add arms to each figure. At least one should be reaching across the blanket or holding something — that action line creates a diagonal through the composition that ties the figures together. Each arm is one stroke."
+    },
+    {
+      "number": 6,
+      "title": "Add objects on the blanket (pencil)",
+      "description": "Sketch two or three simple shapes on the blanket: a rounded basket, some small circles for plates or cups. These objects fill the center of the composition and give the figures something to reach toward. Keep them simple — boxes and ovals."
+    },
+    {
+      "number": 7,
+      "title": "Switch to ink — blanket and background figures first",
+      "description": "Switch to ink. Ink the blanket edges first, then work figure by figure from the one farthest from the viewer to the nearest. Stop each element's lines where another element overlaps it — clean overlap is what makes a group scene read as a coherent place."
+    },
+    {
+      "number": 8,
+      "title": "Ink the foreground figure and objects (ink)",
+      "description": "Ink the nearest figure with slightly more weight and slightly more detail than the others — a clear face suggestion, a more defined hand, a distinctive clothing edge. Ink the objects on the blanket clearly enough that each reads as a specific thing."
+    },
+    {
+      "number": 9,
+      "title": "Add shadow and final accents (pencil then ink)",
+      "description": "Switch back to pencil and add a few hatching strokes beneath the blanket and under the seated figures to suggest the shadow on the grass. Then switch to ink for one final pass — add one accent detail you've been saving: a fold in the blanket, a gesture in someone's hand. Then stop. The scene should leave space for imagination."
+    }
+  ]
+}

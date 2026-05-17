@@ -1,0 +1,46 @@
+{
+  "slug": "street-corner-building",
+  "title": "Corner Building",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Draw the corner edge (pencil)",
+      "description": "Lightly sketch a single vertical line for the building's corner — the edge where the two facade planes meet. This is the most important construction line in the drawing; everything else angles away from it. Place it slightly left of center so the right facade gets a little more room."
+    },
+    {
+      "number": 2,
+      "title": "Establish two vanishing points (pencil)",
+      "description": "Mark a vanishing point far to the left and another far to the right, both on an imaginary horizon line at eye level. They will likely be off-canvas — that's expected. Sketch faint guide lines from the corner toward each VP: two for the roofline and two for the ground line."
+    },
+    {
+      "number": 3,
+      "title": "Sketch the roofline on each face (pencil)",
+      "description": "Draw the top edge of the left facade angling toward the left VP, and the top edge of the right facade angling toward the right VP. These two lines converge away from the corner in opposite directions."
+    },
+    {
+      "number": 4,
+      "title": "Sketch the ground line on each face (pencil)",
+      "description": "Draw the base of each facade similarly — left ground line to left VP, right ground line to right VP. Each face is now roughed in as a parallelogram. The corner edge you drew first is the tallest shared boundary."
+    },
+    {
+      "number": 5,
+      "title": "Add the window grids (pencil)",
+      "description": "Sketch windows on each facade. Windows on the left face converge to the left VP; windows on the right face converge to the right VP. Keep the window proportions consistent within each face — compare each opening against its neighbors as you go."
+    },
+    {
+      "number": 6,
+      "title": "Add the door and sign band (pencil)",
+      "description": "Place a door in the ground floor of one facade, and a sign band above the storefront level on each face. Keep the perspective consistent — all horizontal lines still angle toward their respective VP."
+    },
+    {
+      "number": 7,
+      "title": "Switch to ink — corner edge and rooflines first",
+      "description": "Switch to ink. Ink the corner vertical first — it is the anchor. Then ink the roofline on each face. These three lines define the building's volume before any surface detail is added."
+    },
+    {
+      "number": 8,
+      "title": "Ink the ground lines, windows, and door (ink)",
+      "description": "Ink the ground lines, then the window grids, then the door. Where the corner edge overlaps any nearby trim line, let the corner line read clearly — it's the dominant edge. Finish with the sign bands. Step back and check whether the two-point perspective reads correctly before adding any more lines."
+    }
+  ]
+}

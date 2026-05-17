@@ -1,0 +1,41 @@
+{
+  "slug": "park-dog-walker",
+  "title": "Dog Walker",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch two gesture lines (pencil)",
+      "description": "Lightly sketch two gestures side by side: a tall near-vertical for the person, and a lower, more horizontal gesture line for the dog ahead. Place the dog slightly forward and below — it's pulling."
+    },
+    {
+      "number": 2,
+      "title": "Connect them with the leash (pencil)",
+      "description": "Draw a diagonal line from the person's hand level down to the dog's collar area. A taut leash is nearly straight; a relaxed one bows in a gentle curve. Decide which mood this walk has."
+    },
+    {
+      "number": 3,
+      "title": "Block in the person (pencil)",
+      "description": "Rough in the person: a small oval for the head, a torso wedge, and the legs — mid-stride or planted, depending on whether the dog is pulling hard. The arm holding the leash extends slightly forward."
+    },
+    {
+      "number": 4,
+      "title": "Block in the dog (pencil)",
+      "description": "Sketch the dog as a simple horizontal oval for the body, four short leg lines below, a head shape at the front, and a tail suggestion at the back. The dog's body leans forward — its nose leads."
+    },
+    {
+      "number": 5,
+      "title": "Check the leash connection points (pencil)",
+      "description": "Mark where the leash leaves the person's hand and where it reaches the dog's neck. Notice if the leash crosses in front of or behind any leg — that overlap is a key detail for making the scene feel real."
+    },
+    {
+      "number": 6,
+      "title": "Switch to ink and ink the person",
+      "description": "Switch to ink. Ink the person first — head, torso, legs, and the arm extending toward the leash. Where a leg or the arm crosses in front of the body, stop the body's outline at that crossing and restart it on the other side."
+    },
+    {
+      "number": 7,
+      "title": "Ink the dog and leash (ink)",
+      "description": "Ink the dog — body oval, four legs, head, tail. Keep it loose; the dog is at a distance. Then ink the leash as a single clean stroke between the two figures. Where the leash passes in front of a leg, stop the leg line at the crossing and restart it below."
+    }
+  ]
+}

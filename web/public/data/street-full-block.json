@@ -1,0 +1,51 @@
+{
+  "slug": "street-full-block",
+  "title": "Full Streetfront Block",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Set the horizon and vanishing point (pencil)",
+      "description": "Lightly sketch a horizontal line across the canvas at eye level — this is the viewer's horizon. Mark a single vanishing point on it, roughly center-right. Every horizontal line in this one-point perspective scene will converge here."
+    },
+    {
+      "number": 2,
+      "title": "Sketch the block's main boundary lines (pencil)",
+      "description": "Draw the ground line (base of buildings at sidewalk level) and the roofline as two lines extending from the left edge and converging toward the vanishing point. These define the overall proportion and depth of the whole block."
+    },
+    {
+      "number": 3,
+      "title": "Divide the block into storefronts (pencil)",
+      "description": "Place four or five vertical lines between the roofline and ground line to divide the block into individual buildings. Storefronts get narrower as they approach the vanishing point — use your converging guides to scale the widths correctly."
+    },
+    {
+      "number": 4,
+      "title": "Block in the ground-floor openings (pencil)",
+      "description": "Within each storefront's ground-floor zone, sketch the tall shop windows and doors as rectangles. Each opening narrows toward the VP. Keep all the window tops along a consistent horizontal line that converges to the VP."
+    },
+    {
+      "number": 5,
+      "title": "Add upper floor detail (pencil)",
+      "description": "Sketch upper-floor windows, cornices, and sign bands. Vary the details slightly from building to building — one may have an arched window, another a simpler grid, another a bold cornice. Variety makes the block feel like a street rather than a copy-paste."
+    },
+    {
+      "number": 6,
+      "title": "Add foreground elements (pencil)",
+      "description": "Sketch a lamppost on the sidewalk and a bench or two in the foreground. These elements establish the sidewalk's scale and give the eye a near anchor before the block recedes into the distance."
+    },
+    {
+      "number": 7,
+      "title": "Switch to ink — structural lines first",
+      "description": "Switch to ink. Ink the main block outlines: the roofline, ground line, and the vertical divisions between storefronts. These lines hold the whole drawing together. Get them right before touching the interior detail."
+    },
+    {
+      "number": 8,
+      "title": "Ink the facades (ink)",
+      "description": "Ink the ground-floor openings and upper-floor windows building by building, working from left (near) to right (far). Vary your line weight slightly — heavier lines on the near edges, lighter lines on the far edges. That weight gradient reads as depth in perspective."
+    },
+    {
+      "number": 9,
+      "title": "Ink the foreground and final details (ink)",
+      "description": "Ink the lamppost and any foreground elements. Then add one distinguishing detail per storefront — a sign, an awning edge, a distinctive window treatment. One strong detail per building. Stop before adding a second. Step back mentally and ask whether the whole block reads as a single coherent street scene before adding anything else."
+    }
+  ]
+}

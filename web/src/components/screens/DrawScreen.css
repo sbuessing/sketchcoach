@@ -5,6 +5,7 @@
   flex-direction: column;
   padding: var(--space-3);
   gap: var(--space-3);
+  position: relative;
 }
 
 .draw-screen--missing {

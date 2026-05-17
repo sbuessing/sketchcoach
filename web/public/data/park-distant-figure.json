@@ -1,0 +1,31 @@
+{
+  "slug": "park-distant-figure",
+  "title": "Distant Figure",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Mark the body axis (pencil)",
+      "description": "Lightly sketch a short vertical line — this is the figure's entire height. At this distance the person is small, so keep the mark genuinely small. The scale you set now is the whole lesson."
+    },
+    {
+      "number": 2,
+      "title": "Place the head and joints (pencil)",
+      "description": "Add a tiny oval at the top of the axis for the head. Place a small horizontal tick about a third of the way down for the shoulders, another just past the halfway point for the hips, and two dots at the very bottom for the feet."
+    },
+    {
+      "number": 3,
+      "title": "Rough in the limbs (pencil)",
+      "description": "Sketch the legs as two short lines dropping from the hip tick to the foot dots. Add a hint of arms — just two faint strokes hanging from the shoulders. At this scale one stroke per limb is plenty."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and commit the silhouette",
+      "description": "Switch to ink. Trace the head oval, then draw the torso as a single narrow stroke from shoulders to hips. Keep the line light at this scale — a heavy stroke will look like a fence post, not a person."
+    },
+    {
+      "number": 5,
+      "title": "Ink the limbs (ink)",
+      "description": "Add the legs and a suggestion of arms — two or three short strokes each. Stop there. Distance simplifies everything; any more marks and the figure stops reading as far away."
+    }
+  ]
+}

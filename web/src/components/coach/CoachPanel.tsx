@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import type { CoachMessage, Guideline } from '../../shared/types';
 import './CoachPanel.css';
 
@@ -71,20 +72,10 @@ export default function CoachPanel({
           </div>
         ))}
 
-        {/* Intro card — shown beneath messages (column-reverse, so it's at the bottom visually
-            until real messages push it out of view) */}
-        {!disabled && focusGuideline && (
-          <div className="coach-panel__intro">
-            {focusGuideline.description && (
-              <p className="coach-panel__intro-desc">{focusGuideline.description}</p>
-            )}
-            {focusGuideline.coachCues[0] && (
-              <p className="coach-panel__intro-cue">"{focusGuideline.coachCues[0]}"</p>
-            )}
-            <p className="coach-panel__intro-hint">
-              Start drawing — the coach will check in as you work.
-            </p>
-          </div>
+        {!disabled && messages.length === 0 && !isFetching && !error && (
+          <p className="coach-panel__empty">
+            Start drawing — the coach will check in as you work.
+          </p>
         )}
       </div>
     </div>
@@ -98,11 +89,27 @@ function CoachToast({
   error,
   disabled,
 }: Omit<CoachPanelProps, 'variant'>) {
-  const latestMessage = messages[messages.length - 1] ?? null;
+  const latestMessage = messages[0] ?? null;
+  const [dismissedId, setDismissedId] = useState<string | null>(null);
+
+  // Reset dismissal when a new message arrives
+  useEffect(() => {
+    if (latestMessage && latestMessage.id !== dismissedId) {
+      setDismissedId(null);
+    }
+  }, [latestMessage?.id]);
 
   if (disabled) {
     return null;
   }
+
+  const isDismissed = latestMessage ? latestMessage.id === dismissedId : false;
+  const hasContent =
+    (error && !latestMessage) ||
+    (isFetching && !latestMessage) ||
+    (latestMessage && !isDismissed);
+
+  if (!hasContent) return null;
 
   return (
     <div className="coach-toast" aria-live="polite">
@@ -121,15 +128,14 @@ function CoachToast({
         </p>
       )}
 
-      {latestMessage && (
+      {latestMessage && !isDismissed && (
         <p key={latestMessage.id} className={`coach-toast__text coach-toast__text--${latestMessage.encouragement}`}>
           {latestMessage.text}
-        </p>
-      )}
-
-      {!latestMessage && !isFetching && !error && focusGuideline?.coachCues[0] && (
-        <p className="coach-toast__text coach-toast__text--cue">
-          "{focusGuideline.coachCues[0]}"
+          <button
+            className="coach-toast__dismiss"
+            onClick={() => setDismissedId(latestMessage.id)}
+            aria-label="Dismiss"
+          >×</button>
         </p>
       )}
     </div>

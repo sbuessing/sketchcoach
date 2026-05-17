@@ -1,0 +1,26 @@
+{
+  "slug": "street-fire-hydrant",
+  "title": "Fire Hydrant",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the overall silhouette (pencil)",
+      "description": "Lightly sketch the hydrant's stacked shapes: a wide flat base rectangle at the bottom, a slightly narrower cylinder body above it, and a domed cap on top. The whole thing is squat — roughly twice as tall as it is wide."
+    },
+    {
+      "number": 2,
+      "title": "Add the bolt stubs (pencil)",
+      "description": "Sketch two short horizontal stubs extending from each side of the upper cylinder — these are the operating bolt caps. Place one on the left and one on the right, at the same height, evenly centered on the body."
+    },
+    {
+      "number": 3,
+      "title": "Switch to ink and trace the main body",
+      "description": "Switch to ink. Draw the hydrant silhouette from the base up to the dome in one connected outline. Where the dome meets the cylinder, let the dome's lower edge overlap the cylinder's top — don't draw the cylinder's top edge where the dome sits over it."
+    },
+    {
+      "number": 4,
+      "title": "Ink the details (ink)",
+      "description": "Ink the two bolt stubs on each side with simple rectangular strokes. Add a thin horizontal ring line where the cap meets the body, suggesting the seam between parts. Add a short flat bolt on top of the dome. Three detail marks — no more needed."
+    }
+  ]
+}

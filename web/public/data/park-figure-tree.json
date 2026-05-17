@@ -1,0 +1,46 @@
+{
+  "slug": "park-figure-tree",
+  "title": "Figure Under a Tree",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the tree trunk (pencil)",
+      "description": "Lightly sketch the trunk as two slightly curved vertical lines that widen toward the base. Set the height first — the trunk is the tallest element in this composition, and the figure will read in scale against it."
+    },
+    {
+      "number": 2,
+      "title": "Rough in the canopy (pencil)",
+      "description": "Sketch a loose irregular cloud shape above the trunk for the foliage mass. Don't draw leaves yet — just the outer boundary of the canopy. It should overlap into the upper half of the composition."
+    },
+    {
+      "number": 3,
+      "title": "Place the figure at the base (pencil)",
+      "description": "Sketch a gesture line for the figure at the base of the trunk — standing and leaning against it, or sitting with their back to it. The figure should be roughly half to two-thirds the height of the trunk, and partially overlap the trunk."
+    },
+    {
+      "number": 4,
+      "title": "Block in the figure's key shapes (pencil)",
+      "description": "Add the head, torso, and legs to the figure. The trunk overlaps part of the figure — sketch the figure fully anyway, then decide which parts are hidden behind the trunk."
+    },
+    {
+      "number": 5,
+      "title": "Add the branches (pencil)",
+      "description": "Sketch two or three main branches emerging from the upper trunk and curving out into the canopy. These connect trunk to foliage and give the tree its skeleton. Each branch tapers as it extends."
+    },
+    {
+      "number": 6,
+      "title": "Switch to ink and trace the trunk",
+      "description": "Switch to ink. Ink the two trunk lines with confident strokes — a slight outward taper toward the base makes it feel rooted. Where the trunk overlaps the figure, keep the trunk lines uninterrupted; the figure will stop at the trunk edge."
+    },
+    {
+      "number": 7,
+      "title": "Ink the figure (ink)",
+      "description": "Ink the figure's head and the parts of the body that are visible beside the trunk. Where the trunk overlaps the figure, stop the figure's outline at the trunk edge — don't draw through it. The figure is behind the tree."
+    },
+    {
+      "number": 8,
+      "title": "Ink the canopy and branches (ink)",
+      "description": "Ink the branches where they emerge from the trunk, tapering them toward the tips. Then ink the canopy edge with loose, varied strokes — clusters of short marks rather than a single smooth outline suggest leaf texture without drawing every leaf."
+    }
+  ]
+}

@@ -20,6 +20,20 @@
       "tagline": "Whimsical, alive.",
       "backgroundSvg": "/data/scenes/garden-bg.svg",
       "backgroundDescription": "A walled Mediterranean courtyard in late afternoon. The faint pencil scaffolding shows: a single wispy cloud high in the sky; a low stone wall capping the back with brick suggestion marks; climbing vines draping over the wall; a single tree trunk with lower branches on the right side; and a terracotta tile floor in two-point perspective with afternoon shadow streaks across the foreground."
+    },
+    {
+      "id": "park",
+      "title": "Afternoon at the Park",
+      "tagline": "Lively, graceful.",
+      "backgroundSvg": "/data/scenes/park-bg.svg",
+      "backgroundDescription": "A sunlit city park viewed from a gentle elevation. Faint pencil scaffolding shows: a clear sky with wispy clouds; a distant tree line along the upper edge; a winding gravel path curving from the lower-left toward the center; a decorative fountain in the middle distance; a wooden park bench along the path; and a grassy foreground with dappled shade patches."
+    },
+    {
+      "id": "streetfront",
+      "title": "Corner of Main Street",
+      "tagline": "Bold, architectural.",
+      "backgroundSvg": "/data/scenes/streetfront-bg.svg",
+      "backgroundDescription": "A one-point perspective view of a historic commercial street block at street level. Faint pencil scaffolding shows: a horizon line at eye level with a single vanishing point on the right; a wide sidewalk with perspective joints converging toward the vanishing point; building facades with floor and ceiling lines in perspective; a clear storefront zone at street level with tall openings; and a parked car silhouette near the right edge."
     }
   ]
 }

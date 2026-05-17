@@ -1,0 +1,31 @@
+{
+  "slug": "street-window-display",
+  "title": "Shop Window",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the outer window rectangle (pencil)",
+      "description": "Lightly sketch a large rectangle for the shop window. In one-point perspective the far vertical edge is ever-so-slightly shorter than the near one — keep the difference subtle. If the window is viewed head-on, both verticals are simply equal."
+    },
+    {
+      "number": 2,
+      "title": "Add the window frame and muntin (pencil)",
+      "description": "Sketch an equal-width frame around all four sides. Then add a single horizontal muntin — a crossbar — roughly two-thirds of the way up, dividing the window into a taller upper pane and a shorter lower pane."
+    },
+    {
+      "number": 3,
+      "title": "Sketch the display platform (pencil)",
+      "description": "Draw a low shallow rectangle at the bottom of the lower pane — the raised platform where merchandise is displayed. It sits inside the window, set back from the glass."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and trace the window frame",
+      "description": "Switch to ink. Ink the outer frame cleanly, then the muntin. These lines should feel precise — a window frame is a manufactured object, and its edges are straight."
+    },
+    {
+      "number": 5,
+      "title": "Ink the platform and suggest the contents (ink)",
+      "description": "Ink the display platform edge. Then add two or three simple shapes on it — a tall rectangle for a standing display, a small cylinder, a flat square card. Suggest merchandise without committing to what it is. The viewer fills in the rest."
+    }
+  ]
+}

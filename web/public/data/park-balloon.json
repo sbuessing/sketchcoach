@@ -1,0 +1,26 @@
+{
+  "slug": "park-balloon",
+  "title": "Balloon on a String",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the balloon body (pencil)",
+      "description": "Lightly sketch a large rounded oval for the balloon — slightly wider than tall, with a gentle taper at the bottom where it will tie off. Think of a rounded teardrop, not a perfect circle."
+    },
+    {
+      "number": 2,
+      "title": "Sketch the string and hand (pencil)",
+      "description": "Draw a long gently curving line dropping from the tie at the balloon's base all the way down to a small oval for the hand holding it. A string hangs in a slight arc — it bows faintly outward in the middle, not straight."
+    },
+    {
+      "number": 3,
+      "title": "Switch to ink and trace the balloon",
+      "description": "Switch to ink. Trace the balloon outline as one smooth continuous stroke. Start at the tie, curve up and around the whole balloon, and return to the tie. One clean loop — avoid going back over the line a second time."
+    },
+    {
+      "number": 4,
+      "title": "Ink the string, hand, and highlight (ink)",
+      "description": "Draw the string from tie to hand in a single flowing stroke, letting it arc naturally. Add the small oval hand at the bottom. Then add a small curved mark on the upper-left of the balloon — a short arc suggests the sheen of a round surface without needing to fill anything in."
+    }
+  ]
+}

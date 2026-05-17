@@ -1,0 +1,36 @@
+{
+  "slug": "street-mailbox",
+  "title": "Corner Mailbox",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the main body (pencil)",
+      "description": "Lightly sketch the mailbox body — a tall rectangular box with a rounded top. Think of it as a rectangle with a half-circle sitting on it. The box is roughly as wide as it is tall."
+    },
+    {
+      "number": 2,
+      "title": "Add the mail slot (pencil)",
+      "description": "Sketch the slot on the front face: a narrow horizontal rectangle about a third of the way up the body, centered left-to-right. This is the most recognizable feature."
+    },
+    {
+      "number": 3,
+      "title": "Sketch the pedestal (pencil)",
+      "description": "Add the narrow column below the box and the square footing at the very bottom. The pedestal is thinner than the box — it shouldn't look like it could fall over, but it should look slender."
+    },
+    {
+      "number": 4,
+      "title": "Refine the rounded top (pencil)",
+      "description": "Lightly sketch a vertical center line from the arch peak down through the body and pedestal — the mailbox is symmetrical around this axis. Check that the arch looks balanced on each side. Erase and redraw either side if it's off."
+    },
+    {
+      "number": 5,
+      "title": "Switch to ink and draw the arch",
+      "description": "Switch to ink. Ink the arch at the top first — a smooth left-side stroke, then a matching right-side stroke, meeting at the peak. Starting with the arch anchors everything else."
+    },
+    {
+      "number": 6,
+      "title": "Ink the body, slot, and pedestal (ink)",
+      "description": "Ink the straight sides of the box body down from the arch, the front face lines, and the slot. Then ink the pedestal column and its base. Add a small circular badge or emblem on the front face — a simple ring with a dot — to suggest the postal service marking."
+    }
+  ]
+}

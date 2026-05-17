@@ -329,17 +329,18 @@ export default function DrawScreen() {
               hintPaths={hintPaths}
             />
           </div>
-          <CoachPanel
-            messages={coachMessages}
-            isFetching={coachFetching}
-            focusGuideline={focusGuideline}
-            error={coachError}
-            disabled={!isCoachConfigured()}
-            disabledReason="Add your Anthropic API key via the home screen settings to enable coaching."
-            variant="toast"
-          />
         </main>
       </div>
+
+      <CoachPanel
+        messages={coachMessages}
+        isFetching={coachFetching}
+        focusGuideline={focusGuideline}
+        error={coachError}
+        disabled={!isCoachConfigured()}
+        disabledReason="Add your Anthropic API key via the home screen settings to enable coaching."
+        variant="toast"
+      />
 
       {resumeStatus === 'has-resume' && (
         <ResumePrompt onResume={resume} onStartFresh={startFresh} />

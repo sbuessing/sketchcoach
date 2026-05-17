@@ -1,0 +1,46 @@
+{
+  "slug": "street-fire-escape",
+  "title": "Fire Escape",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the building wall (pencil)",
+      "description": "Lightly sketch the building wall as a flat rectangle. The fire escape will sit in front of it — having the wall plane established first gives you the perspective context and a surface to anchor the structure against."
+    },
+    {
+      "number": 2,
+      "title": "Sketch the platform landings (pencil)",
+      "description": "Sketch the main platform at each level as a rectangular grid viewed in perspective — these are the landing surfaces. Each platform sits slightly below its corresponding floor's window. The horizontal edges follow the building's perspective; the vertical posts are truly vertical."
+    },
+    {
+      "number": 3,
+      "title": "Add the vertical corner posts (pencil)",
+      "description": "Place four vertical lines at the corners of each platform — these are the structural posts. Vertical lines are plumb in this view, so check each one against the true vertical of the building corner."
+    },
+    {
+      "number": 4,
+      "title": "Sketch the stair runs between levels (pencil)",
+      "description": "Between platforms, sketch the diagonal stair runs — each is a narrow parallelogram in perspective, angling downward from upper platform to lower platform. The railing on each run parallels the stair's angle."
+    },
+    {
+      "number": 5,
+      "title": "Add the railing posts (pencil)",
+      "description": "Sketch short vertical lines spaced evenly along the platform edges and stair railings. These small repeated verticals give the structure its visible rhythm."
+    },
+    {
+      "number": 6,
+      "title": "Sketch the drop ladder at the bottom (pencil)",
+      "description": "The lowest landing usually has a retractable ladder rather than a fixed stair. Sketch it as a simple rectangle with short horizontal rungs crossing it — like a very narrow ladder."
+    },
+    {
+      "number": 7,
+      "title": "Switch to ink and trace the platforms",
+      "description": "Switch to ink. Ink each platform as a clean geometric grid — horizontal edges follow the building perspective, vertical posts are truly straight. These flat surfaces are the most legible part of the structure."
+    },
+    {
+      "number": 8,
+      "title": "Ink the stairs, railings, and ladder (ink)",
+      "description": "Ink the stair runs and their railings, then the vertical railing posts. Use slightly heavier lines on the edges nearest to the viewer — the near rail of each platform and the front-facing stair handrail. That weight difference reads as depth without any shading."
+    }
+  ]
+}

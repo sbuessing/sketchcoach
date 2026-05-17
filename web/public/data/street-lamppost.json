@@ -1,0 +1,31 @@
+{
+  "slug": "street-lamppost",
+  "title": "Street Lamp",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the pole axis (pencil)",
+      "description": "Lightly sketch a long vertical line for the pole — the lamp's main axis. Check that it's truly vertical by holding your stylus up and comparing before committing the stroke."
+    },
+    {
+      "number": 2,
+      "title": "Add the curving arm (pencil)",
+      "description": "At the top of the pole, sketch a curved arm branching out to one side: it rises a little, then sweeps out horizontally, then curves back down like a shepherd's crook. Mark a small point where the lamp head will hang."
+    },
+    {
+      "number": 3,
+      "title": "Sketch the lantern head (pencil)",
+      "description": "At the end of the curving arm, draw a small lantern shape — a rectangle or faceted hexagon with a domed or peaked cap on top. It should feel like it's hanging, so place it just below where the arm ends."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and draw the pole",
+      "description": "Switch to ink. Draw the pole as a single continuous vertical stroke from the ground to where the arm begins. Let the pole taper very slightly from base to top — thicker at the base is more stable."
+    },
+    {
+      "number": 5,
+      "title": "Ink the arm, lantern, and base (ink)",
+      "description": "Ink the curving arm in one smooth stroke. Ink the lantern head — sides, cap, and a small decorative finial at the top if you like. At the base of the pole, add a slight flare or an ornamental collar to show where the pole is anchored to the sidewalk."
+    }
+  ]
+}

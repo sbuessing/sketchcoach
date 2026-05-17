@@ -1,0 +1,31 @@
+{
+  "slug": "park-bench",
+  "title": "Park Bench",
+  "steps": [
+    {
+      "number": 1,
+      "title": "Sketch the seat and back rail (pencil)",
+      "description": "Lightly sketch two long horizontal lines — the seat at the bottom, the back rail a bit higher and slightly behind it. Keep them roughly parallel. These two lines are the whole bench; everything else hangs from them."
+    },
+    {
+      "number": 2,
+      "title": "Add the legs (pencil)",
+      "description": "Sketch four vertical lines dropping from the underside of the seat — two at each end, slightly inside the seat edges. Make them equal length so the bench feels level."
+    },
+    {
+      "number": 3,
+      "title": "Add the armrests (pencil)",
+      "description": "At each end of the seat, sketch a short horizontal stroke for the armrest and a small vertical connector joining it to the seat. Armrests sit just above seat height."
+    },
+    {
+      "number": 4,
+      "title": "Switch to ink and trace the seat and back rail",
+      "description": "Switch to ink. Draw each rail as one confident horizontal stroke from end to end. The back rail is the longer stroke — let it extend a hair beyond the armrest on each side to give the bench a solid feel."
+    },
+    {
+      "number": 5,
+      "title": "Ink the legs and armrests (ink)",
+      "description": "Ink each leg with a single downward stroke, stopping cleanly at the ground. Notice where the legs meet the seat above — the junction should be a clean T, not a blur. Finish with the armrests and their connectors."
+    }
+  ]
+}
